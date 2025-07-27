@@ -3,11 +3,15 @@
 {% block title %}Edit Product{% endblock %}
 
 {% block body %}
+    <div class="flex items-center justify-between">        
+        {{ include('components/title.html.twig', {'txt_label': 'Editar'}) }}
+        <a href="{{ path('app_product_index') }}">
+            Atras
+        </a>
+    </div>
     <h1>Edit Product</h1>
 
-    {{ include('product/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('product/_form.html.twig', {'button_label': 'Actualizar'}) }}
 
-    <a href="{{ path('app_product_index') }}">back to list</a>
 
-    {{ include('product/_delete_form.html.twig') }}
 {% endblock %}

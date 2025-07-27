@@ -1,11 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Product{% endblock %}
+{% block title %}Nuevo Producto{% endblock %}
 
 {% block body %}
-    <h1>Create new Product</h1>
+    <div class="flex items-center justify-between">
+        {{ include('components/title.html.twig', {'txt_label': 'Nuevo Producto'}) }}
+        <a href="{{ path('app_product_index') }}">
+            Atras
+        </a>
+    </div>
+    {{ include('product/_form.html.twig', {'button_label': 'Nuevo'}) }}
 
-    {{ include('product/_form.html.twig') }}
-
-    <a href="{{ path('app_product_index') }}">back to list</a>
 {% endblock %}

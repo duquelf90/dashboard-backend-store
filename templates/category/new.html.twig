@@ -1,11 +1,14 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}New Category{% endblock %}
-
+{% block title %}
+    Nueva Categoria
+{% endblock %}
 {% block body %}
-    <h1>Create new Category</h1>
+    <div class="flex items-center justify-between">
+        {{ include('components/title.html.twig', {'txt_label': 'Nueva Categoria'}) }}
+        <a href="{{ path('app_category_index') }}">
+            Atras
+        </a>
+    </div>
+    {{ include('category/_form.html.twig', {'button_label': 'Nuevo'}) }}
 
-    {{ include('category/_form.html.twig') }}
-
-    <a href="{{ path('app_category_index') }}">back to list</a>
 {% endblock %}

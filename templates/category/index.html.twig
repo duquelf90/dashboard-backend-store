@@ -1,35 +1,42 @@
 {% extends 'base.html.twig' %}
+{% import 'components/buttons.html.twig' as buttons %}
 
-{% block title %}Category index{% endblock %}
+{% block title %}Lista de Categorias{% endblock %}
 
 {% block body %}
-    <h1>Category index</h1>
-
-    <table class="table">
+    <div class="flex items-center justify-between">
+        {{ include('components/title.html.twig', {'txt_label': 'Categorias'}) }}
+        {{ buttons.button_new('Nuevo', path('app_category_new')) }}
+         </div>
+    
+<div class="w-full overflow-hidden rounded-lg shadow-xs">
+    <div class="w-full overflow-x-auto">
+   <table class="w-full whitespace-no-wrap">
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>actions</th>
+            <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                <th class="px-4 py-3">Id</th>
+                <th class="px-4 py-3">Name</th>
+                <th class="px-4 py-3 text-center">actions</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
         {% for category in categories %}
-            <tr>
-                <td>{{ category.id }}</td>
-                <td>{{ category.name }}</td>
-                <td>
-                    <a href="{{ path('app_category_show', {'id': category.id}) }}">show</a>
-                    <a href="{{ path('app_category_edit', {'id': category.id}) }}">edit</a>
+            <tr class="text-gray-700 dark:text-gray-300">
+                <td class="px-4 py-3 ">{{ category.id }}</td>
+                <td class="px-4 py-3 text-sm">{{ category.name }}</td>
+                <td class="px-4 py-3 text-center">
+                    <div class="flex items-center justify-center space-x-4 text-sm">
+                       {{ buttons.button_edit('Editar', path('app_category_edit', {'id': category.id})) }}
+                        {{ buttons.button_show('Mostrar', path('app_category_show', {'id': category.id})) }} 
+                        {{ buttons.button_delete('Borrar', path('app_category_delete', {'id': category.id}), category.id) }} 
+                    </div>
                 </td>
             </tr>
         {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
+            {{ include('components/not_found.html.twig') }}
         {% endfor %}
         </tbody>
-    </table>
-
-    <a href="{{ path('app_category_new') }}">Create new</a>
+    </table> 
+    </div>
+</div>
 {% endblock %}

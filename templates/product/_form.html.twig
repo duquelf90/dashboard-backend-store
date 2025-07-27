@@ -1,4 +1,46 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+{% import 'components/buttons.html.twig' as buttons %}
+
+<div class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
+    {{ form_start(form) }}
+
+    <div class="flex inline-flex justify-center">
+        <label class="flex items-center text-sm">
+        <span class="text-gray-700 dark:text-gray-400 my-2 px-4">
+            Nombre
+        </span></label>
+        {{ form_widget(form.name, { 'attr': {'class': 'block w-full mt-1 text-sm my-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input', 'placeholder': 'Nombre del producto'} }) }}
+    
+    <label class="flex items-center text-sm">
+        <span class="text-gray-700 dark:text-gray-400 my-2 px-4">
+            Categoria
+        </span></label>
+        {{ form_widget(form.category, { 'attr': {'class': 'block w-full mt-1 text-sm my-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input', 'placeholder': 'Nombre del producto'} }) }}
+    
+    </div>
+    <div class="flex inline-flex justify-center">
+        <label class="flex items-center text-sm">
+        <span class="text-gray-700 dark:text-gray-400 my-2 px-4">
+            Precio
+        </span></label>
+        {{ form_widget(form.price, { 'attr': {'class': 'block w-full mt-1 text-sm my-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input', 'placeholder': 'Nombre del producto'} }) }}
+    
+    <label class="flex items-center text-sm">
+        <span class="text-gray-700 dark:text-gray-400 my-2 px-4">
+            Stock
+        </span></label>
+        {{ form_widget(form.stock, { 'attr': {'class': 'block w-full mt-1 text-sm my-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input', 'placeholder': 'Nombre del producto'} }) }}
+    
+    </div>
+
+    <label class="block mt-4 text-sm">
+                <span class="text-gray-700 dark:text-gray-400">Message</span>
+                {{ form_widget(form.description, { 'attr': {'class': 'block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-textarea focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray', 'rows':'3', 'placeholder':'Enter some long form content'} }) }}
+
+              </label>
+
+              {{ form_widget(form.images)}}
+    <div class="mt-4 text-sm">
+        {{ buttons.button_submit(button_label) }}
+    </div>
+    {{ form_end(form) }}
+</div>
