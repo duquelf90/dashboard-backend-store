@@ -12,38 +12,16 @@
         </div>
     </div>
 
-
-    <table class="table px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800 text-gray-700 dark:text-gray-400 my-2 px-4">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ product.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ product.name }}</td>
-            </tr>
-            <tr>
-                <th>Categoria</th>
-                <td>{{ product.category }}</td>
-            </tr>
-            <tr>
-                <th>Price</th>
-                <td>{{ product.price }}</td>
-            </tr>
-            <tr>
-                <th>Stock</th>
-                <td>{{ product.stock }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ product.description }}</td>
-            </tr>
-            <tr>
-                <th>Images</th>
-                <td>{{ product.images }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="text-gray-700 dark:text-gray-400">
+    <h1>{{ product.name }}</h1>
+    <p>Precio: {{ product.price }}</p>
+    <p>Stock: {{ product.stock }}</p>
+    <p>Descripción: {{ product.description }}</p>
+    
+    <div class="grid gap-5 mb-2 md:grid-cols-4">
+    {% for image in product.images %}
+        <img src="{{ asset('uploads/images/' ~ image.filename) }}" alt="{{ product.name }}" />
+    {% endfor %}
+    </div>
 
 {% endblock %}

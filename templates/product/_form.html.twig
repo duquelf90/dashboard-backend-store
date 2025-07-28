@@ -1,58 +1,132 @@
 {% import 'components/buttons.html.twig' as buttons %}
 
 <div class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
-    {{ form_start(form) }}
-    {# first colum #}
-    <div class="grid gap-6 mb-2 md:grid-cols-2">
-        <div class="block items-center py-4">
-            <label class="flex items-center text-sm">
-                <span class="text-gray-700 dark:text-gray-400 mb-2">
-                    Nombre
+    <form action="{{ path('app_product_new') }}" method="POST" enctype="multipart/form-data">
+        {{ form_start(form) }}
+        {# first colum #}
+        <div class="grid gap-6 mb-2 md:grid-cols-2">
+            <div class="block items-center py-4">
+                <label class="flex items-center text-sm">
+                    <span class="text-gray-700 dark:text-gray-400 mb-2">
+                        Nombre
+                    </span>
+                </label>
+                {{ form_widget(form.name, { 'attr': {'class': 'w-full block text-sm my-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input', 'placeholder': 'Nombre del producto'} }) }}
+            </div>
+            <div class="block items-center py-4">
+                <label class="flex items-center text-sm">
+                    <span class="text-gray-700 dark:text-gray-400 mb-2">
+                        Categoria
+                    </span>
+                </label>
+                {{ form_widget(form.category) }}
+            </div>
+        </div>
+
+        {# second colum #}
+        <div class="grid gap-6 mb-8 md:grid-cols-2">
+            <div class="block items-center py-4">
+                <label class="flex items-center text-sm">
+                    <span class="text-gray-700 dark:text-gray-400 my-2">
+                        Precio
+                    </span>
+                </label>
+                {{ form_widget(form.price, { 'attr': {'class': 'block w-full mt-1 text-sm my-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input', 'placeholder': 'Precio del producto'} }) }}
+            </div>
+            <div class="block items-center py-4">
+                <label class="flex items-center text-sm">
+                    <span class="text-gray-700 dark:text-gray-400 my-2">
+                        Stock
+                    </span>
+                </label>
+                {{ form_widget(form.stock, { 'attr': {'class': 'block w-full mt-1 text-sm my-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input', 'placeholder': 'Cantidad del producto'} }) }}
+            </div>
+        </div>
+
+        <label class="block mt-4 text-sm">
+            <span class="text-gray-700 dark:text-gray-400">
+                Descripcion del producto
+            </span>
+            {{ form_widget(form.description, { 'attr': {'class': 'block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-textarea focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray', 'rows':'3', 'placeholder':'Descripcion del producto'} }) }}
+
+        </label>
+
+        <div class="mt-4">
+            <label class="block text-sm my-5">
+                <span class="text-gray-700 dark:text-gray-400">
+                    Subir Imágenes
                 </span>
             </label>
-            {{ form_widget(form.name, { 'attr': {'class': 'w-full block text-sm my-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input', 'placeholder': 'Nombre del producto'} }) }}
+        <input type="file" id="images" name="images[]" multiple accept="image/*" class="hidden">        
+        <div class="dropzone p-4 text-center cursor-pointer hover:border-gray-400 transition text-gray-700 dark:text-gray-400 rounded-sm" id="dropzone">
+            Arrastra y suelta tus imágenes aquí o haz clic para seleccionar
+            <div id="preview" class="my-5 grid grid-cols-3 gap-6"></div>
         </div>
-        <div class="block items-center py-4">
-            <label class="flex items-center text-sm">
-                <span class="text-gray-700 dark:text-gray-400 mb-2">
-                    Categoria
-                </span>
-            </label>
-            {{ form_widget(form.category) }}
+
         </div>
-    </div>
 
-    {# second colum #}
-    <div class="grid gap-6 mb-8 md:grid-cols-2">
-        <div class="block items-center py-4">
-        <label class="flex items-center text-sm">
-            <span class="text-gray-700 dark:text-gray-400 my-2">
-                Precio
-            </span>
-        </label>
-        {{ form_widget(form.price, { 'attr': {'class': 'block w-full mt-1 text-sm my-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input', 'placeholder': 'Precio del producto'} }) }}
+        <div class="mt-4 text-sm">
+            {{ buttons.button_submit(button_label) }}
         </div>
-        <div class="block items-center py-4">
-        <label class="flex items-center text-sm">
-            <span class="text-gray-700 dark:text-gray-400 my-2">
-                Stock
-            </span>
-        </label>
-        {{ form_widget(form.stock, { 'attr': {'class': 'block w-full mt-1 text-sm my-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input', 'placeholder': 'Cantidad del producto'} }) }}
-        </div>
-    </div>
-
-    <label class="block mt-4 text-sm">
-        <span class="text-gray-700 dark:text-gray-400">
-            Message
-        </span>
-        {{ form_widget(form.description, { 'attr': {'class': 'block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-textarea focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray', 'rows':'3', 'placeholder':'Enter some long form content'} }) }}
-
-    </label>
-
-    {{ form_widget(form.images) }}
-    <div class="mt-4 text-sm">
-        {{ buttons.button_submit(button_label) }}
-    </div>
-    {{ form_end(form) }}
+        {{ form_end(form) }}
+    </form>
 </div>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const dropzone = document.getElementById('dropzone');
+        const fileInput = document.getElementById('images');
+        const preview = document.getElementById('preview');
+
+        dropzone.addEventListener('click', () => {
+            fileInput.click();
+        });
+
+        dropzone.addEventListener('dragover', (event) => {
+            event.preventDefault();
+            dropzone.classList.add('border-blue-500');
+        });
+
+        dropzone.addEventListener('dragleave', () => {
+            dropzone.classList.remove('border-blue-500');
+        });
+
+        dropzone.addEventListener('drop', (event) => {
+            event.preventDefault();
+            dropzone.classList.remove('border-blue-500');
+            const files = Array.from(event.dataTransfer.files);
+            handleFiles(files);
+        });
+
+        fileInput.addEventListener('change', (event) => {
+            const files = Array.from(event.target.files);
+            handleFiles(files);
+        });
+
+        function handleFiles(files) {
+            files.forEach(file => {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const imgContainer = document.createElement('div');
+                    imgContainer.className = 'relative w-full h-32 overflow-hidden rounded-lg border border-gray-300';
+
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.className = 'w-full h-full object-cover rounded-lg';
+
+                    const removeButton = document.createElement('button');
+                    removeButton.textContent = 'X';
+                    removeButton.className = 'absolute top-1 right-1 bg-red-600 text-white text-3xl rounded-full p-1 w-8';
+
+                    removeButton.addEventListener('click', () => {
+                        imgContainer.remove();
+                    });
+
+                    imgContainer.appendChild(img);
+                    imgContainer.appendChild(removeButton);
+                    preview.appendChild(imgContainer);
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+    });
+</script>
