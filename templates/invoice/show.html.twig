@@ -1,34 +1,308 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}Invoice{% endblock %}
-
+{% block title %}
+    Invoice - Order
+    {{ invoice.id }}
+{% endblock %}
 {% block body %}
-    <h1>Invoice</h1>
+    {% block stylesheets %}
+        <style>
+        /* A4 size in portrait: 210mm x 297mm */
+        @media print {
+            @page {
+                size: A4;
+                margin: 0; /* Remove default margins */
+            }
+            .no-print { display: none; }
+            body {
+                margin: 0;
+                padding: 0;
+                height: 297mm; /* A4 height */
+                width: 210mm; /* A4 width */
+                overflow: hidden;
+            }
+            .min-h-screen {
+                min-height: auto;
+                height: 297mm; /* Fixed to A4 height */
+                width: 210mm;
+                margin: 0 auto;
+                padding: 0;
+                display: block;
+            }
+            .invoice-box {
+                box-shadow: none;
+                border: 1px solid #e5e7eb;
+                height: 287mm; /* Slightly less than A4 to account for border/padding */
+                width: 200mm; /* Slightly less for padding */
+                padding: 5mm; /* Reduced padding */
+                margin: 0 auto;
+                overflow: hidden; /* Prevent overflow */
+                font-size: 12px; /* Base font size for compactness */
+            }
+            /* Compact layout */
+            .invoice-box * {
+                margin-bottom: 0.2rem !important;
+                line-height: 1.1 !important;
+            }
+            .text-3xl { font-size: 1.25rem !important; }
+            .text-xl { font-size: 1rem !important; }
+            .text-lg { font-size: 0.875rem !important; }
+            table { font-size: 0.75rem !important; }
+            th, td { padding: 0.2rem 0.5rem !important; }
+            .mt-6 { margin-top: 0.5rem !important; }
+            .pb-6 { padding-bottom: 0.5rem !important; }
+        }
+    </style>
+    {% endblock %}
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ invoice.id }}</td>
-            </tr>
-            <tr>
-                <th>Amount</th>
-                <td>{{ invoice.amount }}</td>
-            </tr>
-            <tr>
-                <th>CreatedAt</th>
-                <td>{{ invoice.createdAt ? invoice.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ invoice.description }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <!-- Container -->
+    <div class="min-h-screen flex items-center justify-center text-gray-600 dark:text-gray-300">
+        <div class="max-w-4xl w-full space-y-8" x-data="invoiceData()">
+            <a href="{{ path('app_invoice_index') }}">
+                back to list
+            </a>
 
-    <a href="{{ path('app_invoice_index') }}">back to list</a>
+            <a href="{{ path('app_invoice_edit', {'id': invoice.id}) }}">
+                edit
+            </a>
+            <!-- Invoice Box -->
+            <div class="invoice-box bg-white p-8 rounded-xl shadow-lg dark:bg-gray-800">
+                <!-- Header -->
+                <div class="flex justify-between items-center border-b pb-6">
+                    <div>
+                        <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-300">
+                            Invoice
+                        </h1>
+                        <p>
+                            Order Reference:
+                            <span>
+                                {invoice.id}
+                            </span>
+                        </p>
+                    </div>
+                    <div class="text-right">
+                        <h2 class="text-xl font-semibold text-gray-900 dark:text-gray-300">
+                            {business.name}
+                        </h2>
+                        <p>
+                            {business.address}
+                        </p>
+                        <p>
+                            {business.email}
+                        </p>
+                    </div>
+                </div>
 
-    <a href="{{ path('app_invoice_edit', {'id': invoice.id}) }}">edit</a>
+                <!-- Billing Information -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-300">
+                            Billed To
+                        </h3>
+                        <p>
+                            {customer.name}
+                        </p>
+                        <p>
+                            {customer.address}
+                        </p>
+                        <p>
+                            City:
+                            <span>
+                                {customer.city}
+                            </span>
+                        </p>
+                        <p>
+                            Postal Code:
+                            <span>
+                                {customer.cp}
+                            </span>
+                        </p>
+                    </div>
+                    <div class="text-right">
+                        <p>
+                            Invoice Date:
+                            <span>
+                                {invoice.date}
+                            </span>
+                        </p>
+                        <p>
+                            Transaction Date:
+                            <span>
+                                {transaccion.date}
+                            </span>
+                        </p>
+                        <p>
+                            Payment Status:
+                            <span class="font-medium">
+                                {payment.status}
+                            </span>
+                        </p>
+                    </div>
+                </div>
 
-    {{ include('invoice/_delete_form.html.twig') }}
+                <!-- Order Items -->
+                <div class="mt-6">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left">
+                            <thead class="bg-gray-100">
+                                <tr class="font-semibold text-gray-900">
+                                    <th class="py-2 px-4">
+                                        Descripción
+                                    </th>
+                                    <th class="py-2 px-4 ">
+                                        Qty
+                                    </th>
+                                    <th class="py-2 px-4 ">
+                                        Unit Price
+                                    </th>
+                                    <th class="py-2 px-4 text-right">
+                                        Total
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-b">
+                                    <td class="py-2 px-4">
+                                        {product.description}
+                                    </td>
+                                    <td class="py-2 px-4">
+                                        {qty}
+                                    </td>
+                                    <td class="py-2 px-4">
+                                        {unit.price} USD
+                                    </td>
+                                    <td class="py-2 px-4 text-right">
+                                        {total.amount} USD
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Totals -->
+                <div class="mt-6 flex justify-end">
+                    <div class="w-full md:w-1/3">
+                        <div class="space-y-1">
+                            <div class="flex justify-between">
+                                <span>
+                                    Subtotal
+                                </span>
+                                <span>
+                                    {subtotal.amount} USD
+                                </span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>
+                                    Tax (0%)
+                                </span>
+                                <span>
+                                    {fees} USD
+                                </span>
+                            </div>
+                            <div class="flex justify-between font-semibold text-lg border-t pt-2">
+                                <span>
+                                    Total
+                                </span>
+                                <span>
+                                    {total.amount} USD
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Payment Information -->
+                <div class="mt-6">
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-300">
+                        Payment Information
+                    </h3>
+                    <div class="mt-2 grid grid-cols-1 md:grid-cols-2 gap-2 ">
+                        <div>
+                            <p>
+                                Transaction ID:
+                                <span>
+                                    {transaction.id}
+                                </span>
+                            </p>
+                            <p>
+                                Amount Paid:
+                                <span>
+                                    {payment.amountPaid} USD
+                                </span>
+                            </p>
+                            <p>
+                                Payment Method:
+                                <span>
+                                    Zelle
+                                </span>
+                            </p>
+                        </div>
+                        <div>
+                            <p>
+                                Transaction Date:
+                                <span>
+                                    {payment.transactionDate}
+                                </span>
+                            </p>
+                            <p>
+                                Payment Status:
+                                <span class="font-medium">
+                                    {payment.status}
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer -->
+                <div class="mt-6 text-center">
+                    <p>
+                        Thank you for your purchase!
+                    </p>
+                    <p>
+                        If you have any questions, contact us at support@yourstore.com
+                    </p>
+                </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="flex justify-center gap-4 no-print">
+                <button @click="window.print()" class="bg-indigo-600 text-white px-6 py-2 rounded-md hover:bg-indigo-700 transition duration-300">
+                    Print Invoice
+                </button>
+                <button @click="downloadPDF()" class="bg-gray-600 text-white px-6 py-2 rounded-md hover:bg-gray-700 transition duration-300">
+                    Download PDF
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function invoiceData() {
+            return {
+                downloadPDF() {
+                    const { jsPDF } = window.jspdf;
+                    const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+                    const invoiceElement = document.querySelector('.invoice-box');
+
+                    html2canvas(invoiceElement, { scale: 2 }).then(canvas => {
+                        const imgData = canvas.toDataURL('image/png');
+                        const imgProps = doc.getImageProperties(imgData);
+                        const pdfWidth = doc.internal.pageSize.getWidth();
+                        const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+                        const pageHeight = doc.internal.pageSize.getHeight();
+
+                        // Scale to fit one page
+                        let height = pdfHeight;
+                        if (pdfHeight > pageHeight) {
+                            height = pageHeight;
+                        }
+
+                        doc.addImage(imgData, 'PNG', 0, 0, pdfWidth, height);
+                        doc.save(`invoice-{{ invoice.id }}.pdf`);
+                    });
+                }
+            }
+        }
+    </script>
 {% endblock %}

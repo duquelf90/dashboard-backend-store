@@ -1,4 +1,32 @@
+{% import 'components/buttons.html.twig' as buttons %}
+
+    <div class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+<div class="grid gap-6 mb-2 md:grid-cols-2">
+    
+
+    <div class="block items-center py-4">
+                <label class="flex items-center text-sm">
+                    <span class="text-gray-700 dark:text-gray-400 mb-2">
+                        Cantidad
+                    </span>
+                </label>
+                <div class="flex inline-flex">{{ form_widget(form.amount) }}</div>
+                
+            </div>
+
+    </div>
+
+    {# campo enriquecido editor wyswyg #}
+    <label class="block mt-4 text-sm">
+            <span class="text-gray-700 dark:text-gray-400">
+                Notas de la factura
+            </span>
+            {{ form_widget(form.description, { 'attr': {'class': 'block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-textarea focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray', 'rows':'3', 'placeholder':'Descripcion del producto'} }) }}
+
+        </label>
+{{ form_widget(form) }}
+    <div class="mt-4 text-sm">
+            {{ buttons.button_submit(button_label) }}
+        </div></div>
 {{ form_end(form) }}

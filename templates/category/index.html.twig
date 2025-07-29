@@ -22,7 +22,7 @@
         <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
         {% for category in categories %}
             <tr class="text-gray-700 dark:text-gray-300">
-                <td class="px-4 py-3 ">{{ category.id }}</td>
+                <td class="px-4 py-3">{{ category.id }}</td>
                 <td class="px-4 py-3 text-sm">{{ category.name }}</td>
                 <td class="px-4 py-3 text-center">
                     <div class="flex items-center justify-center text-sm">
@@ -33,7 +33,7 @@
                 </td>
             </tr>
         {% else %}
-            {{ include('components/not_found.html.twig') }}
+            {{ include('components/not_found.html.twig',{'colum': '3'}) }}
         {% endfor %}
         </tbody>
     </table> 

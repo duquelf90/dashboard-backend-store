@@ -4,7 +4,7 @@
 
 {% block body %}
 
-    {{ include('components/title.html.twig', {'txt_label': 'Dashboard'}) }}
+    {{ include('components/title.html.twig', {'txt_label': 'Hola '~ app.user.username}) }}
 
             <!-- Cards -->
             <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">

@@ -7,8 +7,12 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: InvoiceRepository::class)]
+#[ORM\HasLifecycleCallbacks]
+
 class Invoice
 {
+    use Timestamp;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -16,9 +20,7 @@ class Invoice
 
     #[ORM\Column]
     private ?float $amount = null;
-
-    #[ORM\Column]
-    private ?\DateTimeImmutable $createdAt = null;
+    
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
@@ -40,18 +42,7 @@ class Invoice
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
-    {
-        return $this->createdAt;
-    }
-
-    public function setCreatedAt(\DateTimeImmutable $createdAt): static
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
+    
     public function getDescription(): ?string
     {
         return $this->description;
