@@ -17,6 +17,9 @@ class CategoryAutocompleteField extends AbstractType
     {
         $resolver->setDefaults([
             'class' => Category::class,
+            'attr' => [
+                    'class' => 'w-full block text-sm my-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input'
+                ],
             'searchable_fields' => ['name'],
             'label' => 'Categorias',
             'choice_label' => 'name',
