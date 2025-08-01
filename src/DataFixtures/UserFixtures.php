@@ -21,7 +21,7 @@ class UserFixtures extends Fixture
         $admin = new User();
         $admin->setUsername('admin');
         $admin->setEmail('admin@example.com');
-        $admin->setRoles('ROLE_ADMIN');
+        $admin->setRoles(['ROLE_ADMIN']);
         $admin->setPassword($this->passwordHasher->hashPassword($admin, '12345678')); // Cambia la contraseña según sea necesario
         $manager->persist($admin);
 
@@ -29,7 +29,7 @@ class UserFixtures extends Fixture
         $negocio1 = new User();
         $negocio1->setUsername('negocio1');
         $negocio1->setEmail('negocio1@example.com');
-        $negocio1->setRoles('ROLE_USER');
+        $negocio1->setRoles(['ROLE_USER']);
         $negocio1->setPassword($this->passwordHasher->hashPassword($negocio1, '111'));
         $manager->persist($negocio1);
 
@@ -37,7 +37,7 @@ class UserFixtures extends Fixture
         $negocio2 = new User();
         $negocio2->setUsername('negocio2');
         $negocio2->setEmail('negocio2@example.com');
-        $negocio2->setRoles('ROLE_USER');
+        $negocio2->setRoles(['ROLE_USER']);
         $negocio2->setPassword($this->passwordHasher->hashPassword($negocio2, '222'));
         $manager->persist($negocio2);
 

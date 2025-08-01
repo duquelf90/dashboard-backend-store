@@ -1,0 +1,18 @@
+<!-- Sidebar Desktop -->
+{% import 'components/Icons.html.twig' as icon %}
+<aside class="z-20 hidden w-64 overflow-y-auto bg-white dark:bg-gray-800 md:block flex-shrink-0">
+    <div class="py-4 text-gray-500 dark:text-gray-400">
+        <a class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200" href="#">
+            MiTienda
+        </a>
+        <ul class="mt-6">
+            {{ include('components/menu/item.html.twig', {'title': 'Dashboard','icon': icon.DashIcon(),'router': path('app_dashboard')}) }}
+            {% if is_granted('ROLE_ADMIN') %}
+                {{ include('components/menu/item.html.twig', {'title': 'Usuarios','icon': icon.UserIcon(),'router': path('app_user_index')}) }}
+                {{ include('components/menu/item.html.twig', {'title': 'Categorías','icon': icon.CategoryIcon(),'router': path('app_category_index')}) }}
+            {% endif %}
+            {{ include('components/menu/item.html.twig', {'title': 'Productos','icon': icon.ProductIcon(),'router': path('app_product_index')}) }}
+            {{ include('components/menu/item.html.twig', {'title': 'Facturas','icon': icon.InvoiceIcon(),'router': path('app_invoice_index')}) }}
+        </ul>
+    </div>
+</aside>

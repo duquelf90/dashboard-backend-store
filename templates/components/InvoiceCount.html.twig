@@ -1,0 +1,5 @@
+{% import 'components/Icons.html.twig' as icon %}
+
+<div{{ attributes }}>
+    {{ include('components/StatsCard.html.twig', {'icon':icon.InvoiceIcon(),'title': 'Total de Facturas','number': this.getCount }) }}
+</div>

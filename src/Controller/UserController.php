@@ -34,7 +34,8 @@ final class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $user->setRoles($form->get('roles')->getData());
+            $data = $form->getData();
+            $user->setRoles([$data['roles']]);
             $plainPassword = $form->get('password')->getData();
             $confirmPassword = $form->get('confirmPassword')->getData();
             $imageFile = $request->files->get('profileImage');
@@ -85,7 +86,9 @@ final class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $user->setRoles($form->get('roles')->getData());
+            $data = $form->getData();
+            dump($data);
+            $user->setRoles($data['roles']); // Esto debe ser un string
             $entityManager->persist($user);
             $entityManager->flush();
 

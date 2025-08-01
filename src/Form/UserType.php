@@ -52,8 +52,6 @@ class UserType extends AbstractType
                     'class' => 'w-full block text-sm my-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input'
                 ]
             ])
-
-
             ->add('roles', ChoiceType::class, [
                 'choices' => [
                     'Admin' => 'ROLE_ADMIN',
@@ -62,8 +60,8 @@ class UserType extends AbstractType
                 'attr' => [
                     'class' => 'flex flex-row my-2 space-x-4 text-gray-600 dark:text-gray-300'
                 ],
-                'expanded' => true,
                 'multiple' => false,
+                'expanded' => true,
             ])
             ->add('password', PasswordType::class, [
                 'label' => 'New Password',

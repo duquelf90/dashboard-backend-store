@@ -20,11 +20,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 180)]
     private ?string $email = null;
 
-    /**
-     * @var list<string> The user roles
-     */
-    #[ORM\Column]
-    private string $roles;
+    #[ORM\Column(type: 'json')]
+    private array $roles = [];
 
     /**
      * @var string The hashed password
@@ -82,15 +79,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getRoles(): array
     {
-        return [$this->roles];
-
+        $roles = $this->roles;
+        $roles[] = 'ROLE_USER';
+        return array_unique($roles);
     }
 
     
-    public function setRoles(string $roles): static
+    public function setRoles(array $roles): self
     {
-         $this->roles = $roles;
-         return $this;
+        $this->roles = $roles;
+        return $this;
     }
 
     /**

@@ -66,11 +66,11 @@
     <body>
         <div class="flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen}">
             {# Menu component #}
-            {% include 'components/menu.html.twig' %}
-            {% include 'components/mob_menu.html.twig' %}
+            {% include 'components/menu/base.html.twig' %}
+            {% include 'components/menu/mobile.html.twig' %}
             <div class="flex flex-col flex-1">
                 {# header component #}
-                {% include 'header.html.twig' %}
+                {% include 'components/Header.html.twig' %}
                 <main class="h-full overflow-y-auto">
                     <div class="container px-6 mx-auto grid">
                         {% block body %}{% endblock %}

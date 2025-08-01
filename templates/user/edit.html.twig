@@ -4,9 +4,9 @@
 
 {% block body %}
     <h1>Edit User</h1>
-
+    <div class="flex items-center justify-between">
+        {{ include('components/title.html.twig', {'txt_label': 'Editar'}) }}
+        {{ buttons.button_back(path('app_user_index')) }}
+    </div>
     {{ include('user/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('app_user_index') }}">back to list</a>
-
 {% endblock %}

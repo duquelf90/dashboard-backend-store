@@ -6,7 +6,7 @@
 
 {% block body %}
     <div class="flex items-center justify-between">
-        {{ include('components/title.html.twig', {'txt_label': 'Nuevo Negocio'}) }}
+        {{ include('components/title.html.twig', {'txt_label': 'Nuevo Usuario'}) }}
         {{ buttons.button_back(path('app_user_index')) }}
     </div>
     {{ include('user/_form.html.twig', {'button_label': 'Agregar'}) }}
