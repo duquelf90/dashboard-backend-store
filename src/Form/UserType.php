@@ -46,12 +46,7 @@ class UserType extends AbstractType
                     'class' => 'w-full block text-sm my-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input'
                 ]
             ])
-            ->add('sector', TextType::class, [
-                'label' => 'sectores',
-                'attr' => [
-                    'class' => 'w-full block text-sm my-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input'
-                ]
-            ])
+
             ->add('roles', ChoiceType::class, [
                 'choices' => [
                     'Admin' => 'ROLE_ADMIN',
@@ -74,7 +69,7 @@ class UserType extends AbstractType
                 ],
             ])
             ->add('confirmPassword', PasswordType::class, [
-                'mapped'=>false,
+                'mapped' => false,
                 'label' => 'Repeat New Password',
                 'attr' => [
                     'class' => 'w-full block text-sm my-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input'
@@ -83,12 +78,13 @@ class UserType extends AbstractType
                     new NotBlank(),
                 ],
             ])
-            ->add('aboutus',TextareaType::class,[
+            ->add('aboutus', TextareaType::class, [
+                'required' => true,
                 'attr' => [
                     'rows' => 5,
-                    'placeholder'=>'Descripcion del negocio',
-                        'class' => 'w-full block text-sm my-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input'
-                    ]
+                    'placeholder' => 'Descripcion del negocio',
+                    'class' => 'w-full block text-sm my-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input'
+                ]
             ]);
     }
 

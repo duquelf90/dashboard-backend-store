@@ -1,5 +1,5 @@
-{% import 'components/buttons.html.twig' as buttons %}
-{% block stylesheets %}
+{% import 'components/button/index.html.twig' as buttons %}
+    {% block stylesheets %}
     <style>
         .flex-row {
             color-
@@ -95,17 +95,7 @@
                             </label>
                             {{ form_widget(form.telephone) }}
                         </div>
-                        <div class="block items-center">
-                            <label class="flex items-center text-sm">
-                                <span class="text-gray-700 dark:text-gray-400 mb-2">
-                                    Sectores
-                                </span>
-                            </label>
-                            {{ form_widget(form.sector) }}
-                        </div>
-
                     </div>
-
                     <div class="block items-center pb-4">
                         <label class="flex items-center text-sm">
                             <span class="text-gray-700 dark:text-gray-400 mb-2">
