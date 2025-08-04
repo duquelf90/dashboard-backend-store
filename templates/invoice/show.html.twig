@@ -57,7 +57,12 @@
     <!-- Container -->
     <div class="min-h-screen flex items-center justify-center text-gray-600 dark:text-gray-300">
         <div class="max-w-4xl w-full space-y-8" x-data="invoiceData()">
-            {{ buttons.button_back(path('app_invoice_index')) }}
+
+            <div class="flex items-center justify-end pt-5">
+                <div class="flex inline-flex items-center">
+                    {{ buttons.button_back(path('app_invoice_index')) }}
+                </div>
+            </div>
 
             <!-- Invoice Box -->
             <div class="invoice-box bg-white p-8 rounded-xl shadow-lg dark:bg-gray-800">
@@ -116,19 +121,22 @@
                     </div>
                     <div class="text-right">
                         <p>
-                            {{ 'invoice.date.invoice'|trans }}:
+                            {{ 'invoice.date.invoice'|trans }}
+                            :
                             <span>
                                 {{ invoice.createdAt|date('d/m/Y') }}
                             </span>
                         </p>
                         <p>
-                            {{ 'invoice.date.transaction'|trans }}:
+                            {{ 'invoice.date.transaction'|trans }}
+                            :
                             <span>
                                 {{ invoice.createdAt|date('d/m/Y') }}
                             </span>
                         </p>
                         <p>
-                            {{ 'invoice.status'|trans }}:
+                            {{ 'invoice.status'|trans }}
+                            :
                             <span class="font-medium">
                                 {{ invoice.status }}
                             </span>
@@ -228,14 +236,16 @@
                                 </span>
                             </p>
                             <p>
-                                {{ 'invoice.payment.amount'|trans }}:
+                                {{ 'invoice.payment.amount'|trans }}
+                                :
                                 <span>
                                     {{ invoice.totalAmount }}
                                     USD
                                 </span>
                             </p>
                             <p>
-                                {{ 'invoice.payment.method'|trans }}:
+                                {{ 'invoice.payment.method'|trans }}
+                                :
                                 <span>
                                     Zelle
                                 </span>
@@ -243,13 +253,15 @@
                         </div>
                         <div>
                             <p>
-                                {{ 'invoice.date.transaction'|trans }}:
+                                {{ 'invoice.date.transaction'|trans }}
+                                :
                                 <span>
                                     {{ invoice.createdAt|date('d/m/Y') }}
                                 </span>
                             </p>
                             <p>
-                                {{ 'invoice.status'|trans }}:
+                                {{ 'invoice.status'|trans }}
+                                :
                                 <span class="font-medium uppercase">
                                     {{ invoice.status }}
                                 </span>
@@ -263,7 +275,8 @@
                     <p>
                         {{ 'invoice.greeting.first'|trans }}
                     </p>
-                    <p>{{ 'invoice.greeting.second'|trans }}                
+                    <p>
+                        {{ 'invoice.greeting.second'|trans }}
                     </p>
                 </div>
             </div>
@@ -271,7 +284,7 @@
             <!-- Actions -->
             <div class="flex justify-center gap-4 no-print">
                 <button @click="window.print()" class="bg-indigo-600 text-white px-6 py-2 rounded-md hover:bg-indigo-700 transition duration-300">
-                    {{ 'btn.print'|trans }} 
+                    {{ 'btn.print'|trans }}
                 </button>
                 <button @click="downloadPDF()" class="bg-gray-600 text-white px-6 py-2 rounded-md hover:bg-gray-700 transition duration-300">
                     {{ 'btn.pdf'|trans }}
