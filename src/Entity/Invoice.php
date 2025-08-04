@@ -6,8 +6,12 @@ use App\Repository\InvoiceRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: InvoiceRepository::class)]
+#[ORM\HasLifecycleCallbacks]
+
 class Invoice
 {
+    use Timestamp;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]

@@ -29,6 +29,7 @@ btn:
   back: Back
 
 field:
+  client: client
   name: name
   amount: amount
   status: status

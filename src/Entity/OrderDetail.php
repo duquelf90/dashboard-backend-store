@@ -6,8 +6,12 @@ use App\Repository\OrderDetailRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: OrderDetailRepository::class)]
+#[ORM\HasLifecycleCallbacks]
+
 class OrderDetail
 {
+    use Timestamp;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]

@@ -6,35 +6,71 @@ use App\Repository\OrderRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: OrderRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 #[ORM\Table(name: '`order`')]
 class Order
 {
+    use Timestamp;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'orders')]
+    #[Groups(groups: ['order:full'])]
     private ?User $business = null;
 
     #[ORM\Column]
+    #[Groups(groups: ['order:full'])]
     private ?float $total = null;
 
     #[ORM\Column(length: 50)]
+    #[Groups(groups: ['order:full'])]
     private ?string $status = null;
 
     /**
      * @var Collection<int, OrderDetail>
      */
     #[ORM\OneToMany(targetEntity: OrderDetail::class, mappedBy: 'orderId')]
+    #[Groups(groups: ['order:full'])]
     private Collection $orderDetails;
 
-    public function __construct()
-    {
+    #[ORM\Column(length: 255)]
+    #[Groups(groups: ['order:full'])]
+    private ?string $customer = null;
+
+    #[ORM\Column(length: 255)]
+    #[Groups(groups: ['order:full'])]
+    private ?string $customer_email = null;
+
+    #[ORM\Column(length: 255)]
+    #[Groups(groups: ['order:full'])]
+    private ?string $customer_phone = null;
+
+    #[ORM\Column(length: 255)]
+    #[Groups(groups: ['order:full'])]
+    private ?string $customer_address = null;
+
+    public function __construct(
+        string $customer,
+        string $customer_email,
+        string $customer_phone,
+        string $customer_address,
+        string $status
+
+    ) {
+        $this->setCustomer($customer);
+        $this->setCustomerEmail($customer_email);
+        $this->setCustomerPhone($customer_phone);
+        $this->setCustomerAddress($customer_address);
+        $this->setStatus($status);
         $this->orderDetails = new ArrayCollection();
     }
+
 
     public function getId(): ?int
     {
@@ -103,6 +139,54 @@ class Order
                 $orderDetail->setOrderId(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCustomer(): ?string
+    {
+        return $this->customer;
+    }
+
+    public function setCustomer(string $customer): static
+    {
+        $this->customer = $customer;
+
+        return $this;
+    }
+
+    public function getCustomerEmail(): ?string
+    {
+        return $this->customer_email;
+    }
+
+    public function setCustomerEmail(string $customer_email): static
+    {
+        $this->customer_email = $customer_email;
+
+        return $this;
+    }
+
+    public function getCustomerPhone(): ?string
+    {
+        return $this->customer_phone;
+    }
+
+    public function setCustomerPhone(string $customer_phone): static
+    {
+        $this->customer_phone = $customer_phone;
+
+        return $this;
+    }
+
+    public function getCustomerAddress(): ?string
+    {
+        return $this->customer_address;
+    }
+
+    public function setCustomerAddress(string $customer_address): static
+    {
+        $this->customer_address = $customer_address;
 
         return $this;
     }

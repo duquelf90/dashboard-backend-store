@@ -29,6 +29,7 @@ btn:
   back: Atras
 
 field:
+  client: cliente
   name: Nombre
   amount: Saldo
   status: Estado

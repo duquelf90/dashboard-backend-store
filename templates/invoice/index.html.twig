@@ -43,15 +43,15 @@
                                 {{ invoice.id }}
                             </td>
                             <td class="px-4 py-3">
-                                {{ invoice.amount }}
+                                {{ invoice.totalAmount }}
                             </td>
                             <td class="px-4 py-3">
                                 {{ invoice.createdAt ? invoice.createdAt|date('Y/m/d') : '' }}
                             </td>
-                            <td class="px-4 py-3">
-                                {{ invoice.description }}
-                            </td>
                             <td class="px-4 py-3"></td>
+                            <td class="px-4 py-3">
+                                {{ invoice.status }}
+                            </td>
                             <td class="px-4 py-3 text-center">
                                 <div class="flex items-center justify-center text-sm">
                                     {{ buttons.button_edit( path('app_invoice_edit', {'id': invoice.id})) }}
