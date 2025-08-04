@@ -35,7 +35,7 @@ final class UserController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
-            $user->setRoles([$data['roles']]);
+            $user->setRoles($data->getRoles());
             $plainPassword = $form->get('password')->getData();
             $confirmPassword = $form->get('confirmPassword')->getData();
             $imageFile = $request->files->get('profileImage');
@@ -80,15 +80,42 @@ final class UserController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_user_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, User $user, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, User $user, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher): Response
     {
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
-            dump($data);
-            $user->setRoles($data['roles']); // Esto debe ser un string
+            // Hashear la nueva contraseña si se ha proporcionado
+            $plainPassword = $form->get('password')->getData();
+            if ($plainPassword) {
+                $hashedPassword = $passwordHasher->hashPassword($user, $plainPassword);
+                $user->setPassword($hashedPassword);
+            }
+
+            $user->setRoles($data->getRoles());
+            // Manejo de la imagen
+            $imageFile = $request->files->get('profileImage');
+
+            if ($imageFile) {
+                // Aquí puedes eliminar la imagen anterior si existe
+                if ($user->getLogo()) {
+                    $oldImagePath = $this->getParameter('profile_images_directory') . '/' . $user->getLogo();
+                    if (file_exists($oldImagePath)) {
+                        unlink($oldImagePath);
+                    }
+                }
+                // Aquí puedes subir la nueva imagen y actualizar el campo en el usuario
+                $newFilename = uniqid() . '.' . $imageFile->guessExtension();
+                $imageFile->move($this->getParameter('profile_images_directory'), $newFilename);
+                $user->setLogo($newFilename);
+            }
+
+
+
+
+
             $entityManager->persist($user);
             $entityManager->flush();
 

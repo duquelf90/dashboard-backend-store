@@ -17,7 +17,7 @@
 }
     </style>
 {% endblock %}
-<form action="{{ path('app_user_new') }}" method="POST" enctype="multipart/form-data">
+<form method="POST" enctype="multipart/form-data">
     {{ form_start(form) }}
     <div class="bg-white dark:bg-gray-800 rounded-xl shadow-2xl w-full p-8 transition-all duration-300 animate-fade-in px-4 py-3 mb-8">
         <div class="flex flex-col md:flex-row">
@@ -71,14 +71,14 @@
                             </label>
                             {{ form_widget(form.confirmPassword) }}
                         </div>
-                        {# <div class="block items-center">
+                        <div class="block items-center">
                             <label class="flex items-center text-sm">
                                 <span class="text-gray-700 dark:text-gray-400 mb-2">
                                     Roles
                                 </span>
                             </label>
                             {{ form_widget(form.roles) }}
-                        </div> #}
+                        </div>
                         <div class="block items-center">
                             <label class="flex items-center text-sm">
                                 <span class="text-gray-700 dark:text-gray-400 mb-2">

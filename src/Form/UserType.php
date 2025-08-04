@@ -52,7 +52,7 @@ class UserType extends AbstractType
                 'attr' => [
                     'class' => 'flex flex-row my-2 space-x-4 text-gray-600 dark:text-gray-300'
                 ],
-                'multiple' => false,
+                'multiple' => true,
                 'expanded' => true,
             ])
             ->add('password', PasswordType::class, [
