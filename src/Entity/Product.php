@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
 class Product
@@ -14,29 +15,39 @@ class Product
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['product_list'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['product_list'])]
     private ?string $name = null;
 
     #[ORM\Column]
+    #[Groups(['product_list'])]
     private ?float $price = null;
 
     #[ORM\Column]
+    #[Groups(['product_list'])]
     private ?int $stock = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Groups(['product_list'])]
     private ?string $description = null;
 
-    #[ORM\ManyToOne(inversedBy: 'products')]
+    #[ORM\ManyToOne(targetEntity: Category::class,inversedBy: 'products')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['product_list'])]
     private ?Category $category = null;
 
     /**
      * @var Collection<int, Image>
      */
     #[ORM\OneToMany(targetEntity: Image::class, mappedBy: 'product',cascade: ['persist','remove'])]
+    #[Groups(['product_list'])]
     private Collection $images;
+    #[ORM\ManyToOne(inversedBy: 'products')]
+    #[Groups(['product_list'])]
+    private ?User $user = null;
 
     public function __construct()
     {
@@ -136,6 +147,18 @@ class Product
                 $image->setProduct(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }
