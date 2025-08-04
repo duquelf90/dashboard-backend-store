@@ -3,8 +3,8 @@
     Invoice - Order
     {{ invoice.id }}
 {% endblock %}
-{% block body %}
-    {% block stylesheets %}
+{% import 'components/button/index.html.twig' as buttons %}
+{% block stylesheets %}
         <style>
         /* A4 size in portrait: 210mm x 297mm */
         @media print {
@@ -53,13 +53,11 @@
         }
     </style>
     {% endblock %}
-
+{% block body %}
     <!-- Container -->
     <div class="min-h-screen flex items-center justify-center text-gray-600 dark:text-gray-300">
         <div class="max-w-4xl w-full space-y-8" x-data="invoiceData()">
-            <a href="{{ path('app_invoice_index') }}">
-                back to list
-            </a>
+            {{ buttons.button_back(path('app_invoice_index')) }}
 
             <!-- Invoice Box -->
             <div class="invoice-box bg-white p-8 rounded-xl shadow-lg dark:bg-gray-800">
