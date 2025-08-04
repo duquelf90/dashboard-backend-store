@@ -25,7 +25,7 @@
                     <div class="relative hidden w-12 h-12 mr-3 rounded-full md:block">
                         {% if category.image|length > 0 %}
                             <img
-                            class="object-cover w-full h-full rounded-full" src="{{ asset('uploads/categories_images/' ~ category.image) }}" alt="{{ category.name }}" loading="lazy">
+                            class="object-cover w-full h-full rounded-full" src="{{ asset('uploads/category_images/' ~ category.image) }}" alt="{{ category.name }}" loading="lazy">
                                 {% else %}
                                 <img class="object-cover w-full h-full rounded-full" src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=200&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjE3Nzg0fQ" alt="" loading="lazy">
                                 {% endif %}

@@ -2,7 +2,9 @@
 
 namespace App\Form;
 
+use App\Entity\Category;
 use App\Entity\Product;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -32,10 +34,14 @@ class ProductType extends AbstractType
                     'class' => 'w-full block text-sm my-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input'
                 ]
             ])
-            ->add('category', CategoryAutocompleteField::class, [
-                'mapped' => true, // Asegúrate de que esté mapeado a la entidad
+            ->add('category', EntityType::class, [
+                'class' => Category::class,
+                'choice_label' => 'name', // Cambia 'name' a la propiedad que deseas mostrar
+                'placeholder' => 'Seleccione una categoría',
+                'attr' => [
+                    'class' => 'w-full block text-sm my-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input'
+                ],
             ]);
-        ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
