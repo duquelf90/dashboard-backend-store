@@ -13,7 +13,7 @@ class InvoiceType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('amount', MoneyType::class, [
+            ->add('total_amount', MoneyType::class, [
                 'label' => 'Monto',
                 'grouping' => true,
                 'currency' => false,
@@ -23,7 +23,6 @@ class InvoiceType extends AbstractType
                 ],
             ])
             
-            ->add('description')
         ;
     }
 

@@ -11,7 +11,7 @@
                         Cantidad
                     </span>
                 </label>
-                <div class="flex inline-flex">{{ form_widget(form.amount) }}</div>
+                <div class="flex inline-flex">{{ form_widget(form.total_amount) }}</div>
                 
             </div>
 
@@ -22,7 +22,7 @@
             <span class="text-gray-700 dark:text-gray-400">
                 Notas de la factura
             </span>
-            {{ form_widget(form.description, { 'attr': {'class': 'block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-textarea focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray', 'rows':'3', 'placeholder':'Descripcion del producto'} }) }}
+            {# {{ form_widget(form.description, { 'attr': {'class': 'block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-textarea focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray', 'rows':'3', 'placeholder':'Descripcion del producto'} }) }} #}
 
         </label>
 {{ form_widget(form) }}

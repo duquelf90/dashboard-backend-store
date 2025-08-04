@@ -3,54 +3,62 @@
 namespace App\Entity;
 
 use App\Repository\InvoiceRepository;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: InvoiceRepository::class)]
-#[ORM\HasLifecycleCallbacks]
-
 class Invoice
 {
-    use Timestamp;
-
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column]
-    private ?float $amount = null;
-    
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    private ?Order $orderId = null;
 
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $description = null;
+    #[ORM\Column]
+    private ?float $total_amount = null;
+
+    #[ORM\Column(length: 25)]
+    private ?string $status = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getAmount(): ?float
+    public function getOrderId(): ?Order
     {
-        return $this->amount;
+        return $this->orderId;
     }
 
-    public function setAmount(float $amount): static
+    public function setOrderId(?Order $orderId): static
     {
-        $this->amount = $amount;
+        $this->orderId = $orderId;
 
         return $this;
     }
 
-    
-    public function getDescription(): ?string
+    public function getTotalAmount(): ?float
     {
-        return $this->description;
+        return $this->total_amount;
     }
 
-    public function setDescription(?string $description): static
+    public function setTotalAmount(float $total_amount): static
     {
-        $this->description = $description;
+        $this->total_amount = $total_amount;
+
+        return $this;
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(string $status): static
+    {
+        $this->status = $status;
 
         return $this;
     }

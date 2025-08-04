@@ -13,6 +13,7 @@ final class InvoiceCount
     public function __construct(private InvoiceRepository $invoiceRepository)
     {
     }
+
     public function getCount(): int
     {
         return $this->invoiceRepository->count([]);
