@@ -1,3 +1,40 @@
-# translations/messages.fr.yaml
-hello_message: HOla !
-welcome_message: Bienvenido a nuestra app !
+# MENU
+menu:
+  dashboard: Inicio
+  user: Usuarios
+  category: Categorias
+  product: Productos
+  invoice: Facturas
+  logout: Salir
+
+# FORMS
+form:
+  name: Nombre
+  description: Descripción
+  category: Tu categoria
+  email: Correo electronico
+  psswd: Nueva contraseña
+  re-psswd: Inserta nuevamente la contraseña
+  forgot-psswd: Olvidaste la contraseña?
+
+#BUTTON
+btn:
+  save: Guardar
+  cancel: Cancelar
+  print: Imprimir
+  search: Buscar
+  new: Nuevo  
+  edit: Editar
+  delete: Borrar
+  back: Atras
+
+field:
+  name: Nombre
+  amount: Saldo
+  status: Estado
+  date: Fecha
+  price: Precio
+  stock: Cantidad
+  description: Descripción
+  action: Acciones
+  notFound: No se encontraron resultados

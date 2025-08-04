@@ -1,0 +1,11 @@
+{% import 'components/Icons.html.twig' as icon %}
+
+<ul class="mt-6">
+    {{ include('components/menu/item.html.twig', {'title':  'menu.dashboard'|trans ,'icon': icon.DashIcon(),'router': path('app_dashboard')}) }}
+    {% if is_granted('ROLE_ADMIN') %}
+        {{ include('components/menu/item.html.twig', {'title': 'menu.user'|trans,'icon': icon.UserIcon(),'router': path('app_user_index')}) }}
+        {{ include('components/menu/item.html.twig', {'title': 'menu.category'|trans,'icon': icon.CategoryIcon(),'router': path('app_category_index')}) }}
+    {% endif %}
+    {{ include('components/menu/item.html.twig', {'title': 'menu.product'|trans,'icon': icon.ProductIcon(),'router': path('app_product_index')}) }}
+    {{ include('components/menu/item.html.twig', {'title': 'menu.invoice'|trans,'icon': icon.InvoiceIcon(),'router': path('app_invoice_index')}) }}
+</ul>

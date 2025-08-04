@@ -1,56 +1,64 @@
 {% extends 'base.html.twig' %}
 {% import 'components/button/index.html.twig' as buttons %}
 
-{% block title %}Lista de Categorias{% endblock %}
+{% block title %}
+    Lista de Categorias
+{% endblock %}
 
 {% block body %}
     <div class="flex items-center justify-between">
         {{ include('components/title.html.twig', {'txt_label': 'Categorias'}) }}
-        {{ buttons.button_new('Nuevo', path('app_category_new')) }}
-         </div>
-    
-<div class="w-full overflow-hidden rounded-lg shadow-xs">
-    <div class="w-full overflow-x-auto">
-   <table class="w-full whitespace-no-wrap">
-        <thead>
-            <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-                <th class="px-4 py-3">Name</th>
-                <th class="px-4 py-3 text-center">actions</th>
-            </tr>
-        </thead>
-        <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-        {% for category in categories %}
-            <tr class="text-gray-700 dark:text-gray-300">
-                <td class="px-4 py-3 text-sm"><div class="flex items-center text-sm">
-                    <div class="relative hidden w-12 h-12 mr-3 rounded-full md:block">
-                        {% if category.image|length > 0 %}
-                            <img
-                            class="object-cover w-full h-full rounded-full" src="{{ asset('uploads/category_images/' ~ category.image) }}" alt="{{ category.name }}" loading="lazy">
-                                {% else %}
-                                <img class="object-cover w-full h-full rounded-full" src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=200&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjE3Nzg0fQ" alt="" loading="lazy">
-                                {% endif %}
-                                </div>
-                                <div>
-                                    <p class="font-semibold">
-                                        {{ category.name }}
-                                    </p>
-                                    
-                                </div>
-                            </div>
-                            </td>
-                <td class="px-4 py-3 text-center">
-                    <div class="flex items-center justify-center text-sm">
-                       {{ buttons.button_edit('Editar', path('app_category_edit', {'id': category.id})) }}
-                        {{ buttons.button_show('Mostrar', path('app_category_show', {'id': category.id})) }} 
-                        {{ buttons.button_delete('Borrar', path('app_category_delete', {'id': category.id}), category.id) }} 
-                    </div>
-                </td>
-            </tr>
-        {% else %}
-            {{ include('components/NotFound.html.twig',{'colum': '3'}) }}
-        {% endfor %}
-        </tbody>
-    </table> 
+        {{ buttons.button_new(path('app_category_new')) }}
     </div>
-</div>
-{% endblock %}
+
+    <div class="w-full overflow-hidden rounded-lg shadow-xs">
+        <div class="w-full overflow-x-auto">
+            <table class="w-full whitespace-no-wrap">
+                <thead>
+                    <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                        <th class="px-4 py-3">
+                            {{ 'field.name'|trans }}
+                        </th>
+                        <th class="px-4 py-3 text-center">
+                            {{ 'field.action'|trans }}
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+                    {% for category in categories %}
+                        <tr class="text-gray-700 dark:text-gray-300">
+                            <td class="px-4 py-3 text-sm">
+                                <div class="flex items-center text-sm">
+                                    <div class="relative hidden w-12 h-12 mr-3 rounded-full md:block">
+                                        {% if category.image|length > 0 %}
+                                            <img
+                                            class="object-cover w-full h-full rounded-full" src="{{ asset('uploads/category_images/' ~ category.image) }}" alt="{{ category.name }}" loading="lazy">
+                                                {% else %}
+                                                <img class="object-cover w-full h-full rounded-full" src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=200&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjE3Nzg0fQ" alt="" loading="lazy">
+                                                {% endif %}
+                                            </div>
+                                            <div>
+                                                <p class="font-semibold">
+                                                    {{ category.name }}
+                                                </p>
+
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-3 text-center">
+                                        <div class="flex items-center justify-center text-sm">
+                                            {{ buttons.button_edit(path('app_category_edit', {'id': category.id})) }}
+                                            {{ buttons.button_show( path('app_category_show', {'id': category.id})) }}
+                                            {{ buttons.button_delete(path('app_category_delete', {'id': category.id}), category.id) }}
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% else %}
+                                {{ include('components/NotFound.html.twig',{'colum': '3'}) }}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        {% endblock %}
+        

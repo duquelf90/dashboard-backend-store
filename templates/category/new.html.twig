@@ -1,5 +1,5 @@
 {% extends 'base.html.twig' %}
-    {% import 'components/button/index.html.twig' as buttons %}
+{% import 'components/button/index.html.twig' as buttons %}
 
 {% block title %}
     Nueva Categoria
@@ -8,10 +8,6 @@
     <div class="flex items-center justify-between">
         {{ include('components/title.html.twig', {'txt_label': 'Nueva Categoria'}) }}
         {{ buttons.button_back(path('app_category_index')) }}
-
-        <a href="{{ path('app_category_index') }}">
-            Atras
-        </a>
     </div>
     {{ include('category/_form.html.twig', {'button_label': 'Nuevo'}) }}
 

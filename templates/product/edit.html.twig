@@ -1,4 +1,5 @@
 {% extends 'base.html.twig' %}
+{% import 'components/button/index.html.twig' as buttons %}
 
 {% block title %}
     Edit Product
@@ -7,11 +8,9 @@
 {% block body %}
     <div class="flex items-center justify-between">
         {{ include('components/title.html.twig', {'txt_label': 'Editar'}) }}
-        <a href="{{ path('app_product_index') }}">
-            Atras
-        </a>
+        {{ buttons.button_back(path('app_product_index')) }}
     </div>
-    {{ include('product/_edit_form.html.twig', {'button_label': 'Actualizar'}) }}
+    {{ include('product/_edit_form.html.twig') }}
 
 {% endblock %}
 {% block javascripts_botton %}

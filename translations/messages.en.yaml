@@ -1,3 +1,40 @@
-# translations/messages.en.yaml
-hello_message: Hello!
-welcome_message: Welcome to our application!
+# MENU
+menu:
+  dashboard: Dashboard
+  user: Users
+  category: Categories
+  product: Products
+  invoice: Invoices
+  logout: Logout
+
+# FORMS
+form:
+  name: Name
+  description: Description
+  category: Your category
+  email: Your Email
+  psswd: New Password
+  re-psswd: Re-type New Password
+  forgot-psswd: Forgot Password?
+
+#BUTTON
+btn:
+  save: Save
+  cancel: Cancel
+  print: Print
+  search: Search
+  new: Create  
+  edit: Edit
+  delete: Delete
+  back: Back
+
+field:
+  name: name
+  amount: amount
+  status: status
+  date: date
+  price: price
+  stock: stock
+  description: description
+  action: Actions
+  notFound: No results found

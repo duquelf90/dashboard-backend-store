@@ -1,5 +1,5 @@
 {% extends 'base.html.twig' %}
-    {% import 'components/button/index.html.twig' as buttons %}
+{% import 'components/button/index.html.twig' as buttons %}
 
 {% block title %}
     Mis Facturas
@@ -8,7 +8,7 @@
 {% block body %}
     <div class="flex items-center justify-between">
         {{ include('components/title.html.twig', {'txt_label': 'Facturas'}) }}
-        {{ buttons.button_new('Nueva Factura', path('app_invoice_new')) }}
+        {{ buttons.button_new(path('app_invoice_new')) }}
     </div>
 
     <div class="w-full overflow-hidden rounded-lg shadow-xs">
@@ -20,19 +20,19 @@
                             Id
                         </th>
                         <th class="px-4 py-3">
-                            Amount
+                            {{ 'field.amount'|trans }}
                         </th>
                         <th class="px-4 py-3">
-                            Fecha
+                            {{ 'field.date'|trans }}
                         </th>
                         <th class="px-4 py-3">
-                            Description
+                            {{ 'field.description'|trans }}
                         </th>
                         <th class="px-4 py-3">
-                            Estado
+                            {{ 'field.status'|trans }}
                         </th>
                         <th class="px-4 py-3 text-center">
-                            Acciones
+                            {{ 'field.action'|trans }}
                         </th>
                     </tr>
                 </thead>
@@ -46,7 +46,7 @@
                                 {{ invoice.amount }}
                             </td>
                             <td class="px-4 py-3">
-                                {{ invoice.createdAt ? invoice.createdAt|date('Y-m-d H:i:s') : '' }}
+                                {{ invoice.createdAt ? invoice.createdAt|date('Y/m/d') : '' }}
                             </td>
                             <td class="px-4 py-3">
                                 {{ invoice.description }}
@@ -54,9 +54,9 @@
                             <td class="px-4 py-3"></td>
                             <td class="px-4 py-3 text-center">
                                 <div class="flex items-center justify-center text-sm">
-                                    {{ buttons.button_edit('Editar', path('app_invoice_edit', {'id': invoice.id})) }}
-                                    {{ buttons.button_show('Mostrar', path('app_invoice_show', {'id': invoice.id})) }}
-                                    {{ buttons.button_delete('Borrar', path('app_invoice_delete', {'id': invoice.id}), invoice.id) }}
+                                    {{ buttons.button_edit( path('app_invoice_edit', {'id': invoice.id})) }}
+                                    {{ buttons.button_show( path('app_invoice_show', {'id': invoice.id})) }}
+                                    {{ buttons.button_delete( path('app_invoice_delete', {'id': invoice.id}), invoice.id) }}
 
                                 </div>
                             </td>

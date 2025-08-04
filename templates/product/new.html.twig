@@ -8,7 +8,7 @@
         {{ include('components/title.html.twig', {'txt_label': 'Nuevo Producto'}) }}
         {{ buttons.button_back(path('app_product_index')) }}
     </div>
-    {{ include('product/_form.html.twig', {'button_label': 'Nuevo'}) }}
+    {{ include('product/_form.html.twig') }}
 
 {% endblock %}
 {% block javascripts_botton %}

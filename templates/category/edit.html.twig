@@ -1,13 +1,14 @@
 {% extends 'base.html.twig' %}
+{% import 'components/button/index.html.twig' as buttons %}
 
-{% block title %}Edit Category{% endblock %}
+{% block title %}
+    Edit Category
+{% endblock %}
 
 {% block body %}
-    <div class="flex items-center justify-between">        
+    <div class="flex items-center justify-between">
         {{ include('components/title.html.twig', {'txt_label': 'Editar'}) }}
-        <a href="{{ path('app_category_index') }}">
-            Atras
-        </a>
+        {{ buttons.button_back(path('app_category_index')) }}
     </div>
     {{ include('category/_form.html.twig', {'button_label': 'Actualizar'}) }}
 {% endblock %}
