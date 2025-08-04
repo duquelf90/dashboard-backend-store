@@ -14,11 +14,11 @@ class Category
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['product_list'])]
+    #[Groups(['category:read','product_list'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 50)]
-    #[Groups(['product_list'])]
+    #[Groups(['category:read','product_list'])]
     private ?string $name = null;
 
     /**

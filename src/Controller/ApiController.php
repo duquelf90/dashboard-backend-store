@@ -6,6 +6,7 @@ use App\Entity\Order;
 use App\Entity\OrderDetail;
 use App\Entity\Product;
 use App\Entity\User;
+use App\Repository\CategoryRepository;
 use App\Repository\ProductRepository;
 use App\Service\InvoiceService;
 use Doctrine\ORM\EntityManagerInterface;
@@ -39,6 +40,13 @@ final class ApiController extends AbstractController
         ]);
     }
 
+    #[Route(path: '/categories', name: 'api_categories', methods: ['GET'])]
+    public function categories(CategoryRepository $categoryRepository): JsonResponse
+    {
+        $data = $categoryRepository->findAll();
+        return $this->json(['items' => $data], 201, [], ['groups' => ['category:read']]);
+    }
+
     #[Route(path: '/create/order', name: 'api_order_create', methods: ['POST'])]
 
     public function createOrder(Request $request, EntityManagerInterface $entityManager, SerializerInterface $serializer, InvoiceService $invoiceService, ProductRepository $productRepository): JsonResponse
@@ -52,7 +60,7 @@ final class ApiController extends AbstractController
         // pasar el id del negocio o mejor jalarlo del producto pero mejor que venga desde el store
         $order = new Order($customer, $email, $customer_phone, $customer_address, 'pendiente');
         $total = 0;
-        
+
         foreach ($data['productos'] as $prodData) {
             $product = $productRepository->findOneBy(['id' => $prodData['id']]);
             $detalle = new OrderDetail();
