@@ -1,14 +1,20 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Product{% endblock %}
+{% block title %}
+    Edit Product
+{% endblock %}
 
 {% block body %}
-    <div class="flex items-center justify-between">        
+    <div class="flex items-center justify-between">
         {{ include('components/title.html.twig', {'txt_label': 'Editar'}) }}
         <a href="{{ path('app_product_index') }}">
             Atras
         </a>
     </div>
-    {{ include('product/_form.html.twig', {'button_label': 'Actualizar'}) }}
+    {{ include('product/_edit_form.html.twig', {'button_label': 'Actualizar'}) }}
 
+{% endblock %}
+{% block javascripts_botton %}
+    <script src="{{ asset('assets/js/image-upload.js') }}"></script>
+    <script src="{{ asset('assets/js/product-edit.js') }}"></script>
 {% endblock %}

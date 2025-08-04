@@ -1,7 +1,9 @@
 {% import 'components/button/index.html.twig' as buttons %}
-<div class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
+
+<div class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800" x-data="productEdit('{{ app.request.locale }}', {{ product.id }})">
     <form method="POST" enctype="multipart/form-data">
         {{ form_start(form) }}
+        {# first colum #}
         <div class="grid gap-6 mb-2 md:grid-cols-2">
             <div class="block items-center">
                 <label class="flex items-center text-sm">
@@ -44,6 +46,26 @@
 
         </label>
 
+        {# Show Current Images #}
+        <div class="mt-4 text-center">
+            <h3 class="text-gray-700 dark:text-gray-400">
+                Imágenes Actuales
+            </h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
+                {% for image in product.images %}
+                    <div class="group cursor-pointer relative">
+                        <img src="{{ asset('uploads/product_images/' ~ image.filename) }}" alt="{{image.filename}}" class="w-full h-48 object-cover rounded-lg transition-transform transform scale-100 group-hover:scale-105" data-id="{{ image.id }}" />
+                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                            <button class="bg-white text-gray-800 px-4 py-2 rounded-lg hover:bg-red-500 hover:text-white transition-colors" @click.prevent="removeImage('{{ image.id }}')">
+                                X
+                            </button>
+                        </div>
+                    </div>
+
+                {% endfor %}
+            </div>
+        </div>
+
         <div class="flex-1 items-center max-w-screen-sm mx-auto space-y-4 sm:flex sm:space-y-0 pt-4">
             <div class="relative w-full">
                 <div class="items-center justify-center max-w-2xl mx-auto">
@@ -60,7 +82,7 @@
                             </span>
                         </span>
                         <input type="file" id="images" name="images[]" class="hidden" accept="image/png,image/jpeg" multiple></label>
-                        <div class="drop_zone p-4 text-center cursor-pointer hover:border-gray-400 transition text-gray-700 dark:text-gray-400 rounded-sm" id="drop_zone">
+                        <div class="dropzone p-4 text-center cursor-pointer hover:border-gray-400 transition text-gray-700 dark:text-gray-400 rounded-sm" id="drop_zone">
                             <div id="preview" class="my-5 grid grid-cols-3 gap-6"></div>
                         </div>
                     </div>

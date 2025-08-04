@@ -1,0 +1,26 @@
+<li class="relative" x-data="{ open: false }">
+    <button class="relative align-middle rounded-md focus:outline-none focus:shadow-outline-purple" @click="open = !open" @click.away="open = false" aria-label="Notifications" aria-haspopup="true">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-5 h-5">
+            <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5">
+                <path d="M2 12c0 5.523 4.477 10 10 10s10-4.477 10-10S17.523 2 12 2S2 6.477 2 12" />
+                <path d="M13 2.05S16 6 16 12s-3 9.95-3 9.95m-2 0S8 18 8 12s3-9.95 3-9.95M2.63 15.5h18.74m-18.74-7h18.74" />
+            </g>
+        </svg>
+    </button>
+    <template x-if="open">
+        <ul x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="absolute right-0 w-50 p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md dark:text-gray-300 dark:border-gray-700 dark:bg-gray-700" aria-label="submenu">
+            <li>
+                <a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'en'})) }}">
+                    English
+                    <span class="flag-icon flag-icon-us tooltips" title="English" style="right: 10px;position:absolute;top: 12px;"></span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'es'})) }}">
+                    Español
+                    <span class="flag-icon flag-icon-es tooltips" title="Español" style="right: 10px;position:absolute;top: 12px;"></span>
+                </a>
+            </li>
+        </ul>
+    </template>
+</li>

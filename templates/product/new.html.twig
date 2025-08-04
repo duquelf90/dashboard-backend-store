@@ -9,4 +9,8 @@
         {{ buttons.button_back(path('app_product_index')) }}
     </div>
     {{ include('product/_form.html.twig', {'button_label': 'Nuevo'}) }}
+
+{% endblock %}
+{% block javascripts_botton %}
+    <script src="{{ asset('assets/js/image-upload.js') }}"></script>
 {% endblock %}

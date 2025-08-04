@@ -40,7 +40,7 @@ final class DashboardController extends AbstractController
                 if ($file instanceof UploadedFile) {
                     // Aquí puedes mover el archivo a un directorio deseado si lo necesitas.
                     // $file->move('path/to/directory', $file->getClientOriginalName());
-                    
+
                     // Solo devolvemos el nombre original y el tamaño
                     $uploadedData[] = [
                         'filename' => $file->getClientOriginalName(),

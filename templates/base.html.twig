@@ -13,11 +13,17 @@
         <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.8/dist/cdn.min.js"></script>
         <script src="https://cdn.tailwindcss.com"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-
-        {% block stylesheets %}{% endblock %}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+        <script src="{{ asset('assets/js/toast.js') }}" defer></script>
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+        {% endblock %}
 
         {% block javascripts %}
+            {% block importmap %}
+                {{ importmap('app') }}
+            {% endblock %}
+            {{ encore_entry_script_tags('app') }}
             <script>
         function themeToggle() {
                 function getThemeFromLocalStorage() {
@@ -57,27 +63,29 @@
             Alpine.data('themeToggle', themeToggle);
         });
     </script>
-            {% block importmap %}
-                {{ importmap('app') }}
-            {% endblock %}
 
         {% endblock %}
+        
     </head>
     <body>
         <div class="flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen}">
-            {# Menu component #}
             {% include 'components/menu/base.html.twig' %}
             {% include 'components/menu/mobile.html.twig' %}
             <div class="flex flex-col flex-1">
-                {# header component #}
-                {% include 'components/Header.html.twig' %}
+                {% include 'components/header/base.html.twig' %}
+                {% for message in app.flashes('success') %}
+                    <div class="alert alert-success">
+                        {{ message }}
+                    </div>
+                {% endfor %}
                 <main class="h-full overflow-y-auto">
                     <div class="container px-6 mx-auto grid">
                         {% block body %}{% endblock %}
                     </div>
-
                 </main>
             </div>
-        </body>
+        </div>
+
     </body>
+    {% block javascripts_botton %}{% endblock %}
 </html>

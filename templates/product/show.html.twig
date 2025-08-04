@@ -20,7 +20,7 @@
     
     <div class="grid gap-5 mb-2 md:grid-cols-4">
     {% for image in product.images %}
-        <img src="{{ asset('uploads/images/' ~ image.filename) }}" alt="{{ product.name }}" />
+        <img src="{{ asset('uploads/product_images/' ~ image.filename) }}" alt="{{ product.name }}" />
     {% endfor %}
     </div>
 
