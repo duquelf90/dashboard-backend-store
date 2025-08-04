@@ -5,7 +5,7 @@
 {% endblock %}
 {% import 'components/button/index.html.twig' as buttons %}
 {% block stylesheets %}
-        <style>
+    <style>
         /* A4 size in portrait: 210mm x 297mm */
         @media print {
             @page {
@@ -52,7 +52,7 @@
             .pb-6 { padding-bottom: 0.5rem !important; }
         }
     </style>
-    {% endblock %}
+{% endblock %}
 {% block body %}
     <!-- Container -->
     <div class="min-h-screen flex items-center justify-center text-gray-600 dark:text-gray-300">
@@ -65,10 +65,11 @@
                 <div class="flex justify-between items-center border-b pb-6">
                     <div>
                         <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-300">
-                            Invoice
+                            {{ 'invoice.name'|trans }}
                         </h1>
                         <p>
-                            Order Reference:
+                            {{ 'invoice.reference'|trans }}
+                            :
                             <span id="invoice" data-id="{{ invoice.id }}">
                                 {{ invoice.id }}
                             </span>
@@ -91,7 +92,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
                     <div>
                         <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-300">
-                            Billed To
+                            {{ 'invoice.billed'|trans }}
                         </h3>
                         <p>
                             {{ invoice.orderId.customer }}
@@ -115,19 +116,19 @@
                     </div>
                     <div class="text-right">
                         <p>
-                            Invoice Date:
+                            {{ 'invoice.date.invoice'|trans }}:
                             <span>
                                 {{ invoice.createdAt|date('d/m/Y') }}
                             </span>
                         </p>
                         <p>
-                            Transaction Date:
+                            {{ 'invoice.date.transaction'|trans }}:
                             <span>
                                 {{ invoice.createdAt|date('d/m/Y') }}
                             </span>
                         </p>
                         <p>
-                            Payment Status:
+                            {{ 'invoice.status'|trans }}:
                             <span class="font-medium">
                                 {{ invoice.status }}
                             </span>
@@ -145,10 +146,10 @@
                                         Descripción
                                     </th>
                                     <th class="py-2 px-4 ">
-                                        Qty
+                                        {{ 'field.stock'|trans }}
                                     </th>
                                     <th class="py-2 px-4 ">
-                                        Unit Price
+                                        {{ 'field.price'|trans }}
                                     </th>
                                     <th class="py-2 px-4 text-right">
                                         Total
@@ -216,7 +217,7 @@
                 <!-- Payment Information -->
                 <div class="mt-6">
                     <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-300">
-                        Payment Information
+                        {{ 'invoice.information'|trans }}
                     </h3>
                     <div class="mt-2 grid grid-cols-1 md:grid-cols-2 gap-2 ">
                         <div>
@@ -227,14 +228,14 @@
                                 </span>
                             </p>
                             <p>
-                                Amount Paid:
+                                {{ 'invoice.payment.amount'|trans }}:
                                 <span>
                                     {{ invoice.totalAmount }}
                                     USD
                                 </span>
                             </p>
                             <p>
-                                Payment Method:
+                                {{ 'invoice.payment.method'|trans }}:
                                 <span>
                                     Zelle
                                 </span>
@@ -242,13 +243,13 @@
                         </div>
                         <div>
                             <p>
-                                Transaction Date:
+                                {{ 'invoice.date.transaction'|trans }}:
                                 <span>
                                     {{ invoice.createdAt|date('d/m/Y') }}
                                 </span>
                             </p>
                             <p>
-                                Payment Status:
+                                {{ 'invoice.status'|trans }}:
                                 <span class="font-medium uppercase">
                                     {{ invoice.status }}
                                 </span>
@@ -260,10 +261,9 @@
                 <!-- Footer -->
                 <div class="mt-6 text-center">
                     <p>
-                        Thank you for your purchase!
+                        {{ 'invoice.greeting.first'|trans }}
                     </p>
-                    <p>
-                        If you have any questions, contact us at support@yourstore.com
+                    <p>{{ 'invoice.greeting.second'|trans }}                
                     </p>
                 </div>
             </div>
@@ -271,10 +271,10 @@
             <!-- Actions -->
             <div class="flex justify-center gap-4 no-print">
                 <button @click="window.print()" class="bg-indigo-600 text-white px-6 py-2 rounded-md hover:bg-indigo-700 transition duration-300">
-                    Print Invoice
+                    {{ 'btn.print'|trans }} 
                 </button>
                 <button @click="downloadPDF()" class="bg-gray-600 text-white px-6 py-2 rounded-md hover:bg-gray-700 transition duration-300">
-                    Download PDF
+                    {{ 'btn.pdf'|trans }}
                 </button>
             </div>
         </div>

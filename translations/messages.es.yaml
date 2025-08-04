@@ -27,6 +27,7 @@ btn:
   edit: Editar
   delete: Borrar
   back: Atras
+  pdf: Descargar PDF
 
 field:
   client: cliente
@@ -39,3 +40,19 @@ field:
   description: Descripción
   action: Acciones
   notFound: No se encontraron resultados
+
+invoice:
+  name: Factura
+  reference: Orden de referencia
+  billed: Facturado a
+  date:
+    invoice: Fecha de Facturacion
+    transaction: Fecha de Transacción
+  status: Estado de la Factura
+  information: Información de Pago
+  payment:
+    amount: Cantidad Pagada
+    method: Metodo de Pago
+  greeting:
+    first: ¡Gracias por su compra!
+    second: Si tiene alguna pregunta, contáctenos en support@yourstore.com

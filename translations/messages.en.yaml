@@ -23,10 +23,11 @@ btn:
   cancel: Cancel
   print: Print
   search: Search
-  new: Create  
+  new: Create
   edit: Edit
   delete: Delete
   back: Back
+  pdf: Download PDF
 
 field:
   client: client
@@ -39,3 +40,19 @@ field:
   description: description
   action: Actions
   notFound: No results found
+
+invoice:
+  name: Invoice
+  reference: Order reference
+  billed: Billed To
+  date:
+    invoice: Invoice Date
+    transaction: Transaction Date
+  status: Payment Status
+  information: Payment Information
+  payment:
+    amount: Amount Paid
+    method: Payment Method
+  greeting:
+    first: Thank you for your purchase!
+    second: If you have any questions, contact us at support@yourstore.com
