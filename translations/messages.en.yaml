@@ -6,6 +6,11 @@ menu:
   product: Products
   invoice: Invoices
   logout: Logout
+  profile: Profile
+
+# Card
+card:
+  orders: Sales
 
 # FORMS
 form:

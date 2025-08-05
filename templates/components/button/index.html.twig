@@ -7,7 +7,7 @@
 {% endmacro %}
 {% macro button_new( router, btn_class = '') %}
     <a href="{{ router }}" class="flex justify-between items-center px-5 py-3 font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple {{ btn_class }}">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-5 h-5 mr-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-5 h-5 mr-2">
             <path fill="currentColor" d="M20 14h-6v6h-4v-6H4v-4h6V4h4v6h6z" />
         </svg>
         <span>{{ 'btn.new'|trans }}</span>
@@ -45,4 +45,5 @@
             {{ 'btn.back'|trans }}
         </a>
     {% endmacro %}
+
     

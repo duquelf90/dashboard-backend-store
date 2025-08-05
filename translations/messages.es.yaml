@@ -6,6 +6,11 @@ menu:
   product: Productos
   invoice: Facturas
   logout: Salir
+  profile: Perfil
+
+# CARDS
+card:
+  orders: Pedidos
 
 # FORMS
 form:
@@ -29,8 +34,9 @@ btn:
   back: Atras
   pdf: Descargar PDF
 
+# FIELDS
 field:
-  client: cliente
+  client: Cliente
   name: Nombre
   amount: Saldo
   status: Estado
@@ -41,6 +47,7 @@ field:
   action: Acciones
   notFound: No se encontraron resultados
 
+# INVOICE
 invoice:
   name: Factura
   reference: Orden de referencia

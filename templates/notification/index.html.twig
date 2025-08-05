@@ -1,0 +1,92 @@
+{% extends 'base.html.twig' %}
+{% import 'components/button/index.html.twig' as buttons %}
+
+{% block title %}
+    Notification index
+{% endblock %}
+
+{% block body %}
+    
+    <div class="p-4 mx-auto w-full md:p-6">
+        <!-- Breadcrumb Start -->
+        <div x-data="{ pageName: `Notification`}">
+            <div class="flex flex-wrap items-center justify-between gap-3 pb-6">
+                <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-400" x-text="pageName">                    
+                </h2>
+                <nav>
+                    <ol class="flex items-center gap-1.5">
+                        <li>
+                            <a class="inline-flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400" href="index.html">
+                                Home
+                                <svg class="stroke-current" width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M6.0765 12.667L10.2432 8.50033L6.0765 4.33366" stroke="" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                </svg>
+                            </a>
+                        </li>
+                        <li class="text-sm text-gray-800 dark:text-gray-400" x-text="pageName">                            
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <!-- Breadcrumb End -->
+
+        <div x-data="{selectedTaskGroup: 'All'}" class="rounded-2xl border border-gray-200 bg-white dark:border-gray-800 dark:text-gray-400 dark:bg-gray-800">
+
+            <!-- Task wrapper Start -->
+            <div class="p-4 space-y-8 border-gray-200 mt-7 dark:border-gray-800 sm:mt-0 xl:p-6">
+                <!-- To do list -->
+                <div class="flex flex-col gap-4 swim-lane">                    
+                    {% for notification in notifications %}
+                        <!-- task item -->
+                        <div class="p-5 bg-white border border-gray-200 task rounded-xl shadow-theme-sm dark:border-gray-800 dark:bg-white/5">
+                            <div class="flex flex-col gap-5 xl:flex-row xl:items-center xl:justify-between">
+                                <div class="flex items-start w-full gap-4">
+                                    <span class="text-gray-400">
+                                        <svg class="fill-current" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M2.43311 5.0001C2.43311 4.50304 2.83605 4.1001 3.33311 4.1001L16.6664 4.1001C17.1635 4.1001 17.5664 4.50304 17.5664 5.0001C17.5664 5.49715 17.1635 5.9001 16.6664 5.9001L3.33311 5.9001C2.83605 5.9001 2.43311 5.49716 2.43311 5.0001ZM2.43311 15.0001C2.43311 14.503 2.83605 14.1001 3.33311 14.1001L16.6664 14.1001C17.1635 14.1001 17.5664 14.503 17.5664 15.0001C17.5664 15.4972 17.1635 15.9001 16.6664 15.9001L3.33311 15.9001C2.83605 15.9001 2.43311 15.4972 2.43311 15.0001ZM3.33311 9.1001C2.83605 9.1001 2.43311 9.50304 2.43311 10.0001C2.43311 10.4972 2.83605 10.9001 3.33311 10.9001L16.6664 10.9001C17.1635 10.9001 17.5664 10.4972 17.5664 10.0001C17.5664 9.50304 17.1635 9.1001 16.6664 9.1001L3.33311 9.1001Z" fill=""></path>
+                                        </svg>
+                                    </span>
+
+                                    <div class="relative flex items-start">
+                                        <p class="-mt-0.5 text-base text-gray-800 dark:text-white/90">
+                                            Finish user onboarding
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="flex flex-col-reverse items-start justify-end w-full gap-3 xl:flex-row xl:items-center xl:gap-5">
+
+                                    <div class="flex items-center justify-between w-full gap-5 xl:w-auto xl:justify-normal">
+
+                                        <div x-data="{openDropDown: false}" class="relative">
+                                            <button @click="openDropDown = !openDropDown" class="text-gray-700 dark:text-gray-400">
+                                                <svg class="fill-current" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M5.99902 10.2451C6.96552 10.2451 7.74902 11.0286 7.74902 11.9951V12.0051C7.74902 12.9716 6.96552 13.7551 5.99902 13.7551C5.03253 13.7551 4.24902 12.9716 4.24902 12.0051V11.9951C4.24902 11.0286 5.03253 10.2451 5.99902 10.2451ZM17.999 10.2451C18.9655 10.2451 19.749 11.0286 19.749 11.9951V12.0051C19.749 12.9716 18.9655 13.7551 17.999 13.7551C17.0325 13.7551 16.249 12.9716 16.249 12.0051V11.9951C16.249 11.0286 17.0325 10.2451 17.999 10.2451ZM13.749 11.9951C13.749 11.0286 12.9655 10.2451 11.999 10.2451C11.0325 10.2451 10.249 11.0286 10.249 11.9951V12.0051C10.249 12.9716 11.0325 13.7551 11.999 13.7551C12.9655 13.7551 13.749 12.9716 13.749 12.0051V11.9951Z" fill=""></path>
+                                                </svg>
+                                            </button>
+                                            <div x-show="openDropDown" @click.outside="openDropDown = false" class="absolute right-0 top-full z-40 w-[140px] space-y-1 rounded-2xl border border-gray-200 bg-white p-2 shadow-theme-md dark:border-gray-800 dark:bg-gray-dark" style="display: none;">
+                                                <button class="flex w-full px-3 py-2 font-medium text-left text-gray-500 rounded-lg text-theme-xs hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-300">
+                                                    Edit
+                                                </button>
+                                                <button class="flex w-full px-3 py-2 font-medium text-left text-gray-500 rounded-lg text-theme-xs hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-300">
+                                                    Delete
+                                                </button>
+                                                <button class="flex w-full px-3 py-2 font-medium text-left text-gray-500 rounded-lg text-theme-xs hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-300">
+                                                    Clear All
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% else %}
+                        {{ include('components/NotFound.html.twig',{'colum': '5'}) }}
+                    {% endfor %}
+                <!-- Task wrapper End -->
+                </div>
+            </div>
+
+        {% endblock %}
+        

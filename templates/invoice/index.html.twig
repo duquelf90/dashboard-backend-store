@@ -1,5 +1,6 @@
 {% extends 'base.html.twig' %}
 {% import 'components/button/index.html.twig' as buttons %}
+{% import 'components/Icons.html.twig' as icon %}
 
 {% block title %}
     Mis Facturas
@@ -17,16 +18,13 @@
                 <thead>
                     <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
                         <th class="px-4 py-3">
-                            Id
-                        </th>
-                        <th class="px-4 py-3">
-                            {{ 'field.amount'|trans }}
+                            Name
                         </th>
                         <th class="px-4 py-3">
                             {{ 'field.date'|trans }}
                         </th>
                         <th class="px-4 py-3">
-                            {{ 'field.description'|trans }}
+                            {{ 'field.amount'|trans }}
                         </th>
                         <th class="px-4 py-3">
                             {{ 'field.status'|trans }}
@@ -39,18 +37,26 @@
                 <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
                     {% for invoice in invoices %}
                         <tr class="text-gray-700 dark:text-gray-300">
+                            <td class="px-6 py-3 text-left whitespace-nowrap ">
+                                <div class="flex text-sm">
+                                    <div class="relative hidden w-12 h-12 md:block">
+                                        {{ icon.PDFIcon() }}
+                                        </div>
+                                        <div class="font-semibold">
+                                            Invoice #{{ invoice.id }}                                           
+                                        </div>
+                                    </div>
+                            </td>
+                            
                             <td class="px-4 py-3">
-                                {{ invoice.id }}
+                                {{ invoice.createdAt ? invoice.createdAt|date('F d, Y') : '' }}
                             </td>
                             <td class="px-4 py-3">
-                                {{ invoice.totalAmount }}
+                                ${{ invoice.totalAmount }}
                             </td>
-                            <td class="px-4 py-3">
-                                {{ invoice.createdAt ? invoice.createdAt|date('Y/m/d') : '' }}
-                            </td>
-                            <td class="px-4 py-3"></td>
-                            <td class="px-4 py-3">
-                                {{ invoice.status }}
+                            <td class="px-4 py-3 text-xs uppercase">
+                                <span class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
+                                {{ invoice.status }}</span>
                             </td>
                             <td class="px-4 py-3 text-center">
                                 <div class="flex items-center justify-center text-sm">
