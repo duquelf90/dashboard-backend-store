@@ -2,12 +2,6 @@
 
 {% block title %}New Invoice{% endblock %}
 
-{% block body %}
-    <div class="flex items-center justify-between">
-        {{ include('components/title.html.twig', {'txt_label': 'Nueva Factura'}) }}
-        <a href="{{ path('app_invoice_index') }}">
-            Atras
-        </a>
-    </div>
+{% block body %}    
     {{ include('invoice/_form.html.twig', {'button_label': 'Nuevo'}) }}
 {% endblock %}
