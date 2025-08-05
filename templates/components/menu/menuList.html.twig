@@ -7,5 +7,6 @@
         {{ include('components/menu/item.html.twig', {'title': 'menu.category'|trans,'icon': icon.CategoryIcon(),'router': path('app_category_index')}) }}
     {% endif %}
     {{ include('components/menu/item.html.twig', {'title': 'menu.product'|trans,'icon': icon.ProductIcon(),'router': path('app_product_index')}) }}
+    {{ include('components/menu/item.html.twig', {'title': 'menu.order'|trans,'icon': icon.OrderIcon(),'router': path('app_order_index')}) }}
     {{ include('components/menu/item.html.twig', {'title': 'menu.invoice'|trans,'icon': icon.InvoiceIcon(),'router': path('app_invoice_index')}) }}
 </ul>
