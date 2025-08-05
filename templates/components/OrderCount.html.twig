@@ -1,3 +1,5 @@
+{% import 'components/Icons.html.twig' as icon %}
+
 <div{{ attributes }}>
-    <!-- component HTML -->
+    {{ include('components/StatsCard.html.twig', {'router':path('app_dashboard'),'icon':icon.OrderIcon(),'title': 'Pedidos','number': this.getCount,'class':'text-orange-500 bg-orange-100 dark:text-orange-100 dark:bg-orange-500' }) }}
 </div>

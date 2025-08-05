@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Product;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -22,6 +23,11 @@ class ProductRepository extends ServiceEntityRepository
             ->setParameter('query', '%'.$query.'%');
 
         return $qb->getQuery()->getResult();
+    }
+
+    public function countByUser(User $user): int
+    {
+        return $this->count(['user' => $user]);
     }
 
 

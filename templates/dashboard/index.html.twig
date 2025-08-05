@@ -5,14 +5,20 @@
 {% block body %}
 
   {{ include('components/title.html.twig', {'txt_label': 'Hola '~ app.user.username}) }}
-  <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
-    <!-- Card -->
-    {{ component('UserCount') }}
-    {{ component('ProductCount') }}
-    {{ component('CategoryCount') }}
-    {{ component('InvoiceCount') }}
-  </div>
-
+  {% if is_granted('ROLE_ADMIN') %}
+    <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
+      {{ component('UserCount') }}
+      {{ component('CategoryCount') }}
+      {{ component('ProductCount') }}
+      {{ component('InvoiceCount') }}
+    </div>
+  {% else %}
+    <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-3">      
+      {{ component('ProductCount') }}
+      {{ component('InvoiceCount') }}
+      {{ component('OrderCount') }}
+    </div>
+  {% endif %}
   <!-- New Table -->
   <div class="w-full overflow-hidden rounded-lg shadow-xs mb-50">
     <div class="w-full overflow-x-auto">
@@ -45,16 +51,17 @@
                     </div>
                     <div>
                       <p class="font-semibold">
-                        {{order.customer}}
+                        {{ order.customer }}
                       </p>
                       <p class="text-xs text-gray-600 dark:text-gray-400">
-                        {{order.customerEmail}}
+                        {{ order.customerEmail }}
                       </p>
                     </div>
                   </div>
                 </td>
                 <td class="px-4 py-3 text-sm">
-                  $ {{order.total}}
+                  $
+                  {{ order.total }}
                 </td>
                 <td class="px-4 py-3 text-xs">
                   <span class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">

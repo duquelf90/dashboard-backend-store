@@ -87,7 +87,6 @@ final class UserController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
-            // Hashear la nueva contraseña si se ha proporcionado
             $plainPassword = $form->get('password')->getData();
             if ($plainPassword) {
                 $hashedPassword = $passwordHasher->hashPassword($user, $plainPassword);
@@ -95,7 +94,6 @@ final class UserController extends AbstractController
             }
 
             $user->setRoles($data->getRoles());
-            // Manejo de la imagen
             $imageFile = $request->files->get('profileImage');
 
             if ($imageFile) {
@@ -111,11 +109,6 @@ final class UserController extends AbstractController
                 $imageFile->move($this->getParameter('profile_images_directory'), $newFilename);
                 $user->setLogo($newFilename);
             }
-
-
-
-
-
             $entityManager->persist($user);
             $entityManager->flush();
 

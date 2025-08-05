@@ -54,132 +54,125 @@
     </style>
 {% endblock %}
 {% block body %}
-    <!-- Container -->
-    <div class="min-h-screen flex items-center justify-center text-gray-600 dark:text-gray-300">
-        <div class="max-w-4xl w-full space-y-8" x-data="invoiceData()">
 
-            <div class="flex items-center justify-end pt-5">
-                <div class="flex inline-flex items-center">
-                    {{ buttons.button_back(path('app_invoice_index')) }}
-                </div>
+    <!-- Container -->
+    <div class="w-full space-y-8 items-center justify-center text-gray-600 dark:text-gray-300" x-data="invoiceData()">
+
+        <div class="flex items-center justify-end pt-5">
+            <div class="flex inline-flex items-center">
+                {{ buttons.button_back(path('app_invoice_index')) }}
+            </div>
+        </div>
+
+        <!-- Invoice Box -->
+        <div class="invoice-box bg-white p-8 rounded-xl shadow-lg dark:bg-gray-800">
+
+            <!-- Header -->
+            <div class="flex items-center justify-between border-b border-b-1 border-gray-200 px-6 py-4 dark:border-gray-300">
+                <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-300">
+                    {{ 'invoice.name'|trans }}
+                </h1>
+                <p class="font-bold text-gray-700 dark:text-gray-400">
+                    ID: <span id="invoice" data-id="{{ invoice.id }}">#{{ invoice.id }}
+                    </span>
+                </p>
             </div>
 
-            <!-- Invoice Box -->
-            <div class="invoice-box bg-white p-8 rounded-xl shadow-lg dark:bg-gray-800">
-                <!-- Header -->
-                <div class="flex justify-between items-center border-b pb-6">
+            <div class="p-5 xl:p-8">
+                <div class="mb-9 flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
                     <div>
-                        <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-300">
-                            {{ 'invoice.name'|trans }}
-                        </h1>
-                        <p>
-                            {{ 'invoice.reference'|trans }}
-                            :
-                            <span id="invoice" data-id="{{ invoice.id }}">
-                                {{ invoice.id }}
-                            </span>
-                        </p>
-                    </div>
-                    <div class="text-right">
-                        <h2 class="text-xl font-semibold text-gray-900 dark:text-gray-300">
+                        <span class="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-400">
+                            From
+                        </span>
+
+                        <h5 class="mb-2 font-semibold text-gray-900 dark:text-gray-300">
                             {{ app.user.username }}
-                        </h2>
-                        <p>
+                        </h5>
+
+                        <p class="mb-4 text-sm text-gray-500 dark:text-gray-400">
                             {{ app.user.address }}
                         </p>
-                        <p>
-                            {{ app.user.email }}
-                        </p>
-                    </div>
-                </div>
 
-                <!-- Billing Information -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
-                    <div>
-                        <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-300">
-                            {{ 'invoice.billed'|trans }}
-                        </h3>
-                        <p>
-                            {{ invoice.orderId.customer }}
-                        </p>
-
-                        <p>
-                            {{ invoice.orderId.customerAddress }}
-                        </p>
-                        <p>
-                            City:
-                            <span>
-                                {customer.city}
-                            </span>
-                        </p>
-                        <p>
-                            Postal Code:
-                            <span>
-                                {customer.cp}
-                            </span>
-                        </p>
-                    </div>
-                    <div class="text-right">
-                        <p>
-                            {{ 'invoice.date.invoice'|trans }}
-                            :
-                            <span>
-                                {{ invoice.createdAt|date('d/m/Y') }}
-                            </span>
-                        </p>
-                        <p>
+                        <span class="mb-1.5 block text-sm font-semibold text-gray-700 dark:text-gray-400">
                             {{ 'invoice.date.transaction'|trans }}
                             :
-                            <span>
-                                {{ invoice.createdAt|date('d/m/Y') }}
-                            </span>
+                        </span>
+
+                        <span class="block text-sm text-gray-500 dark:text-gray-400">
+                            {{ invoice.createdAt|date('d/m/Y') }}
+                        </span>
+                    </div>
+
+                    <div class="h-px w-full bg-gray-200 sm:h-[158px] sm:w-px dark:bg-gray-600"></div>
+
+                    <div class="sm:text-right text-gray-700 dark:text-gray-400">
+                        <span class="mb-1 block text-sm ">
+                            {{ 'invoice.billed'|trans }}
+                        </span>
+
+                        <h5 class="mb-2 text-base font-semibold text-gray-900 dark:text-gray-300">
+                            {{ invoice.orderId.customer }}
+                        </h5>
+
+                        <p class="mb-4 text-sm text-gray-500 dark:text-gray-400">
+                            {{ invoice.orderId.customerAddress }}
+
                         </p>
-                        <p>
-                            {{ 'invoice.status'|trans }}
+
+                        <span class="mb-1.5 block text-sm font-semibold text-gray-700 dark:text-gray-400">
+                            {{ 'invoice.date.invoice'|trans }}
                             :
-                            <span class="font-medium">
-                                {{ invoice.status }}
-                            </span>
-                        </p>
+                        </span>
+
+                        <span class="block text-sm text-gray-500 dark:text-gray-400">
+                            {{ invoice.createdAt|date('d/m/Y') }}
+                        </span>
                     </div>
                 </div>
-
-                <!-- Order Items -->
-                <div class="mt-6">
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left">
-                            <thead class="bg-gray-100">
-                                <tr class="font-semibold text-gray-900">
-                                    <th class="py-2 px-4">
+                <!-- Invoice Table Start-->
+                <div>
+                    <div class="overflow-x-auto rounded-xl border border-gray-100 dark:border-gray-800">
+                        <table class="min-w-full text-left text-gray-700 dark:text-gray-400">
+                            <thead class="bg-gray-50 dark:bg-gray-900">
+                                <tr class="border-b border-gray-100 dark:border-gray-800">
+                                    <th class="px-5 py-3 text-sm font-medium whitespace-nowrap text-gray-700 dark:text-gray-400">
+                                        S.No.#
+                                    </th>
+                                    <th class="px-5 py-3 text-xs font-medium whitespace-nowrap text-gray-500 dark:text-gray-400">
                                         Descripción
                                     </th>
-                                    <th class="py-2 px-4 ">
+                                    <th class="px-5 py-3 text-center text-sm font-medium whitespace-nowrap text-gray-700 dark:text-gray-400">
                                         {{ 'field.stock'|trans }}
                                     </th>
-                                    <th class="py-2 px-4 ">
+                                    <th class="px-5 py-3 text-center text-sm font-medium whitespace-nowrap text-gray-700 dark:text-gray-400">
                                         {{ 'field.price'|trans }}
                                     </th>
-                                    <th class="py-2 px-4 text-right">
+
+                                    <th class="px-5 py-3 text-right text-sm font-medium whitespace-nowrap text-gray-700 dark:text-gray-400">
                                         Total
                                     </th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="divide-y divide-gray-100 dark:divide-gray-800">
                                 {% for detail in invoice.orderId.orderDetails %}
-                                    <tr class="border-b">
-                                        <td class="py-2 px-4">
+                                    <tr class="text-gray-700 dark:text-gray-400">
+                                        <td class="px-5 py-3 text-sm whitespace-nowrap ">
+                                            1
+                                        </td>
+                                        <td class="px-5 py-3 text-sm font-medium whitespace-nowrap ">
                                             {{ detail.product.name }}
                                         </td>
-                                        <td class="py-2 px-4">
+                                        <td class="px-5 py-3 text-center text-sm whitespace-nowrap">
                                             {{ detail.quantity }}
                                         </td>
-                                        <td class="py-2 px-4">
+                                        <td class="px-5 py-3 text-center text-sm whitespace-nowrap">
+                                            $
                                             {{ detail.unitPrice }}
-                                            USD
                                         </td>
-                                        <td class="py-2 px-4 text-right">
+
+                                        <td class="px-5 py-3 text-right text-sm">
+                                            $
                                             {{ detail.subtotal }}
-                                            USD
                                         </td>
                                     </tr>
                                 {% endfor %}
@@ -187,113 +180,58 @@
                         </table>
                     </div>
                 </div>
-
-                <!-- Totals -->
-                <div class="mt-6 flex justify-end">
-                    <div class="w-full md:w-1/3">
-                        <div class="space-y-1">
-                            <div class="flex justify-between">
-                                <span>
-                                    Subtotal
+                <!-- Invoice Table End-->
+                <div class="my-6 flex justify-end border-b border-gray-100 pb-6 text-right dark:border-gray-800">
+                    <div class="w-[220px]">
+                        <p class="mb-4 text-left text-sm font-medium text-gray-700 dark:text-gray-400">
+                            Order summary
+                        </p>
+                        <ul class="space-y-2 text-gray-700 dark:text-gray-400">
+                            <li class="flex justify-between gap-5">
+                                <span class="text-sm ">
+                                    Sub Total
                                 </span>
-                                <span>
-                                    {{ invoice.totalAmount }}
-                                    USD
+                                <span class="text-sm font-medium ">
+                                    ${{ invoice.totalAmount }}
                                 </span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span>
-                                    Tax (0%)
+                            </li>
+                            <li class="flex items-center justify-between">
+                                <span class="text-sm ">
+                                    Vat (10%):
                                 </span>
-                                <span>
-                                    {fees} USD
+                                <span class="text-sm font-medium ">
+                                    $385
                                 </span>
-                            </div>
-                            <div class="flex justify-between font-semibold text-lg border-t pt-2">
-                                <span>
+                            </li>
+                            <li class="flex items-center justify-between">
+                                <span class="font-medium ">
                                     Total
                                 </span>
-                                <span>
+                                <span class="text-lg font-semibold ">
+                                    $
                                     {{ invoice.totalAmount }}
-                                    USD
                                 </span>
-                            </div>
-                        </div>
+                            </li>
+                        </ul>
                     </div>
                 </div>
+                <div class="flex items-center justify-end gap-3">
+                    <button @click="downloadPDF()" class="shadow-theme-xs flex items-center justify-center rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-800 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-white/[0.03] dark:hover:text-gray-200">
+                        {{ 'btn.pdf'|trans }}
+                    </button>
 
-                <!-- Payment Information -->
-                <div class="mt-6">
-                    <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-300">
-                        {{ 'invoice.information'|trans }}
-                    </h3>
-                    <div class="mt-2 grid grid-cols-1 md:grid-cols-2 gap-2 ">
-                        <div>
-                            <p>
-                                Transaction ID:
-                                <span>
-                                    {{ invoice.id }}
-                                </span>
-                            </p>
-                            <p>
-                                {{ 'invoice.payment.amount'|trans }}
-                                :
-                                <span>
-                                    {{ invoice.totalAmount }}
-                                    USD
-                                </span>
-                            </p>
-                            <p>
-                                {{ 'invoice.payment.method'|trans }}
-                                :
-                                <span>
-                                    Zelle
-                                </span>
-                            </p>
-                        </div>
-                        <div>
-                            <p>
-                                {{ 'invoice.date.transaction'|trans }}
-                                :
-                                <span>
-                                    {{ invoice.createdAt|date('d/m/Y') }}
-                                </span>
-                            </p>
-                            <p>
-                                {{ 'invoice.status'|trans }}
-                                :
-                                <span class="font-medium uppercase">
-                                    {{ invoice.status }}
-                                </span>
-                            </p>
-                        </div>
-                    </div>
+                    <button @click="window.print()" class="bg-blue-600 shadow-theme-xs hover:bg-brand-600 flex items-center justify-center gap-2 rounded-lg px-4 py-3 text-sm font-medium text-white">
+                        <svg class="fill-current" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M6.99578 4.08398C6.58156 4.08398 6.24578 4.41977 6.24578 4.83398V6.36733H13.7542V5.62451C13.7542 5.42154 13.672 5.22724 13.5262 5.08598L12.7107 4.29545C12.5707 4.15983 12.3835 4.08398 12.1887 4.08398H6.99578ZM15.2542 6.36902V5.62451C15.2542 5.01561 15.0074 4.43271 14.5702 4.00891L13.7547 3.21839C13.3349 2.81151 12.7733 2.58398 12.1887 2.58398H6.99578C5.75314 2.58398 4.74578 3.59134 4.74578 4.83398V6.36902C3.54391 6.41522 2.58374 7.40415 2.58374 8.61733V11.3827C2.58374 12.5959 3.54382 13.5848 4.74561 13.631V15.1665C4.74561 16.4091 5.75297 17.4165 6.99561 17.4165H13.0041C14.2467 17.4165 15.2541 16.4091 15.2541 15.1665V13.6311C16.456 13.585 17.4163 12.596 17.4163 11.3827V8.61733C17.4163 7.40414 16.4561 6.41521 15.2542 6.36902ZM4.74561 11.6217V12.1276C4.37292 12.084 4.08374 11.7671 4.08374 11.3827V8.61733C4.08374 8.20312 4.41953 7.86733 4.83374 7.86733H15.1663C15.5805 7.86733 15.9163 8.20312 15.9163 8.61733V11.3827C15.9163 11.7673 15.6269 12.0842 15.2541 12.1277V11.6217C15.2541 11.2075 14.9183 10.8717 14.5041 10.8717H5.49561C5.08139 10.8717 4.74561 11.2075 4.74561 11.6217ZM6.24561 12.3717V15.1665C6.24561 15.5807 6.58139 15.9165 6.99561 15.9165H13.0041C13.4183 15.9165 13.7541 15.5807 13.7541 15.1665V12.3717H6.24561Z" fill=""></path>
+                        </svg>
+                        {{ 'btn.print'|trans }}
+                    </button>
                 </div>
-
-                <!-- Footer -->
-                <div class="mt-6 text-center">
-                    <p>
-                        {{ 'invoice.greeting.first'|trans }}
-                    </p>
-                    <p>
-                        {{ 'invoice.greeting.second'|trans }}
-                    </p>
-                </div>
-            </div>
-
-            <!-- Actions -->
-            <div class="flex justify-center gap-4 no-print">
-                <button @click="window.print()" class="bg-indigo-600 text-white px-6 py-2 rounded-md hover:bg-indigo-700 transition duration-300">
-                    {{ 'btn.print'|trans }}
-                </button>
-                <button @click="downloadPDF()" class="bg-gray-600 text-white px-6 py-2 rounded-md hover:bg-gray-700 transition duration-300">
-                    {{ 'btn.pdf'|trans }}
-                </button>
             </div>
         </div>
-    </div>
 
-{% endblock %}
-{% block javascripts_botton %}
-    <script src="{{ asset('js/invoice.js') }}"></script>
-{% endblock %}
+    {% endblock %}
+    {% block javascripts_botton %}
+        <script src="{{ asset('js/invoice.js') }}"></script>
+    {% endblock %}
+    

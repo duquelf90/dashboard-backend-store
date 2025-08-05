@@ -1,5 +1,15 @@
 {% import 'components/Icons.html.twig' as icon %}
 
 <div{{ attributes }}>
-    {{ include('components/StatsCard.html.twig', {'icon':icon.ProductIcon(),'title': 'Productos','number': this.getCount,'class':'text-blue-500 bg-blue-100 dark:text-blue-100 dark:bg-blue-500' }) }}
+    {% set iconType = icon.ProductIcon() %}
+    {% set title = 'Productos' %}
+    {% set class = 'text-blue-500 bg-blue-100 dark:text-blue-100 dark:bg-blue-500' %}
+
+    {% if is_granted('ROLE_ADMIN') %}
+        {% set number = this.getCount %}
+    {% else %}
+        {% set number = this.getCountByUser %}
+    {% endif %}
+
+    {{ include('components/StatsCard.html.twig', {'router':path('app_product_index'),'icon': iconType, 'title': title, 'number': number, 'class': class }) }}
 </div>

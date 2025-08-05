@@ -9,6 +9,7 @@ use App\Entity\User;
 use App\Repository\CategoryRepository;
 use App\Repository\ProductRepository;
 use App\Service\InvoiceService;
+use App\Service\NotificationService;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -49,8 +50,13 @@ final class ApiController extends AbstractController
 
     #[Route(path: '/create/order', name: 'api_order_create', methods: ['POST'])]
 
-    public function createOrder(Request $request, EntityManagerInterface $entityManager, SerializerInterface $serializer, InvoiceService $invoiceService, ProductRepository $productRepository): JsonResponse
-    {
+    public function createOrder(
+        Request $request,
+        EntityManagerInterface $entityManager,
+        InvoiceService $invoiceService,
+        ProductRepository $productRepository,
+        NotificationService $notificationService,
+    ): JsonResponse {
         $data = json_decode($request->getContent(), true);
         // Datos ficticios para el cliente
         $customer = $data['cliente']['nombre'] ?? 'John Doe';
@@ -79,6 +85,8 @@ final class ApiController extends AbstractController
         $entityManager->persist($order);
         $entityManager->flush();
         $invoiceService($order);
+        $notificationService($order, $product->getUser());
+
 
         return $this->json(['mensaje' => 'Orden creada exitosamente', 'orden' => $order], 201, [], ['groups' => ['order:full']]);
     }

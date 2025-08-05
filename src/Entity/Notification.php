@@ -26,6 +26,13 @@ class Notification
     #[ORM\Column]
     private ?bool $isRead = null;
 
+    public function __construct(?User $user, string $message)
+    {
+        $this->user = $user;
+        $this->message = $message;
+        $this->isRead = false; // Inicializar como no leído
+    }
+
     public function getId(): ?int
     {
         return $this->id;
