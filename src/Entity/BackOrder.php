@@ -6,8 +6,10 @@ use App\Repository\BackOrderRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: BackOrderRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class BackOrder
 {
+    use Timestamp;
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]

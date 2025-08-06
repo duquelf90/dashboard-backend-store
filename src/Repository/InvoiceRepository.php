@@ -21,4 +21,13 @@ class InvoiceRepository extends ServiceEntityRepository
         return 0;
         // return $this->count(['user' => $user]);
     }
+    public function findInvoicesByBusinessId($businessId)
+    {
+        return $this->createQueryBuilder('i')
+            ->join('i.orderId', 'o')
+            ->where('o.business = :business')
+            ->setParameter('business', $businessId)
+            ->getQuery()
+            ->getResult();
+    }
 }

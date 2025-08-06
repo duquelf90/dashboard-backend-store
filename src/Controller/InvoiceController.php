@@ -5,27 +5,31 @@ namespace App\Controller;
 use App\Entity\BackOrder;
 use App\Entity\Invoice;
 use App\Entity\Order;
+use App\Entity\User;
 use App\Form\InvoiceType;
 use App\Repository\InvoiceRepository;
+use App\Service\InvoiceService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\CurrentUser;
 
 #[Route('/invoice')]
 final class InvoiceController extends AbstractController
 {
     #[Route(name: 'app_invoice_index', methods: ['GET'])]
-    public function index(InvoiceRepository $invoiceRepository): Response
+    public function index(InvoiceRepository $invoiceRepository,#[CurrentUser] User $user): Response
     {
+        $invoices = $invoiceRepository->findInvoicesByBusinessId($user);
         return $this->render('invoice/index.html.twig', [
-            'invoices' => $invoiceRepository->findAll(),
+            'invoices' => $invoices,
         ]);
     }
 
     #[Route('/new', name: 'app_invoice_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, InvoiceService $invoiceService,#[CurrentUser] User $user ): Response
     {
         $invoice = new Invoice();
         $form = $this->createForm(InvoiceType::class, $invoice);
@@ -38,7 +42,6 @@ final class InvoiceController extends AbstractController
             $email = $form->get('email')->getData();
             $phone = $form->get('phone')->getData();
             $address = $form->get('address')->getData();
-            $description = $form->get('description')->getData();
 
             $order = new Order($customer, $email, $phone, $address, 'pendiente');
             $total = 0;
@@ -46,44 +49,30 @@ final class InvoiceController extends AbstractController
             // Obtener el JSON de productos
             $productsJson = $request->request->get('products');
             $products = json_decode($productsJson, true);
-            // Crear un array de respuesta
-            $responseData = [
-                'invoice' => [
-                    'invoice' => $invoice,  // Asegúrate de tener un método getter
-                    'customer' => $customer,
-                    'email' => $email,
-                    'phone' => $phone,
-                    'address' => $address,
-                    'description' => $description,
-                ],
-                'products' => $products,
-                'status' => 'success',
-            ];
+
 
             // Procesar la información como desees (guardar en base de datos, etc.)
             foreach ($products as $product) {
-                // Aquí puedes crear una entidad de producto y persistirla
+                $subtotal = $product['price'] * $product['quantity'];
                 $newProduct = new BackOrder();
+                $newProduct->setOrderId($order);
                 $newProduct->setProduct($product['name']);
                 $newProduct->setUnitPrice($product['price']);
                 $newProduct->setQuantity($product['quantity']);
+                $newProduct->setSubtotal($subtotal);
 
-                $subtotal = $product['price'] * $product['quantity'];
-                $newProduct->setSubtotal($product['subtotal']);
                 $total += $subtotal;
-
                 $entityManager->persist($newProduct);
             }
 
-            // $order->setBusiness($product->getUser());
+            $order->setBusiness($user);
             $order->setTotal(total: $total);
 
             $entityManager->persist($order);
             $entityManager->flush();
-            
-            return $this->json($responseData);
+            $invoiceService($order);
 
-            // return $this->redirectToRoute('app_invoice_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_invoice_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('invoice/new.html.twig', [
