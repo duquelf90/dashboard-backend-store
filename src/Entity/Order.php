@@ -55,6 +55,12 @@ class Order
     #[Groups(groups: ['order:full'])]
     private ?string $customer_address = null;
 
+    /**
+     * @var Collection<int, BackOrder>
+     */
+    #[ORM\OneToMany(targetEntity: BackOrder::class, mappedBy: 'orderId')]
+    private Collection $backOrders;
+
     public function __construct(
         string $customer,
         string $customer_email,
@@ -69,6 +75,7 @@ class Order
         $this->setCustomerAddress($customer_address);
         $this->setStatus($status);
         $this->orderDetails = new ArrayCollection();
+        $this->backOrders = new ArrayCollection();
     }
 
 
@@ -187,6 +194,36 @@ class Order
     public function setCustomerAddress(string $customer_address): static
     {
         $this->customer_address = $customer_address;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, BackOrder>
+     */
+    public function getBackOrders(): Collection
+    {
+        return $this->backOrders;
+    }
+
+    public function addBackOrder(BackOrder $backOrder): static
+    {
+        if (!$this->backOrders->contains($backOrder)) {
+            $this->backOrders->add($backOrder);
+            $backOrder->setOrderId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBackOrder(BackOrder $backOrder): static
+    {
+        if ($this->backOrders->removeElement($backOrder)) {
+            // set the owning side to null (unless already changed)
+            if ($backOrder->getOrderId() === $this) {
+                $backOrder->setOrderId(null);
+            }
+        }
 
         return $this;
     }

@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\BackOrder;
 use App\Entity\Invoice;
+use App\Entity\Order;
 use App\Form\InvoiceType;
 use App\Repository\InvoiceRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -32,13 +34,15 @@ final class InvoiceController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $invoice = $form->get('invoice')->getData();
-            $customerName = $form->get('customer')->getData();
+            $customer = $form->get('customer')->getData();
             $email = $form->get('email')->getData();
             $phone = $form->get('phone')->getData();
             $address = $form->get('address')->getData();
             $description = $form->get('description')->getData();
 
-            // $order = new Order($customer, $email, $customer_phone, $customer_address, 'pendiente');
+            $order = new Order($customer, $email, $phone, $address, 'pendiente');
+            $total = 0;
+
             // Obtener el JSON de productos
             $productsJson = $request->request->get('products');
             $products = json_decode($productsJson, true);
@@ -46,7 +50,7 @@ final class InvoiceController extends AbstractController
             $responseData = [
                 'invoice' => [
                     'invoice' => $invoice,  // Asegúrate de tener un método getter
-                    'customer' => $customerName,
+                    'customer' => $customer,
                     'email' => $email,
                     'phone' => $phone,
                     'address' => $address,
@@ -54,22 +58,29 @@ final class InvoiceController extends AbstractController
                 ],
                 'products' => $products,
                 'status' => 'success',
-            ];            
+            ];
 
             // Procesar la información como desees (guardar en base de datos, etc.)
             foreach ($products as $product) {
                 // Aquí puedes crear una entidad de producto y persistirla
-                // $newProduct = new Product();
-                // $newProduct->setName($product['name']);
-                // $newProduct->setPrice($product['price']);
-                // $newProduct->setQuantity($product['quantity']);
-                // $entityManager->persist($newProduct);
+                $newProduct = new BackOrder();
+                $newProduct->setProduct($product['name']);
+                $newProduct->setUnitPrice($product['price']);
+                $newProduct->setQuantity($product['quantity']);
+
+                $subtotal = $product['price'] * $product['quantity'];
+                $newProduct->setSubtotal($product['subtotal']);
+                $total += $subtotal;
+
+                $entityManager->persist($newProduct);
             }
 
+            // $order->setBusiness($product->getUser());
+            $order->setTotal(total: $total);
 
-
-            // $entityManager->persist($invoice);
-            // $entityManager->flush();
+            $entityManager->persist($order);
+            $entityManager->flush();
+            
             return $this->json($responseData);
 
             // return $this->redirectToRoute('app_invoice_index', [], Response::HTTP_SEE_OTHER);
