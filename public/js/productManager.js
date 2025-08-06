@@ -2,15 +2,19 @@ document.addEventListener('alpine:init', () => {
     Alpine.data('productManager', () => ({
         form: {
             name: '',
-            price: 0,
+            price: 1,
             quantity: 1
         },
         products: [],
         addProduct() {
+            if (this.form.price < 1) {
+                alert('El precio debe ser al menos 1.');
+                return;
+            }
             this.products.push({ ...this.form });
             console.log('Productos actuales:', this.products);
             this.form.name = '';
-            this.form.price = 0;
+            this.form.price = 1;
             this.form.quantity = 1;
         },
         removeProduct(index) {

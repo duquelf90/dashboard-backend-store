@@ -1,8 +1,15 @@
 {% extends 'base.html.twig' %}
+{% import 'components/button/index.html.twig' as buttons %}
 
-{% block title %}New Invoice{% endblock %}
+{% block title %}
+    New Invoice
+{% endblock %}
 
-{% block body %}    
+{% block body %}
+    <div class="flex items-center justify-between">
+        {{ include('components/title.html.twig', {'txt_label': 'Nueva Factura'}) }}
+        {{ buttons.button_back(path('app_invoice_index')) }}
+    </div>
     {{ include('invoice/_form.html.twig', {'button_label': 'Nuevo'}) }}
 {% endblock %}
 

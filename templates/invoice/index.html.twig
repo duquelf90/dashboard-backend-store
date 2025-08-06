@@ -41,22 +41,25 @@
                                 <div class="flex text-sm">
                                     <div class="relative hidden w-12 h-12 md:block">
                                         {{ icon.PDFIcon() }}
-                                        </div>
-                                        <div class="font-semibold">
-                                            Invoice #{{ invoice.id }}                                           
-                                        </div>
                                     </div>
+                                    <div class="font-semibold">
+                                        Invoice #
+                                        {{ invoice.id }}
+                                    </div>
+                                </div>
                             </td>
-                            
+
                             <td class="px-4 py-3">
                                 {{ invoice.createdAt ? invoice.createdAt|date('F d, Y') : '' }}
                             </td>
                             <td class="px-4 py-3">
-                                ${{ invoice.totalAmount }}
+                                $
+                                {{ invoice.totalAmount }}
                             </td>
                             <td class="px-4 py-3 text-xs uppercase">
                                 <span class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
-                                {{ invoice.status }}</span>
+                                    {{ invoice.status }}
+                                </span>
                             </td>
                             <td class="px-4 py-3 text-center">
                                 <div class="flex items-center justify-center text-sm">

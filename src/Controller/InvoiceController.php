@@ -31,14 +31,31 @@ final class InvoiceController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $data = $form->getData();
-            
+            $invoice = $form->get('invoice')->getData();
+            $customerName = $form->get('customer')->getData();
+            $email = $form->get('email')->getData();
+            $phone = $form->get('phone')->getData();
+            $address = $form->get('address')->getData();
+            $description = $form->get('description')->getData();
+
             // $order = new Order($customer, $email, $customer_phone, $customer_address, 'pendiente');
-
-
             // Obtener el JSON de productos
             $productsJson = $request->request->get('products');
             $products = json_decode($productsJson, true);
+            // Crear un array de respuesta
+            $responseData = [
+                'invoice' => [
+                    'invoice' => $invoice,  // Asegúrate de tener un método getter
+                    'customer' => $customerName,
+                    'email' => $email,
+                    'phone' => $phone,
+                    'address' => $address,
+                    'description' => $description,
+                ],
+                'products' => $products,
+                'status' => 'success',
+            ];            
+
             // Procesar la información como desees (guardar en base de datos, etc.)
             foreach ($products as $product) {
                 // Aquí puedes crear una entidad de producto y persistirla
@@ -51,10 +68,11 @@ final class InvoiceController extends AbstractController
 
 
 
-            $entityManager->persist($invoice);
-            $entityManager->flush();
+            // $entityManager->persist($invoice);
+            // $entityManager->flush();
+            return $this->json($responseData);
 
-            return $this->redirectToRoute('app_invoice_index', [], Response::HTTP_SEE_OTHER);
+            // return $this->redirectToRoute('app_invoice_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('invoice/new.html.twig', [
@@ -92,7 +110,7 @@ final class InvoiceController extends AbstractController
     #[Route('/{id}', name: 'app_invoice_delete', methods: ['POST'])]
     public function delete(Request $request, Invoice $invoice, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$invoice->getId(), $request->getPayload()->getString('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $invoice->getId(), $request->getPayload()->getString('_token'))) {
             $entityManager->remove($invoice);
             $entityManager->flush();
         }
