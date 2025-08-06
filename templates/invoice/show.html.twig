@@ -154,10 +154,11 @@
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-100 dark:divide-gray-800">
+                                {% if not invoice.orderId.orderDetails is empty %}
                                 {% for detail in invoice.orderId.orderDetails %}
                                     <tr class="text-gray-700 dark:text-gray-400">
                                         <td class="px-5 py-3 text-sm whitespace-nowrap ">
-                                            1
+                                            {{ detail.id }}
                                         </td>
                                         <td class="px-5 py-3 text-sm font-medium whitespace-nowrap ">
                                             {{ detail.product.name }}
@@ -176,6 +177,30 @@
                                         </td>
                                     </tr>
                                 {% endfor %}
+                            {% elseif invoice.orderId.backOrders is not empty %}
+                                {% for backOrder in invoice.orderId.backOrders %}
+                                    <tr class="text-gray-700 dark:text-gray-400">
+                                        <td class="px-5 py-3 text-sm whitespace-nowrap ">
+                                            {{ backOrder.id }}
+                                        </td>
+                                        <td class="px-5 py-3 text-sm font-medium whitespace-nowrap ">
+                                            {{ backOrder.product }}
+                                        </td>
+                                        <td class="px-5 py-3 text-center text-sm whitespace-nowrap">
+                                            {{ backOrder.quantity }}
+                                        </td>
+                                        <td class="px-5 py-3 text-center text-sm whitespace-nowrap">
+                                            $
+                                            {{ backOrder.unitPrice }}
+                                        </td>
+
+                                        <td class="px-5 py-3 text-right text-sm">
+                                            $
+                                            {{ backOrder.subtotal }}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            {% endif %}
                             </tbody>
                         </table>
                     </div>
