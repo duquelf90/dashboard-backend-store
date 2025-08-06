@@ -63,6 +63,7 @@ final class ApiController extends AbstractController
         $email = $data['cliente']['correo'] ?? 'john.doe@example.com';
         $customer_phone = $data['cliente']['telefono'] ?? '123456789';
         $customer_address = $data['cliente']['direccion'] ?? '123 Main St';
+        
         // pasar el id del negocio o mejor jalarlo del producto pero mejor que venga desde el store
         $order = new Order($customer, $email, $customer_phone, $customer_address, 'pendiente');
         $total = 0;

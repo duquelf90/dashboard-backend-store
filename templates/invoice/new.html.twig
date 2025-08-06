@@ -5,3 +5,7 @@
 {% block body %}    
     {{ include('invoice/_form.html.twig', {'button_label': 'Nuevo'}) }}
 {% endblock %}
+
+{% block javascripts_botton %}
+    <script src="{{ asset('js/productManager.js') }}"></script>
+{% endblock %}

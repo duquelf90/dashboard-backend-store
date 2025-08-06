@@ -1,0 +1,28 @@
+<table class="min-w-full text-left text-sm text-gray-700 dark:border-gray-800 mt-5">
+    <thead class="bg-gray-50 dark:bg-gray-900">
+        <tr class="border-b border-gray-100 whitespace-nowrap dark:border-gray-800">
+            <th class="px-5 py-4 text-sm font-semibold whitespace-nowrap text-gray-700 dark:text-gray-400">
+                Nombre
+            </th>
+            <th class="px-5 py-4 text-sm font-semibold whitespace-nowrap text-gray-700 dark:text-gray-400">
+                Precio
+            </th>
+            <th class="px-5 py-4 text-sm font-semibold whitespace-nowrap text-gray-700 dark:text-gray-400">
+                Cantidad
+            </th>
+            <th class="px-5 py-4 text-sm font-semibold whitespace-nowrap text-gray-700 dark:text-gray-400">Acciones</th>
+        </tr>
+    </thead>
+    <tbody class="divide-y divide-gray-100 bg-white dark:divide-gray-800 dark:bg-white/[0.03]">
+        <template x-for="(product, index) in products" :key="index">
+            <tr class="border-b dark:border-gray-700">
+                <td class="px-6 py-4 font-semibold" x-text="product.name"></td>
+                <td class="px-6 py-4" x-text="'$' + product.price"></td>
+                <td class="px-6 py-4" x-text="product.quantity"></td>
+                <td class="px-6 py-4">
+                    <button @click.prevent="removeProduct(product.id)" class="text-red-500 hover:text-red-700">Eliminar</button>
+                </td>
+            </tr>
+        </template>
+    </tbody>
+</table>

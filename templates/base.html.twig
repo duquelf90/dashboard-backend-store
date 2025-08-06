@@ -80,14 +80,14 @@
                         {{ message }}
                     </div>
                 {% endfor %}
-                <main class="h-full overflow-y-auto pb-16">
+                <main class="h-full overflow-y-auto">
                     <div class="container px-6 mx-auto grid">
                         {% block body %}{% endblock %}
                     </div>
                 </main>
             </div>
         </div>
-
+{% block javascripts_botton %}{% endblock %}
     </body>
-    {% block javascripts_botton %}{% endblock %}
+    
 </html>

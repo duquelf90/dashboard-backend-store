@@ -30,6 +30,27 @@ final class InvoiceController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $data = $form->getData();
+            
+            // $order = new Order($customer, $email, $customer_phone, $customer_address, 'pendiente');
+
+
+            // Obtener el JSON de productos
+            $productsJson = $request->request->get('products');
+            $products = json_decode($productsJson, true);
+            // Procesar la información como desees (guardar en base de datos, etc.)
+            foreach ($products as $product) {
+                // Aquí puedes crear una entidad de producto y persistirla
+                // $newProduct = new Product();
+                // $newProduct->setName($product['name']);
+                // $newProduct->setPrice($product['price']);
+                // $newProduct->setQuantity($product['quantity']);
+                // $entityManager->persist($newProduct);
+            }
+
+
+
             $entityManager->persist($invoice);
             $entityManager->flush();
 
