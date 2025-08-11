@@ -9,6 +9,11 @@ menu:
   profile: Profile
   order: Orders
 
+title:
+  products: Products List
+  orders: Orders List
+  invoice: Invoices list 
+  
 # Card
 card:
   orders: Sales
@@ -48,6 +53,12 @@ field:
   action: Actions
   notFound: No results found
 
+#order
+order:
+  customer: customer
+  phone: phone
+  address: address
+
 # INVOICE
 invoice:
   name: Invoice
@@ -64,6 +75,7 @@ invoice:
   greeting:
     first: Thank you for your purchase!
     second: If you have any questions, contact us at support@yourstore.com
+
 
 # Login
 login:

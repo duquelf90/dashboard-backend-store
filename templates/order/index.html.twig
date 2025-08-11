@@ -3,7 +3,7 @@
 {% import 'components/Icons.html.twig' as icon %}
 
 {% block title %}
-    Order index
+    {{ 'title.orders'|trans }}
 {% endblock %}
 
 {% block body %}
@@ -18,26 +18,26 @@
                     <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
 
                         <th class="px-4 py-3">
-                            Customer
+                            {{ 'order.customer'|trans }}
                         </th>
                         <th class="px-4 py-3">
-                            CreatedAt
+                            {{ 'field.date'|trans }}
                         </th>
                         <th class="px-4 py-3">
                             Total
                         </th>
                         <th class="px-4 py-3">
-                            Status
+                            {{ 'field.status'|trans }}
                         </th>
                         <th class="px-4 py-3">
-                            Customer_phone
+                            {{ 'order.phone'|trans }}
                         </th>
                         <th class="px-4 py-3">
-                            Customer_address
+                            {{ 'order.address'|trans }}
                         </th>
 
                         <th class="px-4 py-3 text-center">
-                            actions
+                            {{ 'field.action'|trans }}
                         </th>
                     </tr>
                 </thead>
@@ -48,51 +48,54 @@
                                 <div class="flex items-center text-sm">
                                     <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
                                         {{ icon.OrderIcon() }}
-                                        </div>
-                                        <div>
-                                            <p class="font-semibold">
-                                                {{ order.customer }}
-                                            </p>
-                                            <p class="text-xs text-gray-600 dark:text-gray-400">
-                                                {{ order.customerEmail }}
-                                            </p>
-                                        </div>
                                     </div>
-                                </td>
-                                <td>
-                                    {{ order.createdAt ? order.createdAt|date('F d, Y') : '' }}
-                                </td>
-                                <td class="px-4 py-3">
-                                    ${{ order.total }}
-                                </td>
-                                <td class="px-4 py-3">
+                                    <div>
+                                        <p class="font-semibold">
+                                            {{ order.customer }}
+                                        </p>
+                                        <p class="text-xs text-gray-600 dark:text-gray-400">
+                                            {{ order.customerEmail }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                {{ order.createdAt ? order.createdAt|date('F d, Y') : '' }}
+                            </td>
+                            <td class="px-4 py-3">
+                                $
+                                {{ order.total }}
+                            </td>
+                            <td class="px-4 py-3">
+                                <span class="px-2 py-1 font-semibold text-sm leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100 uppercase">
+
                                     {{ order.status }}
-                                </td>
-                                <td class="px-4 py-3">
-                                    {{ order.customerPhone }}
-                                </td>
-                                <td class="px-4 py-3">
-                                    {{ order.customerAddress }}
-                                </td>
-                                <td class="px-4 py-3 text-center">
-                                    <div class="flex items-center justify-center text-sm">
-                                        {{ buttons.button_show( path('app_order_show', {'id': order.id})) }}
-                                        {{ buttons.button_delete( path('app_order_delete', {'id': order.id}), order.id) }}
-                                    </div>
-                                </td>
+                                </span>
+                            </td>
+                            <td class="px-4 py-3">
+                                {{ order.customerPhone }}
+                            </td>
+                            <td class="px-4 py-3">
+                                {{ order.customerAddress }}
+                            </td>
+                            <td class="px-4 py-3 text-center">
+                                <div class="flex items-center justify-center text-sm">
+                                    {{ buttons.button_show( path('app_order_show', {'id': order.id})) }}
+                                    {{ buttons.button_delete( path('app_order_delete', {'id': order.id}), order.id) }}
+                                </div>
+                            </td>
 
-                            </tr>
-                        {% else %}
-                            <tr>
-                                <td colspan="9">
-                                    no records found
-                                </td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="9">
+                                no records found
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
 
-            </div>
         </div>
-    {% endblock %}
-    
+    </div>
+{% endblock %}

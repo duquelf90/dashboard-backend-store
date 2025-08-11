@@ -20,7 +20,7 @@ use Symfony\Component\Security\Http\Attribute\CurrentUser;
 final class InvoiceController extends AbstractController
 {
     #[Route(name: 'app_invoice_index', methods: ['GET'])]
-    public function index(InvoiceRepository $invoiceRepository,#[CurrentUser] User $user): Response
+    public function index(InvoiceRepository $invoiceRepository, #[CurrentUser] User $user): Response
     {
         $invoices = $invoiceRepository->findInvoicesByBusiness($user);
         return $this->render('invoice/index.html.twig', [
@@ -29,7 +29,7 @@ final class InvoiceController extends AbstractController
     }
 
     #[Route('/new', name: 'app_invoice_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, InvoiceService $invoiceService,#[CurrentUser] User $user ): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, InvoiceService $invoiceService, #[CurrentUser] User $user): Response
     {
         $invoice = new Invoice();
         $form = $this->createForm(InvoiceType::class, $invoice);
@@ -38,12 +38,31 @@ final class InvoiceController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $invoice = $form->get('invoice')->getData();
-            $customer = $form->get('customer')->getData();
+            $customer_phone = $form->get('customer')->getData();
             $email = $form->get('email')->getData();
             $phone = $form->get('phone')->getData();
-            $address = $form->get('address')->getData();
+            $customer_address = $form->get('address')->getData();
 
-            $order = new Order($customer, $email, $phone, $address, 'pendiente');
+            $recipient = $form->get('recipient')->getData() ?? null;
+            $recipient_phone = $form->get('recipient_phone')->getData() ?? null;
+            $recipient_address = $form->get('recipient_address')->getData() ?? null;
+            $recipient_province = $form->get('province')->getData() ?? null;
+            $notes = $form->get('notes')->getData() ?? null;
+
+
+            $order = new Order(
+                $invoice,
+                $email,
+                $customer_phone,
+                $customer_address,
+                'pendiente',
+                $recipient,
+                $recipient_phone,
+                $recipient_address,
+                $recipient_province,
+                $notes
+            );
+
             $total = 0;
 
             // Obtener el JSON de productos

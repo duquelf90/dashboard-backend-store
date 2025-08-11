@@ -19,7 +19,6 @@ final class InvoiceService
         $factura->setTotalAmount($order->getTotal());
         $factura->setStatus('pendiente');
         $this->entityManager->persist($factura);
-        $order->setStatus('facturada');
         $this->entityManager->flush();
 
         return $factura;

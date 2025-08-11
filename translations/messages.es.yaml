@@ -9,6 +9,10 @@ menu:
   profile: Perfil
   order: Pedidos
 
+title:
+  products: Lista de productos
+  orders: Lista de pedidos
+  invoice: Lista de facturas 
 # CARDS
 card:
   orders: Pedidos
@@ -70,3 +74,9 @@ login:
   title: Panel de Administración
   msg: Acceso al panel de administración 
   btn: Entrar
+
+#order
+order:
+  customer: cliente
+  phone: telefono
+  address: dirección
