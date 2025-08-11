@@ -12,7 +12,10 @@ menu:
 title:
   products: Lista de productos
   orders: Lista de pedidos
-  invoice: Lista de facturas 
+  invoice: Lista de facturas
+  category: Lista de categorias 
+  user: Lista de usuarios
+
 # CARDS
 card:
   orders: Pedidos
