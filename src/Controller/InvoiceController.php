@@ -8,6 +8,7 @@ use App\Entity\Order;
 use App\Entity\User;
 use App\Form\InvoiceType;
 use App\Repository\InvoiceRepository;
+use App\Service\Invoice\CreateInvoice;
 use App\Service\InvoiceService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -29,7 +30,7 @@ final class InvoiceController extends AbstractController
     }
 
     #[Route('/new', name: 'app_invoice_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, InvoiceService $invoiceService, #[CurrentUser] User $user): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, CreateInvoice $createInvoice, #[CurrentUser] User $user): Response
     {
         $invoice = new Invoice();
         $form = $this->createForm(InvoiceType::class, $invoice);
@@ -89,7 +90,7 @@ final class InvoiceController extends AbstractController
 
             $entityManager->persist($order);
             $entityManager->flush();
-            $invoiceService($order);
+            $createInvoice($order);
 
             return $this->redirectToRoute('app_invoice_index', [], Response::HTTP_SEE_OTHER);
         }

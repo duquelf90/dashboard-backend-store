@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Service;
+namespace App\Service\Invoice;
 
 use App\Entity\Invoice;
 use App\Entity\Order;
 use Doctrine\ORM\EntityManagerInterface;
 
-final class InvoiceService
+final class CreateInvoice
 {
     public function __construct(private readonly EntityManagerInterface $entityManager)
     {
@@ -15,7 +15,7 @@ final class InvoiceService
     {
 
         $factura = new Invoice();
-        $factura->setOrderId($order);
+        $factura->setOrder($order);
         $factura->setTotalAmount($order->getTotal());
         $factura->setStatus('pendiente');
         $this->entityManager->persist($factura);

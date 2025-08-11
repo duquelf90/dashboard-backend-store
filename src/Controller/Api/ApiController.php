@@ -6,7 +6,7 @@ use App\Entity\Order;
 use App\Entity\OrderDetail;
 use App\Repository\CategoryRepository;
 use App\Repository\ProductRepository;
-use App\Service\InvoiceService;
+use App\Service\Invoice\CreateInvoice;
 use App\Service\NotificationService;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -29,10 +29,31 @@ final class ApiController extends AbstractController
             $request->query->getInt('page', 1),
             10
         );
-        $data = $serializer->serialize($pagination->getItems(), 'json', ['groups' => ['product_list']]);
+        $baseUrl = $request->getSchemeAndHttpHost();
+        $products = [];
+
+        foreach ($pagination->getItems() as $product) {
+            $productData = $serializer->normalize($product, null, ['groups' => ['product_list']]);
+
+            $images = $product->getImages()->toArray();
+
+            if (!empty($images)) {
+                $productData['images'] = array_map(function ($image) use ($baseUrl) {
+                    return $baseUrl . '/uploads/product_images/' . $image; // Ajusta la ruta a tu estructura
+                }, $images);
+                $productData['thumbnail'] = $baseUrl . '/uploads/product_images/' . $images[0]; // Primer elemento de images
+            } else {
+                $productData['images'] = []; // Manejar el caso en que no haya imágenes
+                $productData['thumbnail'] = null; // O un valor por defecto
+            }
+
+            $products[] = $productData;
+        }
+
+        // $data = $serializer->serialize($pagination->getItems(), 'json', ['groups' => ['product_list']]);
 
         return $this->json([
-            'products' => json_decode($data),
+            'products' => $products,
             'total' => $pagination->getTotalItemCount(),
             'page' => $pagination->getCurrentPageNumber(),
             'limit' => $pagination->getItemNumberPerPage(),
@@ -51,7 +72,7 @@ final class ApiController extends AbstractController
     public function createOrder(
         Request $request,
         EntityManagerInterface $entityManager,
-        InvoiceService $invoiceService,
+        CreateInvoice $createInvoice,
         ProductRepository $productRepository,
         NotificationService $notificationService,
     ): JsonResponse {
@@ -103,7 +124,7 @@ final class ApiController extends AbstractController
         $order->setTotal($total);
         $entityManager->persist($order);
         $entityManager->flush();
-        $invoiceService($order);
+        $createInvoice($order);
         $notificationService($order, $product->getUser());
 
 

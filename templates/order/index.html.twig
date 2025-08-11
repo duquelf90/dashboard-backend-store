@@ -87,11 +87,7 @@
 
                         </tr>
                     {% else %}
-                        <tr>
-                            <td colspan="9">
-                                no records found
-                            </td>
-                        </tr>
+                        {{ include('components/NotFound.html.twig',{'colum': '7'}) }}
                     {% endfor %}
                 </tbody>
             </table>

@@ -18,7 +18,7 @@ class Invoice
     private ?int $id = null;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    private ?Order $orderId = null;
+    private ?Order $order = null;
 
     #[ORM\Column]
     private ?float $total_amount = null;
@@ -31,14 +31,14 @@ class Invoice
         return $this->id;
     }
 
-    public function getOrderId(): ?Order
+    public function getOrder(): ?Order
     {
-        return $this->orderId;
+        return $this->order;
     }
 
-    public function setOrderId(?Order $orderId): static
+    public function setOrder(?Order $order): static
     {
-        $this->orderId = $orderId;
+        $this->order = $order;
 
         return $this;
     }

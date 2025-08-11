@@ -23,7 +23,7 @@ class InvoiceRepository extends ServiceEntityRepository
     public function findInvoicesByBusiness($businessId)
     {
         return $this->createQueryBuilder('i')
-            ->join('i.orderId', 'o')
+            ->join('i.order', 'o')
             ->where('o.business = :business')
             ->setParameter('business', $businessId)
             ->getQuery()
