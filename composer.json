@@ -13,6 +13,7 @@
         "doctrine/orm": "^3.5",
         "friendsofsymfony/ckeditor-bundle": "^2.6",
         "knplabs/knp-paginator-bundle": "^6.9",
+        "nelmio/cors-bundle": "^2.5",
         "phpdocumentor/reflection-docblock": "^5.6",
         "phpstan/phpdoc-parser": "^2.2",
         "symfony/asset": "6.4.*",

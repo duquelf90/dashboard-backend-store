@@ -22,7 +22,7 @@ final class InvoiceController extends AbstractController
     #[Route(name: 'app_invoice_index', methods: ['GET'])]
     public function index(InvoiceRepository $invoiceRepository,#[CurrentUser] User $user): Response
     {
-        $invoices = $invoiceRepository->findInvoicesByBusinessId($user);
+        $invoices = $invoiceRepository->findInvoicesByBusiness($user);
         return $this->render('invoice/index.html.twig', [
             'invoices' => $invoices,
         ]);

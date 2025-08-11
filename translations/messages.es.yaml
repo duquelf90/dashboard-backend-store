@@ -64,3 +64,9 @@ invoice:
   greeting:
     first: ¡Gracias por su compra!
     second: Si tiene alguna pregunta, contáctenos en support@yourstore.com
+
+# Login
+login:
+  title: Panel de Administración
+  msg: Acceso al panel de administración 
+  btn: Entrar

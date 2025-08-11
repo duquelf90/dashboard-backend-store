@@ -8,3 +8,9 @@ controllers:
         _locale: '%app_locales%'
     defaults:
         _locale: '%locale%'
+
+
+api:
+    resource: '../src/Controller/Api/' # Ajusta el path según tu estructura
+    type: attribute
+    prefix: '' # No hay prefijo

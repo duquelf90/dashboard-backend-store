@@ -1,11 +1,9 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Api;
 
 use App\Entity\Order;
 use App\Entity\OrderDetail;
-use App\Entity\Product;
-use App\Entity\User;
 use App\Repository\CategoryRepository;
 use App\Repository\ProductRepository;
 use App\Service\InvoiceService;
@@ -34,7 +32,7 @@ final class ApiController extends AbstractController
         $data = $serializer->serialize($pagination->getItems(), 'json', ['groups' => ['product_list']]);
 
         return $this->json([
-            'items' => json_decode($data),
+            'products' => json_decode($data),
             'total' => $pagination->getTotalItemCount(),
             'page' => $pagination->getCurrentPageNumber(),
             'limit' => $pagination->getItemNumberPerPage(),
@@ -86,7 +84,7 @@ final class ApiController extends AbstractController
         $entityManager->persist($order);
         $entityManager->flush();
         $invoiceService($order);
-        $notificationService($order, $product->getUser());
+        // $notificationService($order, $product->getUser());
 
 
         return $this->json(['mensaje' => 'Orden creada exitosamente', 'orden' => $order], 201, [], ['groups' => ['order:full']]);
