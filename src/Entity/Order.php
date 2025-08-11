@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\OrderRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -61,12 +62,32 @@ class Order
     #[ORM\OneToMany(targetEntity: BackOrder::class, mappedBy: 'orderId')]
     private Collection $backOrders;
 
+    #[ORM\Column(length: 255)]
+    private ?string $recipient = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $recipientPhone = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $recipientAddress = null;
+
+    #[ORM\Column(length: 50)]
+    private ?string $recipientProvince = null;
+
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $notes = null;
+
     public function __construct(
         string $customer,
         string $customer_email,
         string $customer_phone,
         string $customer_address,
-        string $status
+        string $status,
+        string $recipient,
+        string $recipientPhone,
+        string $recipientAddress,
+        string $recipientProvince,
+        string $notes
 
     ) {
         $this->setCustomer($customer);
@@ -74,6 +95,12 @@ class Order
         $this->setCustomerPhone($customer_phone);
         $this->setCustomerAddress($customer_address);
         $this->setStatus($status);
+        $this->setRecipient($recipient);
+        $this->setRecipientPhone($recipientPhone);
+        $this->setRecipientAddress($recipientAddress);
+        $this->setRecipientProvince($recipientProvince);
+        $this->setNotes($notes);
+
         $this->orderDetails = new ArrayCollection();
         $this->backOrders = new ArrayCollection();
     }
@@ -224,6 +251,66 @@ class Order
                 $backOrder->setOrderId(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getRecipient(): ?string
+    {
+        return $this->recipient;
+    }
+
+    public function setRecipient(string $recipient): static
+    {
+        $this->recipient = $recipient;
+
+        return $this;
+    }
+
+    public function getRecipientPhone(): ?string
+    {
+        return $this->recipientPhone;
+    }
+
+    public function setRecipientPhone(string $recipientPhone): static
+    {
+        $this->recipientPhone = $recipientPhone;
+
+        return $this;
+    }
+
+    public function getRecipientAddress(): ?string
+    {
+        return $this->recipientAddress;
+    }
+
+    public function setRecipientAddress(string $recipientAddress): static
+    {
+        $this->recipientAddress = $recipientAddress;
+
+        return $this;
+    }
+
+    public function getRecipientProvince(): ?string
+    {
+        return $this->recipientProvince;
+    }
+
+    public function setRecipientProvince(string $recipientProvince): static
+    {
+        $this->recipientProvince = $recipientProvince;
+
+        return $this;
+    }
+
+    public function getNotes(): ?string
+    {
+        return $this->notes;
+    }
+
+    public function setNotes(string $notes): static
+    {
+        $this->notes = $notes;
 
         return $this;
     }

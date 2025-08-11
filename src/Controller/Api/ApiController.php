@@ -56,24 +56,44 @@ final class ApiController extends AbstractController
         NotificationService $notificationService,
     ): JsonResponse {
         $data = json_decode($request->getContent(), true);
-        // Datos ficticios para el cliente
-        $customer = $data['cliente']['nombre'] ?? 'John Doe';
-        $email = $data['cliente']['correo'] ?? 'john.doe@example.com';
-        $customer_phone = $data['cliente']['telefono'] ?? '123456789';
-        $customer_address = $data['cliente']['direccion'] ?? '123 Main St';
-        
+        // customer data
+        $customer = $data['customer']['fullname'];
+        $email = $data['customer']['email'];
+        $customer_phone = $data['customer']['phone'];
+        $customer_address = $data['customer']['address'];
+
+
+        // recipient
+        $recipient = $data['recipient']['fullname'];
+        $recipient_phone = $data['recipient']['phone'];
+        $recipient_address = $data['recipient']['address'];
+        $recipient_province = $data['recipient']['province'];
+        $notes = $data['recipient']['notes'];
+
+
         // pasar el id del negocio o mejor jalarlo del producto pero mejor que venga desde el store
-        $order = new Order($customer, $email, $customer_phone, $customer_address, 'pendiente');
+        $order = new Order(
+            $customer,
+            $email,
+            $customer_phone,
+            $customer_address,
+            'pendiente',
+            $recipient,
+            $recipient_phone,
+            $recipient_address,
+            $recipient_province,
+            $notes
+        );
         $total = 0;
 
-        foreach ($data['productos'] as $prodData) {
+        foreach ($data['products'] as $prodData) {
             $product = $productRepository->findOneBy(['id' => $prodData['id']]);
             $detalle = new OrderDetail();
             $detalle->setOrderId($order);
             $detalle->setProduct($product);
-            $detalle->setQuantity($prodData['cantidad']);
-            $detalle->setUnitPrice($prodData['precio']);
-            $subtotal = $prodData['precio'] * $prodData['cantidad'];
+            $detalle->setQuantity($prodData['quantity']);
+            $detalle->setUnitPrice($prodData['price']);
+            $subtotal = $prodData['price'] * $prodData['quantity'];
             $detalle->setSubtotal($subtotal);
 
             $total += $subtotal;
@@ -84,7 +104,7 @@ final class ApiController extends AbstractController
         $entityManager->persist($order);
         $entityManager->flush();
         $invoiceService($order);
-        // $notificationService($order, $product->getUser());
+        $notificationService($order, $product->getUser());
 
 
         return $this->json(['mensaje' => 'Orden creada exitosamente', 'orden' => $order], 201, [], ['groups' => ['order:full']]);
