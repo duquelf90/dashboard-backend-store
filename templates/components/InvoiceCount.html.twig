@@ -2,7 +2,7 @@
 
 <div{{ attributes }}>
     {% set iconType = icon.InvoiceIcon() %}
-    {% set title = 'Facturas' %}
+    {% set title = 'menu.invoice'|trans %}
     {% set class = 'text-teal-500 bg-teal-100 dark:text-teal-100 dark:bg-teal-500' %}
 
     {% if is_granted('ROLE_ADMIN') %}

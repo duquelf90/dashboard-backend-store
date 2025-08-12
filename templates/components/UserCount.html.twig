@@ -1,5 +1,5 @@
 {% import 'components/Icons.html.twig' as icon %}
 
 <div{{ attributes }}>
-    {{ include('components/StatsCard.html.twig', {'router':path('app_user_index'),'icon':icon.UserIcon(),'title': 'Usuarios','number': this.getCount,'class':'text-green-500 bg-green-100 dark:text-green-100 dark:bg-green-500' }) }}
+    {{ include('components/StatsCard.html.twig', {'router':path('app_user_index'),'icon':icon.UserIcon(),'title': 'menu.user'|trans,'number': this.getCount,'class':'text-green-500 bg-green-100 dark:text-green-100 dark:bg-green-500' }) }}
 </div>

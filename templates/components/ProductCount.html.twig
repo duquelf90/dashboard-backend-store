@@ -2,7 +2,7 @@
 
 <div{{ attributes }}>
     {% set iconType = icon.ProductIcon() %}
-    {% set title = 'Productos' %}
+    {% set title = 'menu.product'|trans %}
     {% set class = 'text-blue-500 bg-blue-100 dark:text-blue-100 dark:bg-blue-500' %}
 
     {% if is_granted('ROLE_ADMIN') %}

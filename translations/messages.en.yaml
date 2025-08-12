@@ -1,4 +1,5 @@
 # MENU
+msg: Hi
 menu:
   dashboard: Dashboard
   user: Users

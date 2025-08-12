@@ -5,7 +5,7 @@
 {% endblock %}
 {% block body %}
     <div class="flex items-center justify-between">
-        {{ include('components/title.html.twig', {'txt_label': 'Productos'}) }}
+        {{ include('components/title.html.twig', {'txt_label': 'menu.product'|trans}) }}
         {{ buttons.button_new(path('app_product_new')) }}
     </div>
 
