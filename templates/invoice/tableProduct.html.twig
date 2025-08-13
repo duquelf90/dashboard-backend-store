@@ -10,7 +10,9 @@
             <th class="px-5 py-4 text-sm font-semibold whitespace-nowrap text-gray-700 dark:text-gray-400">
                 {{ 'field.quantity'|trans }}
             </th>
-            <th class="px-5 py-4 text-sm font-semibold whitespace-nowrap text-gray-700 dark:text-gray-400">{{ 'field.action'|trans }}</th>
+            <th class="px-5 py-4 text-sm font-semibold whitespace-nowrap text-gray-700 dark:text-gray-400">
+                {{ 'field.action'|trans }}
+            </th>
         </tr>
     </thead>
     <tbody class="divide-y divide-gray-100 bg-white dark:divide-gray-800 dark:bg-white/[0.03]">
@@ -20,7 +22,9 @@
                 <td class="px-6 py-4" x-text="'$' + product.price"></td>
                 <td class="px-6 py-4" x-text="product.quantity"></td>
                 <td class="px-6 py-4">
-                    <button @click.prevent="removeProduct(product.id)" class="text-red-500 hover:text-red-700">{{ 'btn.delete'|trans }}</button>
+                    <button @click.prevent="removeProduct(product.id)" class="text-red-500 hover:text-red-700">
+                        {{ 'btn.delete'|trans }}
+                    </button>
                 </td>
             </tr>
         </template>

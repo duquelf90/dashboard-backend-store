@@ -1,7 +1,5 @@
 msg: Hola
 upload: Arrastre los archivos aqui, o de click para buscarlos
-
-
 # MENU
 menu:
   dashboard: Inicio
@@ -12,6 +10,7 @@ menu:
   logout: Salir
   profile: Perfil
   order: Pedidos
+  notification: Notificaciones
 
 title:
   product:
@@ -91,6 +90,7 @@ field:
   description: Descripción
   action: Acciones
   notFound: No se encontraron resultados
+  customer: Cliente
   
 
 # INVOICE

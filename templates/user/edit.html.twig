@@ -2,11 +2,11 @@
 {% import 'components/button/index.html.twig' as buttons %}
 
 
-{% block title %}Edit User{% endblock %}
+{% block title %}{{ 'title.user.edit'|trans }}{% endblock %}
 
 {% block body %}
     <div class="flex items-center justify-between">
-        {{ include('components/title.html.twig', {'txt_label': 'Editar'}) }}
+        {{ include('components/title.html.twig', {'txt_label': 'title.user.edit'|trans}) }}
         {{ buttons.button_back(path('app_user_index')) }}
     </div>
     {{ include('user/_form.html.twig', {'button_label': 'Update'}) }}

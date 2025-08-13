@@ -1,68 +1,69 @@
 {% import 'components/button/index.html.twig' as buttons %}
 
-<div class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
-    <form method="POST" enctype="multipart/form-data">
-        {{ form_start(form) }}
-        <div class="grid gap-6 mb-2 md:grid-cols-2">
-            <div class="block items-center">
-                <label class="flex items-center text-sm">
-                    <span class="text-gray-700 dark:text-gray-400 mb-2">
-                        {{ 'form.invoice.number'|trans }}
-                    </span>
-                </label>
-                {{ form_widget(form.invoice) }}
-            </div>
-            <div class="block items-center ">
-                <label class="flex items-center text-sm">
-                    <span class="text-gray-700 dark:text-gray-400 mb-2">
-                        {{ 'form.invoice.customer'|trans }}
-                    </span>
-                </label>
-                {{ form_widget(form.customer ) }}
-
-            </div>
-            <div class="block items-center ">
-                <label class="flex items-center text-sm">
-                    <span class="text-gray-700 dark:text-gray-400 my-2">
-                        {{ 'form.invoice.email'|trans }}
-                    </span>
-                </label>
-                {{ form_widget(form.email ) }}
-
-            </div>
-            <div class="block items-center ">
-                <label class="flex items-center text-sm">
-                    <span class="text-gray-700 dark:text-gray-400 my-2">
-                        {{ 'form.invoice.phone'|trans }}
-                    </span>
-                </label>
-                {{ form_widget(form.phone ) }}
-
-            </div>
-            <div class="block items-center col-span-full ">
-                <label class="flex items-center text-sm">
-                    <span class="text-gray-700 dark:text-gray-400 my-2">
-                        {{ 'form.invoice.address'|trans }}
-                    </span>
-                </label>
-                {{ form_widget(form.address) }}
-            </div>
-            <label class="block mt-4 text-sm col-span-full">
-                <span class="text-gray-700 dark:text-gray-400">
-                    {{ 'form.invoice.notes'|trans }}
+<div class="py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
+    {{ form_start(form, {'attr': {'enctype': 'multipart/form-data' }}
+    ) }}
+    <div class="grid gap-6 mb-2 md:grid-cols-2 px-4">
+        <div class="block items-center">
+            <label class="flex items-center text-sm">
+                <span class="text-gray-700 dark:text-gray-400 mb-2">
+                    {{ 'form.invoice.number'|trans }}
                 </span>
-                {{ form_widget(form.description) }}
             </label>
+            {{ form_widget(form.invoice) }}
         </div>
-        {% include 'invoice/tableProduct.html.twig' %}
-        <div class="mt-5 rounded-xl border border-gray-100 bg-gray-50 sm:p-6 dark:border-gray-800 dark:bg-gray-700">            
-            {% include 'invoice/addProduct.html.twig' %}            
-        <input type="hidden" name="products" x-bind:value="JSON.stringify(products)" />
-        </div>
-        <div class="flex-1 items-center max-w-screen-sm mx-auto space-y-4 sm:flex sm:space-y-0 pt-4">
-            {% include 'components/button/ButtonBotton.html.twig' with { button: buttons.button_submit() } %}
-            {{ form_end(form) }}
+        <div class="block items-center ">
+            <label class="flex items-center text-sm">
+                <span class="text-gray-700 dark:text-gray-400 mb-2">
+                    {{ 'form.invoice.customer'|trans }}
+                </span>
+            </label>
+            {{ form_widget(form.customer ) }}
 
         </div>
-    </form>
+        <div class="block items-center ">
+            <label class="flex items-center text-sm">
+                <span class="text-gray-700 dark:text-gray-400 my-2">
+                    {{ 'form.invoice.email'|trans }}
+                </span>
+            </label>
+            {{ form_widget(form.email ) }}
+
+        </div>
+        <div class="block items-center ">
+            <label class="flex items-center text-sm">
+                <span class="text-gray-700 dark:text-gray-400 my-2">
+                    {{ 'form.invoice.phone'|trans }}
+                </span>
+            </label>
+            {{ form_widget(form.phone ) }}
+
+        </div>
+        <div class="block items-center col-span-full ">
+            <label class="flex items-center text-sm">
+                <span class="text-gray-700 dark:text-gray-400 my-2">
+                    {{ 'form.invoice.address'|trans }}
+                </span>
+            </label>
+            {{ form_widget(form.address) }}
+        </div>
+        <label class="block mt-4 text-sm col-span-full">
+            <span class="text-gray-700 dark:text-gray-400">
+                {{ 'form.invoice.notes'|trans }}
+            </span>
+            {{ form_widget(form.description) }}
+        </label>
+    </div>
+    <div class="overflow-x-auto px-4">
+        {% include 'invoice/tableProduct.html.twig' %}
+    </div>
+    <div class="mt-5 rounded-xl sm:p-4 dark:border-gray-800 dark:bg-gray-700 px-4">
+        {% include 'invoice/addProduct.html.twig' %}
+        <input type="hidden" name="products" x-bind:value="JSON.stringify(products)" />
+    </div>
+    <div class="flex-1 items-center max-w-screen-sm mx-auto space-y-4 sm:flex sm:space-y-0 pt-4">
+        {% include 'components/button/ButtonBotton.html.twig' with { button: buttons.button_submit() } %}
+    </div>
+
+    {{ form_end(form) }}
 </div>

@@ -10,6 +10,7 @@ menu:
   logout: Logout
   profile: Profile
   order: Orders
+  notification: Notifications
 
 title:
   product:
@@ -88,6 +89,7 @@ field:
   description: Description
   action: Actions
   notFound: no results found
+  customer: customer
 
 # INVOICE
 invoice:

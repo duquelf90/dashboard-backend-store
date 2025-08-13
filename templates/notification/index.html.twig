@@ -1,23 +1,26 @@
 {% extends 'base.html.twig' %}
+{% import 'components/button/index.html.twig' as buttons %}
 
-    {% block title %}
-        Notifications
-    {% endblock %}
-    
-    {% block body %}
-    
+{% block title %}
+    {{ 'menu.notification'|trans }}
+{% endblock %}
+
+{% block body %}
+
     <div class="p-4 mx-auto w-full md:p-6">
-        <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-400 mb-6">Notifications</h2>
-    
+        <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-400 mb-6">
+            {{ 'menu.notification'|trans }}
+        </h2>
+
         <div class="space-y-4">
             {% for notification in notifications %}
                 <div class="flex items-center justify-between p-4 bg-white border border-gray-200 rounded-xl shadow-sm dark:bg-gray-800 dark:border-gray-700">
-                    
+
                     <!-- Mensaje de la notificación -->
                     <p class="text-gray-800 dark:text-gray-200">
                         {{ notification.message }}
                     </p>
-    
+
                     <!-- Botones de acción -->
                     <div class="flex gap-2">
                         <form method="post" action="{{ path('notification_mark_read', {'id': notification.id}) }}">
@@ -25,20 +28,21 @@
                                 Mark as Read
                             </button>
                         </form>
-    
-                        <form method="post" action="{{ path('app_notification_delete', {'id': notification.id}) }}" onsubmit="return confirm('Are you sure?');">
-                            <button type="submit" class="px-3 py-1 text-sm font-medium text-white bg-red-500 rounded-lg hover:bg-red-600 dark:bg-red-600 dark:hover:bg-red-700">
-                                Delete
-                            </button>
-                        </form>
+                        {{ buttons.button_delete(path('app_notification_delete', {'id': notification.id}), notification.id) }}
                     </div>
-    
+
                 </div>
             {% else %}
-                <p class="text-gray-500 dark:text-gray-400">No notifications found.</p>
+                <div class="flex flex-col items-center justify-center space-x-4 text-sm">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 20 20">
+                        <path fill="currentColor" d="M6 3a2 2 0 0 0-2 2v4.256q.478-.17 1-.229V5a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v11h-3.879l1 1H15a3 3 0 0 0 3-3v-2h-3V5a2 2 0 0 0-2-2zm2.329 7H11.5a.5.5 0 0 0 0-1h-4a.5.5 0 0 0-.447.275c.466.172.897.418 1.276.725M15 16v-3h2v1a2 2 0 0 1-2 2M7.5 6a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1zm-2 11c.786 0 1.512-.26 2.096-.697l2.55 2.55a.5.5 0 1 0 .708-.707l-2.55-2.55A3.5 3.5 0 1 0 5.5 17m0-1a2.5 2.5 0 1 1 0-5a2.5 2.5 0 0 1 0 5" />
+                    </svg>
+                    <span class="py-4 capitalize">
+                        {{ 'field.notFound'|trans }}
+                    </span>
+                </div>
             {% endfor %}
         </div>
     </div>
-    
-    {% endblock %}
-    
+
+{% endblock %}
