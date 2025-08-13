@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\OrderDetailRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
+
 
 #[ORM\Entity(repositoryClass: OrderDetailRepository::class)]
 #[ORM\HasLifecycleCallbacks]
@@ -17,19 +19,22 @@ class OrderDetail
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(inversedBy: 'orderDetails')]
+    #[ORM\ManyToOne(inversedBy: 'orderDetails')]    
     private ?Order $orderId = null;
 
     #[ORM\ManyToOne(inversedBy: 'orderDetails')]
+    #[Groups(groups: ['order:full'])]   
     private ?Product $product = null;
 
     #[ORM\Column]
     private ?float $unit_price = null;
 
     #[ORM\Column]
+    #[Groups(groups: ['order:full'])]
     private ?int $quantity = null;
 
     #[ORM\Column]
+    #[Groups(groups: ['order:full'])]
     private ?float $subtotal = null;
 
     public function getId(): ?int

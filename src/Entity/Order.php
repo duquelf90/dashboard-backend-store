@@ -36,7 +36,7 @@ class Order
     /**
      * @var Collection<int, OrderDetail>
      */
-    #[ORM\OneToMany(targetEntity: OrderDetail::class, mappedBy: 'orderId')]
+    #[ORM\OneToMany(targetEntity: OrderDetail::class, mappedBy: 'orderId',cascade: ['persist','remove'],orphanRemoval: true)]
     #[Groups(groups: ['order:full'])]
     private Collection $orderDetails;
 
@@ -63,18 +63,23 @@ class Order
     private Collection $backOrders;
 
     #[ORM\Column(length: 255)]
+    #[Groups(groups: ['order:full'])]
     private ?string $recipient = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(groups: ['order:full'])]
     private ?string $recipientPhone = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(groups: ['order:full'])]
     private ?string $recipientAddress = null;
 
     #[ORM\Column(length: 50)]
+    #[Groups(groups: ['order:full'])]
     private ?string $recipientProvince = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Groups(groups: ['order:full'])]
     private ?string $notes = null;
 
     public function __construct(
@@ -168,7 +173,6 @@ class Order
     public function removeOrderDetail(OrderDetail $orderDetail): static
     {
         if ($this->orderDetails->removeElement($orderDetail)) {
-            // set the owning side to null (unless already changed)
             if ($orderDetail->getOrderId() === $this) {
                 $orderDetail->setOrderId(null);
             }

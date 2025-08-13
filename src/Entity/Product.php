@@ -19,11 +19,11 @@ class Product
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['product_list'])]
+    #[Groups(['product_list','order:full'])]
     private ?string $name = null;
 
     #[ORM\Column]
-    #[Groups(['product_list'])]
+    #[Groups(['product_list','order:full'])]
     private ?float $price = null;
 
     #[ORM\Column]
@@ -149,7 +149,6 @@ class Product
     public function removeImage(Image $image): static
     {
         if ($this->images->removeElement($image)) {
-            // set the owning side to null (unless already changed)
             if ($image->getProduct() === $this) {
                 $image->setProduct(null);
             }
@@ -191,7 +190,6 @@ class Product
     public function removeOrderDetail(OrderDetail $orderDetail): static
     {
         if ($this->orderDetails->removeElement($orderDetail)) {
-            // set the owning side to null (unless already changed)
             if ($orderDetail->getProduct() === $this) {
                 $orderDetail->setProduct(null);
             }

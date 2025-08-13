@@ -34,7 +34,6 @@ final class ApiController extends AbstractController
 
         foreach ($pagination->getItems() as $product) {
             $productData = $serializer->normalize($product, null, ['groups' => ['product_list']]);
-
             $images = $product->getImages()->toArray();
 
             if (!empty($images)) {
@@ -43,8 +42,8 @@ final class ApiController extends AbstractController
                 }, $images);
                 $productData['thumbnail'] = $baseUrl . '/uploads/product_images/' . $images[0]; // Primer elemento de images
             } else {
-                $productData['images'] = []; // Manejar el caso en que no haya imágenes
-                $productData['thumbnail'] = null; // O un valor por defecto
+                $productData['images'] = [];
+                $productData['thumbnail'] = null;
             }
 
             $products[] = $productData;
@@ -116,9 +115,10 @@ final class ApiController extends AbstractController
             $detalle->setUnitPrice($prodData['price']);
             $subtotal = $prodData['price'] * $prodData['quantity'];
             $detalle->setSubtotal($subtotal);
+            $order->addOrderDetail($detalle);
 
             $total += $subtotal;
-            $entityManager->persist($detalle);
+            // $entityManager->persist($detalle);
         }
         $order->setBusiness($product->getUser());
         $order->setTotal($total);
@@ -128,6 +128,6 @@ final class ApiController extends AbstractController
         $notificationService($order, $product->getUser());
 
 
-        return $this->json(['mensaje' => 'Orden creada exitosamente', 'orden' => $order], 201, [], ['groups' => ['order:full']]);
+        return $this->json(['mensaje' => 'Orden creada exitosamente', 'data' => $order], 201, [], ['groups' => ['order:full']]);
     }
 }
