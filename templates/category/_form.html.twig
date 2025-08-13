@@ -6,7 +6,6 @@
         <div class="flex flex-col md:flex-row items-center justify-center">
             {% include 'components/ImageUploader.html.twig' with { for_id: form.image.vars.id } %}
             {{ form_widget(form.image) }}
-
             <label class="block text-sm w-full md:w-2/3">
                 <span class="text-gray-700 dark:text-gray-400 my-2 capitalize">
                     {{ 'field.name'|trans }}
@@ -15,9 +14,7 @@
             </label>
         </div>
 
-        <div class="mt-4 text-sm">
-            {{ buttons.button_submit(button_label) }}
-        </div>
+        {% include 'components/button/ButtonBotton.html.twig' with { button: buttons.button_submit() } %}
 
         {{ form_end(form) }}
     </form>

@@ -1,12 +1,12 @@
 {% extends 'base.html.twig' %}
 {% import 'components/button/index.html.twig' as buttons %}
 {% block title %}
-    New User
+    {{ 'title.user.new'|trans }}
 {% endblock %}
 
 {% block body %}
     <div class="flex items-center justify-between">
-        {{ include('components/title.html.twig', {'txt_label': 'Nuevo Usuario'}) }}
+        {{ include('components/title.html.twig', {'txt_label': 'title.user.new'|trans}) }}
         {{ buttons.button_back(path('app_user_index')) }}
     </div>
     {{ include('user/_form.html.twig', {'button_label': 'Agregar'}) }}

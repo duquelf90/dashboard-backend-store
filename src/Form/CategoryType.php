@@ -17,17 +17,16 @@ class CategoryType extends AbstractType
         $builder
             ->add('name')
             ->add('image', FileType::class, [
-                'label' => 'Upload Image',
                 'mapped' => false,
                 'required' => true,
                 'attr' => [
-                    'class' => 'hidden', // ocultamos el input
+                    'class' => 'hidden', 
                     'onchange' => 'previewImage(event)',
                     'accept' => 'image/jpeg,image/png,image/gif'
                 ],
                 'constraints' => [
                     new Image([
-                        'maxSize' => '2M', // Tamaño máximo
+                        'maxSize' => '2M', 
                         'mimeTypes' => [
                             'image/jpeg',
                             'image/png',

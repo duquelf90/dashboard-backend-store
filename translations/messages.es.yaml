@@ -1,4 +1,6 @@
 msg: Hola
+upload: Arrastre los archivos aqui, o de click para buscarlos
+
 
 # MENU
 menu:
@@ -12,11 +14,25 @@ menu:
   order: Pedidos
 
 title:
-  products: Lista de productos
-  orders: Lista de pedidos
-  invoice: Lista de facturas
-  category: Lista de categorias 
-  user: Lista de usuarios
+  product:
+    list: Lista de Productos
+    new: Nuevo Producto
+    edit: Editar Producto
+  orders:
+    list: Lista de pedidos
+  invoice:
+    list: Lista de Facturas
+    new: Nueva Factura
+    edit: Editar Factura
+  category:
+    list: Lista de Categorias
+    new: Nueva Categoria
+    edit: Editar Categoria
+    choice: Selecciona la Categoria
+  user:
+    list: Lista de Usuarios
+    new: Nuevo Usuario
+    edit: Editar Usuario
 
 # CARDS
 card:
@@ -25,12 +41,25 @@ card:
 # FORMS
 form:
   name: Nombre
+  business: Negocio
   description: Descripción
-  category: Tu categoria
+  category: Tu Categoria
   email: Correo electronico
   psswd: Nueva contraseña
-  re-psswd: Inserta nuevamente la contraseña
+  re-psswd: Confirmar contraseña
   forgot-psswd: Olvidaste la contraseña?
+  customer: Cliente
+  phone: Telefono
+  address: Dirección
+  business_about: Acerca del negocio
+  invoice:
+    number: Numero de Factura
+    customer: Nombre del Cliente
+    phone: Telefono del Cliente
+    email: Correo del Cliente
+    address: Dirección del Cliente
+    notes: Notas 
+    product: Producto
 
 # CUSTOM BUTTONS
 custom_button:
@@ -53,16 +82,16 @@ btn:
 
 # FIELDS
 field:
-  client: Cliente
   name: Nombre
   amount: Saldo
   status: Estado
   date: Fecha
   price: Precio
-  stock: Cantidad
+  quantity: Cantidad
   description: Descripción
   action: Acciones
   notFound: No se encontraron resultados
+  
 
 # INVOICE
 invoice:
@@ -86,13 +115,4 @@ login:
   title: Panel de Administración
   msg: Acceso al panel de administración 
   btn: Entrar
-
-#order
-order:
-  customer: cliente
-  phone: telefono
-  address: dirección
-
-#Category
-category:
-  new: nueva categoria
+ 

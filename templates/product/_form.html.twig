@@ -1,4 +1,5 @@
 {% import 'components/button/index.html.twig' as buttons %}
+
 <div class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
     <form method="POST" enctype="multipart/form-data">
         {{ form_start(form) }}
@@ -6,15 +7,15 @@
             <div class="block items-center">
                 <label class="flex items-center text-sm">
                     <span class="text-gray-700 dark:text-gray-400 mb-2">
-                        Nombre
+                        {{ 'form.invoice.product'|trans }}
                     </span>
                 </label>
-                {{ form_widget(form.name, { 'attr': {'class': 'w-full block text-sm my-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input', 'placeholder': 'Nombre del producto'} }) }}
+                {{ form_widget(form.name, { 'attr': {'class': 'w-full block text-sm my-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input'} }) }}
             </div>
             <div class="block items-center ">
                 <label class="flex items-center text-sm">
                     <span class="text-gray-700 dark:text-gray-400 mb-2">
-                        Categoria
+                        {{ 'title.category.choice'|trans }}
                     </span>
                 </label>
                 {{ form_widget(form.category) }}
@@ -22,7 +23,7 @@
             <div class="block items-center ">
                 <label class="flex items-center text-sm">
                     <span class="text-gray-700 dark:text-gray-400 my-2">
-                        Precio
+                        {{ 'field.price'|trans }}
                     </span>
                 </label>
                 {{ form_widget(form.price) }}
@@ -30,15 +31,15 @@
             <div class="block items-center ">
                 <label class="flex items-center text-sm">
                     <span class="text-gray-700 dark:text-gray-400 my-2">
-                        Stock
+                        {{ 'field.quantity'|trans }}
                     </span>
                 </label>
-                {{ form_widget(form.stock, { 'attr': {'class': 'block w-full mt-1 text-sm my-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input', 'placeholder': 'Cantidad del producto'} }) }}
+                {{ form_widget(form.stock, { 'attr': {'class': 'block w-full mt-1 text-sm my-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input'} }) }}
             </div>
         </div>
         <label class="block mt-4 text-sm">
             <span class="text-gray-700 dark:text-gray-400">
-                Descripcion del producto
+                {{ 'field.description'|trans }}
             </span>
             {{ form_widget(form.description) }}
 
@@ -53,10 +54,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
                             </svg>
                             <span class="font-medium text-gray-600">
-                                Drop files to Attach, or
-                                <span class="text-blue-600 underline ml-[4px]">
-                                    browse
-                                </span>
+                                {{ 'upload'|trans }}
                             </span>
                         </span>
                         <input type="file" id="images" name="images[]" class="hidden" accept="image/png,image/jpeg" multiple></label>
@@ -66,9 +64,7 @@
                     </div>
                 </div>
             </div>
-            <div class="mt-4 text-sm flex items-center justify-center">
-                {{ buttons.button_submit() }}
-            </div>
+            {% include 'components/button/ButtonBotton.html.twig' with { button: buttons.button_submit() } %}
             {{ form_end(form) }}
         </form>
     </div>

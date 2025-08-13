@@ -30,14 +30,12 @@ class ProductType extends AbstractType
             ->add('description', TextareaType::class, [
                 'attr' => [
                     'rows' => 5,
-                    'placeholder' => 'Descripcion del producto',
                     'class' => 'w-full block text-sm my-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input'
                 ]
             ])
             ->add('category', EntityType::class, [
                 'class' => Category::class,
                 'choice_label' => 'name', 
-                'placeholder' => 'Seleccione una categoría',
                 'attr' => [
                     'class' => 'w-full block text-sm my-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-select'
                 ],

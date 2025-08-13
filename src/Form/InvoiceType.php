@@ -18,14 +18,13 @@ class InvoiceType extends AbstractType
             ->add('invoice', null, [
                 'mapped' => false,
                 'attr' => [
-                    'placeholder' => 'ST-343434',
+                    'placeholder' => 'MT-343434',
                     'class' => 'w-full block text-sm my-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input'
                 ]
             ])
             ->add('customer', null, [
                 'mapped' => false, // Campo no mapeado
                 'attr' => [
-                    'placeholder' => 'Nombre del cliente',
                     'class' => 'w-full block text-sm my-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input'
                 ]
             ])
@@ -39,14 +38,12 @@ class InvoiceType extends AbstractType
             ->add('phone', TelType::class, [
                 'mapped' => false, // Campo no mapeado
                 'attr' => [
-                    'placeholder' => 'Numero del cliente',
                     'class' => 'w-full block text-sm my-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input'
                 ]
             ])
             ->add('address', null, [
                 'mapped' => false, // Campo no mapeado
                 'attr' => [
-                    'placeholder' => 'Direccion del cliente',
                     'class' => 'w-full block text-sm my-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input'
                 ]
             ])
@@ -54,7 +51,6 @@ class InvoiceType extends AbstractType
                 'mapped' => false,
                 'attr' => [
                     'rows' => 5,
-                    'placeholder' => 'Informacion adicional (opcional)',
                     'class' => 'w-full block text-sm my-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input'
                 ]
             ])

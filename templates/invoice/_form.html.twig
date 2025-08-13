@@ -6,7 +6,7 @@
             <div class="block items-center">
                 <label class="flex items-center text-sm">
                     <span class="text-gray-700 dark:text-gray-400 mb-2">
-                        Invoice Number
+                        {{ 'form.invoice.number'|trans }}
                     </span>
                 </label>
                 {{ form_widget(form.invoice) }}
@@ -14,7 +14,7 @@
             <div class="block items-center ">
                 <label class="flex items-center text-sm">
                     <span class="text-gray-700 dark:text-gray-400 mb-2">
-                        Customer Name
+                        {{ 'form.invoice.customer'|trans }}
                     </span>
                 </label>
                 {{ form_widget(form.customer ) }}
@@ -23,7 +23,7 @@
             <div class="block items-center ">
                 <label class="flex items-center text-sm">
                     <span class="text-gray-700 dark:text-gray-400 my-2">
-                        Customer Email
+                        {{ 'form.invoice.email'|trans }}
                     </span>
                 </label>
                 {{ form_widget(form.email ) }}
@@ -32,7 +32,7 @@
             <div class="block items-center ">
                 <label class="flex items-center text-sm">
                     <span class="text-gray-700 dark:text-gray-400 my-2">
-                        Phone
+                        {{ 'form.invoice.phone'|trans }}
                     </span>
                 </label>
                 {{ form_widget(form.phone ) }}
@@ -41,14 +41,14 @@
             <div class="block items-center col-span-full ">
                 <label class="flex items-center text-sm">
                     <span class="text-gray-700 dark:text-gray-400 my-2">
-                        Customer Address
+                        {{ 'form.invoice.address'|trans }}
                     </span>
                 </label>
                 {{ form_widget(form.address) }}
             </div>
             <label class="block mt-4 text-sm col-span-full">
                 <span class="text-gray-700 dark:text-gray-400">
-                    Descripcion del producto
+                    {{ 'form.invoice.notes'|trans }}
                 </span>
                 {{ form_widget(form.description) }}
             </label>
@@ -59,10 +59,7 @@
             {# <input type="hidden" name="products" x-bind:value="JSON.stringify(products)" /> #}
         </div>
         <div class="flex-1 items-center max-w-screen-sm mx-auto space-y-4 sm:flex sm:space-y-0 pt-4">
-
-            <div class="mt-4 text-sm flex items-center justify-center w-full">
-                {{ buttons.button_submit() }}
-            </div>
+            {% include 'components/button/ButtonBotton.html.twig' with { button: buttons.button_submit() } %}            
             {{ form_end(form) }}
 
         </div>

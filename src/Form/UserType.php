@@ -20,25 +20,21 @@ class UserType extends AbstractType
     {
         $builder
             ->add('username', TextType::class, [
-                'label' => 'Nombre de Usuario',
                 'attr' => [
                     'class' => 'w-full block text-sm my-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input'
                 ]
             ])
             ->add('email', EmailType::class, [
-                'label' => 'Correo Electrónico',
                 'attr' => [
                     'class' => 'w-full block text-sm my-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input'
                 ]
             ])
             ->add('address', TextType::class, [
-                'label' => 'Direccion',
                 'attr' => [
                     'class' => 'w-full block text-sm my-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input'
                 ]
             ])
             ->add('telephone', TextType::class, [
-                'label' => 'telefono',
                 'attr' => [
                     'class' => 'w-full block text-sm my-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input'
                 ]
@@ -55,8 +51,7 @@ class UserType extends AbstractType
                 'multiple' => true,
                 'expanded' => true,
             ])
-            ->add('password', PasswordType::class, [
-                'label' => 'New Password',
+            ->add('password', PasswordType::class, [                
                 'attr' => [
                     'class' => 'w-full block text-sm my-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input'
                 ],
@@ -66,8 +61,7 @@ class UserType extends AbstractType
                 ],
             ])
             ->add('confirmPassword', PasswordType::class, [
-                'mapped' => false,
-                'label' => 'Repeat New Password',
+                'mapped' => false,                
                 'attr' => [
                     'class' => 'w-full block text-sm my-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input'
                 ],
@@ -78,8 +72,7 @@ class UserType extends AbstractType
             ->add('aboutus', TextareaType::class, [
                 'required' => true,
                 'attr' => [
-                    'rows' => 5,
-                    'placeholder' => 'Descripcion del negocio',
+                    'rows' => 5,                    
                     'class' => 'w-full block text-sm my-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input'
                 ]
             ]);

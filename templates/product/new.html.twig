@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 {% import 'components/button/index.html.twig' as buttons %}
 {% block title %}
-    Nuevo Producto
+    {{ 'title.product.new'|trans }}
 {% endblock %}
 {% block body %}
     <div class="flex items-center justify-between">
-        {{ include('components/title.html.twig', {'txt_label': 'Nuevo Producto'}) }}
+        {{ include('components/title.html.twig', {'txt_label': 'title.product.new'|trans}) }}
         {{ buttons.button_back(path('app_product_index')) }}
     </div>
     {{ include('product/_form.html.twig') }}

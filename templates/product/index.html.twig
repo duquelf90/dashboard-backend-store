@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 {% import 'components/button/index.html.twig' as buttons %}
 {% block title %}
-    {{ 'title.products'|trans }}
+    {{ 'title.product.list'|trans }}
 {% endblock %}
 {% block body %}
     <div class="flex items-center justify-between">
@@ -21,7 +21,7 @@
                             {{ 'field.price'|trans }}
                         </th>
                         <th class="px-4 py-3">
-                            {{ 'field.stock'|trans }}
+                            {{ 'field.quantity'|trans }}
                         </th>
                         <th class="px-4 py-3">
                             {{ 'field.description'|trans }}

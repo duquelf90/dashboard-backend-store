@@ -1,5 +1,6 @@
 # MENU
 msg: Hi
+upload: Drop files to Attach, or browse
 menu:
   dashboard: Dashboard
   user: Users
@@ -11,12 +12,25 @@ menu:
   order: Orders
 
 title:
-  products: Products List
-  orders: Orders List
-  invoice: Invoices List
-  category: Categories List 
-  user: Users List
-  
+  product:
+    list: Products List
+    new: New Product
+    edit: Edit Product
+  order:
+    list: Orders List
+  invoice:
+    list: Invoices List
+    new: New Invoice
+  category:
+    list: Categories List
+    new: New category
+    edit: Edit Category
+    choice: Choice Category
+  user:
+    list: Users List
+    new: New User
+    edit: Edit User
+
 # Card
 card:
   orders: Sales
@@ -24,12 +38,25 @@ card:
 # FORMS
 form:
   name: Name
+  business: Business
   description: Description
   category: Your category
   email: Your Email
   psswd: New Password
   re-psswd: Re-type New Password
   forgot-psswd: Forgot Password?
+  customer: Customer
+  phone: Phone
+  address: Address
+  business_about: About us
+  invoice:
+    number: Invoice Number
+    customer: Customer Name
+    phone: Cutomer Phone
+    email: Customer Email
+    address: Customer Address
+    notes: Notes
+    product: Product  
 
 # CUSTOM BUTTONS
 custom_button:
@@ -52,22 +79,15 @@ btn:
 
 # TABLE FIELD
 field:
-  client: client
   name: name
   amount: amount
   status: status
   date: date
-  price: price
-  stock: stock
-  description: description
-  action: actions
+  price: Price
+  quantity: Quantity
+  description: Description
+  action: Actions
   notFound: no results found
-
-#order
-order:
-  customer: customer
-  phone: phone
-  address: address
 
 # INVOICE
 invoice:
@@ -86,13 +106,8 @@ invoice:
     first: Thank you for your purchase!
     second: If you have any questions, contact us at support@yourstore.com
 
-
 # Login
 login:
   title: Admin Panel
-  msg: Access to the administration 
+  msg: Access to the administration
   btn: Sig in
-
-# category
-category:
-  new: new category
