@@ -72,16 +72,13 @@
 
     </head>
     <body>
+        {% include 'components/flash_messages.html.twig' %}
         <div class="flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen}">
             {% include 'components/menu/base.html.twig' %}
             {% include 'components/menu/mobile.html.twig' %}
             <div class="flex flex-col flex-1">
                 {% include 'components/header/base.html.twig' %}
-                {% for message in app.flashes('success') %}
-                    <div class="alert alert-success">
-                        {{ message }}
-                    </div>
-                {% endfor %}
+                
                 <main class="h-full overflow-y-auto">
                     <div class="container px-6 mx-auto grid">
                         {% block body %}{% endblock %}

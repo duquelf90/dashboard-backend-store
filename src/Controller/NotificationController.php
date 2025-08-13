@@ -3,10 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Notification;
-use App\Form\NotificationType;
 use App\Repository\NotificationRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -20,6 +20,17 @@ final class NotificationController extends AbstractController
         return $this->render('notification/index.html.twig', [
             'notifications' => $notificationRepository->findAll(),
         ]);
+    }
+
+    #[Route('/mark-read/{id}', name: 'notification_mark_read', methods: ['POST'])]
+    public function markRead(Notification $notification, EntityManagerInterface $em): RedirectResponse
+    {
+        $notification->setIsRead(true);
+        $em->flush();
+
+        $this->addFlash('success', 'Notification marked as read.');
+
+        return $this->redirectToRoute('app_notification_index');
     }
     
 
