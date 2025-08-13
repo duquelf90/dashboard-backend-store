@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\ProfileType;
 use App\Form\UserType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -15,6 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[Route('/user')]
@@ -121,35 +123,6 @@ final class UserController extends AbstractController
             'user' => $user,
             'form' => $form,
         ]);
-    }
-
-    #[Route('/profile/edit', name: 'profile_edit')]
-    public function profile(Request $request, EntityManagerInterface $entityManager, Security $security): JsonResponse
-    {
-        $user = $security->getUser();
-        if (!$user instanceof User) {
-            throw $this->createAccessDeniedException('No estás autorizado para acceder a esta página.');
-        }
-        return $this->json($user);
-
-
-        // Crear el formulario
-        // $form = $this->createForm(UserType::class, $user);
-
-        // Manejar la solicitud
-        // $form->handleRequest($request);
-        // if ($form->isSubmitted() && $form->isValid()) {
-        //     // Guardar los cambios en la base de datos
-        //     $entityManager->flush();
-
-        //     // Redirigir o mostrar un mensaje de éxito
-        //     return $this->redirectToRoute('profile_edit'); // Cambia esto según tu ruta
-        // }
-
-        // // Renderizar el formulario
-        // return $this->render('profile/edit.html.twig', [
-        //     'form' => $form->createView(),
-        // ]);
     }
 
     #[Route('/{id}', name: 'app_user_delete', methods: ['POST'])]
