@@ -31,6 +31,13 @@ form:
   re-psswd: Re-type New Password
   forgot-psswd: Forgot Password?
 
+# CUSTOM BUTTONS
+custom_button:
+  category: create new category
+  incoice: create new invoice
+  product: create new product
+  user: create new user
+
 #BUTTON
 btn:
   save: Save
@@ -53,8 +60,8 @@ field:
   price: price
   stock: stock
   description: description
-  action: Actions
-  notFound: No results found
+  action: actions
+  notFound: no results found
 
 #order
 order:
@@ -85,3 +92,7 @@ login:
   title: Admin Panel
   msg: Access to the administration 
   btn: Sig in
+
+# category
+category:
+  new: new category

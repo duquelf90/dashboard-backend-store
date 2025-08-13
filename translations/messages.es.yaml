@@ -1,6 +1,6 @@
 msg: Hola
-# MENU
 
+# MENU
 menu:
   dashboard: Inicio
   user: Usuarios
@@ -31,6 +31,13 @@ form:
   psswd: Nueva contraseña
   re-psswd: Inserta nuevamente la contraseña
   forgot-psswd: Olvidaste la contraseña?
+
+# CUSTOM BUTTONS
+custom_button:
+  category: añadir ccategoria
+  incoice: añadir factura
+  product: añadir producto
+  user: añadir usuario
 
 #BUTTON
 btn:
@@ -85,3 +92,7 @@ order:
   customer: cliente
   phone: telefono
   address: dirección
+
+#Category
+category:
+  new: nueva categoria

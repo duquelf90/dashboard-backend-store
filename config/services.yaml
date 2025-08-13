@@ -4,7 +4,7 @@ parameters:
     category_images_directory: '%kernel.project_dir%/public/uploads/category_images'
     locale: 'en'
     app_locales: 'es|en'
-    base_url: 'https://127.0.0.1'
+    base_url: 'https://147.93.185.234'
 
 services:
     # default configuration for services in *this* file

@@ -6,9 +6,9 @@
 {% endblock %}
 {% block body %}
     <div class="flex items-center justify-between">
-        {{ include('components/title.html.twig', {'txt_label': 'Nueva Categoria'}) }}
+        {{ include('components/title.html.twig', {'txt_label': 'category.new'|trans}) }}
         {{ buttons.button_back(path('app_category_index')) }}
     </div>
-    {{ include('category/_form.html.twig', {'button_label': 'Nuevo'}) }}
+    {{ include('category/_form.html.twig', {'button_label': 'btn.new'|trans}) }}
 
 {% endblock %}

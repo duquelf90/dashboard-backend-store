@@ -1,3 +1,11 @@
+root_redirect:
+    path: /
+    controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController
+    defaults:
+        route: app_login
+        _locale: es
+        permanent: true
+        
 controllers:
     resource:
         path: ../src/Controller/

@@ -18,8 +18,13 @@ class CategoryType extends AbstractType
             ->add('name')
             ->add('image', FileType::class, [
                 'label' => 'Upload Image',
-                'mapped' => false,  // Establecer en true si quieres que se vincule a una propiedad del modelo
-                'required' => true, // Cambia a true si el campo es obligatorio
+                'mapped' => false,
+                'required' => true,
+                'attr' => [
+                    'class' => 'hidden', // ocultamos el input
+                    'onchange' => 'previewImage(event)',
+                    'accept' => 'image/jpeg,image/png,image/gif'
+                ],
                 'constraints' => [
                     new Image([
                         'maxSize' => '2M', // Tamaño máximo

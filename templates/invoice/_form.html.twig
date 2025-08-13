@@ -53,14 +53,14 @@
                 {{ form_widget(form.description) }}
             </label>
         </div>
-        <div class="mt-5 rounded-xl border border-gray-100 bg-gray-50 p-4 sm:p-6 dark:border-gray-800 dark:bg-gray-700" x-data="productManager()">
+        <div class="mt-5 rounded-xl border border-gray-100 bg-gray-50 sm:p-6 dark:border-gray-800 dark:bg-gray-700" x-data="productManager()">
             {% include 'invoice/addProduct.html.twig' %}
             {% include 'invoice/tableProduct.html.twig' %}
-            <input type="hidden" name="products" x-bind:value="JSON.stringify(products)" />
+            {# <input type="hidden" name="products" x-bind:value="JSON.stringify(products)" /> #}
         </div>
         <div class="flex-1 items-center max-w-screen-sm mx-auto space-y-4 sm:flex sm:space-y-0 pt-4">
 
-            <div class="mt-4 text-sm flex items-center justify-center">
+            <div class="mt-4 text-sm flex items-center justify-center w-full">
                 {{ buttons.button_submit() }}
             </div>
             {{ form_end(form) }}

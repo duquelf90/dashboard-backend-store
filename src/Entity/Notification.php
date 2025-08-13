@@ -26,10 +26,14 @@ class Notification
     #[ORM\Column]
     private ?bool $isRead = null;
 
-    public function __construct(?User $user, string $message)
+    #[ORM\Column]
+    private ?int $item = null;
+
+    public function __construct(?User $user, string $message,int $item)
     {
         $this->user = $user;
         $this->message = $message;
+        $this->item = $item;
         $this->isRead = false; // Inicializar como no leído
     }
 
@@ -70,6 +74,18 @@ class Notification
     public function setIsRead(bool $isRead): static
     {
         $this->isRead = $isRead;
+
+        return $this;
+    }
+
+    public function getItem(): ?int
+    {
+        return $this->item;
+    }
+
+    public function setItem(int $item): static
+    {
+        $this->item = $item;
 
         return $this;
     }

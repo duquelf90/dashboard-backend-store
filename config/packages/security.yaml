@@ -31,6 +31,7 @@ security:
         - { path: ^/invoice, roles: IS_AUTHENTICATED_FULLY  }
         - { path: ^/product, roles: IS_AUTHENTICATED_FULLY  }
         - { path: ^/, roles: PUBLIC_ACCESS }
+        - { path: ^/test, roles: PUBLIC_ACCESS }
 
 when@test:
     security:

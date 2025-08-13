@@ -14,9 +14,8 @@ final class NotificationService
     }
     public function __invoke(Order $order, User $user): void
     {
-        $notification = new Notification($user, "Nueva orden recibida: " . $order->getId());
+        $notification = new Notification($user, "Tienes una nueva orden lista para ser procesada", $order->getId());
         $this->notificationRepository->save($notification);
-
     }
 }
 
