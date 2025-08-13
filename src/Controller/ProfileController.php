@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Form\ProfileType;
+use App\Form\UserType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -12,63 +12,62 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
-use Symfony\Component\String\Slugger\SluggerInterface;
 
 final class ProfileController extends AbstractController
 {
     #[Route('/profile', name: 'app_profile')]
     #[IsGranted('ROLE_USER')]
     public function index(Request $request,
-    EntityManagerInterface $em,
+    EntityManagerInterface $entityManager,
     UserPasswordHasherInterface $passwordHasher,
-    SluggerInterface $slugger): Response
+    ): Response
     {
        /** @var User $user */
-       $user = $this->getUser(); // ✅ Usuario actual
+       $user = $this->getUser(); 
 
        if (!$user) {
            throw $this->createAccessDeniedException('Debes iniciar sesión para editar tu perfil.');
        }
-       $form = $this->createForm(ProfileType::class, $user);
-       $form->handleRequest($request);
 
-       if ($form->isSubmitted() && $form->isValid()) {
-           // Manejar contraseña
-           $plainPassword = $form->get('password')->getData();
-           if ($plainPassword) {
-               $hashedPassword = $passwordHasher->hashPassword($user, $plainPassword);
-               $user->setPassword($hashedPassword);
-           }
+       $form = $this->createForm(UserType::class, $user);
+        $form->handleRequest($request);
 
-           // Manejar logo si se sube
-           $logoFile = $form->get('logo')->getData();
-           if ($logoFile) {
-               $originalFilename = pathinfo($logoFile->getClientOriginalName(), PATHINFO_FILENAME);
-               $safeFilename = $slugger->slug($originalFilename);
-               $newFilename = $safeFilename . '-' . uniqid() . '.' . $logoFile->guessExtension();
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            $plainPassword = $form->get('password')->getData();
+            if ($plainPassword) {
+                $hashedPassword = $passwordHasher->hashPassword($user, $plainPassword);
+                $user->setPassword($hashedPassword);
+            }
 
-               try {
-                   $logoFile->move(
-                       $this->getParameter('profile_images_directory'), // Definir en services.yaml
-                       $newFilename
-                   );
-               } catch (FileException $e) {
-                   $this->addFlash('error', 'Error al subir el logo');
-               }
+            $user->setRoles($data->getRoles());
+            $imageFile = $request->files->get('profileImage');
 
-               $user->setLogo($newFilename);
-           }
+            if ($imageFile) {
+                // Aquí puedes eliminar la imagen anterior si existe
+                if ($user->getLogo()) {
+                    $oldImagePath = $this->getParameter('profile_images_directory') . '/' . $user->getLogo();
+                    if (file_exists($oldImagePath)) {
+                        unlink($oldImagePath);
+                    }
+                }
+                // Aquí puedes subir la nueva imagen y actualizar el campo en el usuario
+                $newFilename = uniqid() . '.' . $imageFile->guessExtension();
+                $imageFile->move($this->getParameter('profile_images_directory'), $newFilename);
+                $user->setLogo($newFilename);
+            }
+            $entityManager->persist($user);
+            $entityManager->flush();
 
-           $em->persist($user);
-           $em->flush();
+            return $this->redirectToRoute('app_profile', [], Response::HTTP_SEE_OTHER);
+        }
 
-           $this->addFlash('success', 'Perfil actualizado correctamente');
-
-           return $this->redirectToRoute('app_profile');
+        return $this->render('user/edit.html.twig', [
+            'user' => $user,
+            'form' => $form,
+        ]);
        }
 
-       return $this->render('user/profile/edit.html.twig', [
-           'form' => $form->createView(),
-       ]);
-    }
+       
+    
 }

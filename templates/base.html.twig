@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html :class="{ 'theme-dark': dark }" x-data="themeToggle()" lang="{{ app.locale }}">
+<html :class="{ 'theme-dark': dark }" x-data="appManager" lang="{{ app.locale }}">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -15,7 +15,7 @@
 
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
         <link href="{{ asset('css/tailwind.output.css') }}" rel="stylesheet">
-        <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.8/dist/cdn.min.js"></script>
+        {# <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.8/dist/cdn.min.js"></script> #}
         <script src="https://cdn.tailwindcss.com"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -28,8 +28,8 @@
                 {{ importmap('app') }}
             {% endblock %}
             {{ encore_entry_script_tags('app') }}
-            <script>
-        function themeToggle() {
+            {# <script>
+            function fullData() {
                 function getThemeFromLocalStorage() {
                 if (window.localStorage.getItem('dark')) {
                 return JSON.parse(window.localStorage.getItem('dark'))
@@ -41,8 +41,8 @@
                 )
             }
             function setThemeToLocalStorage(value) {
-    window.localStorage.setItem('dark', value)
-  }
+                window.localStorage.setItem('dark', value)
+            }
             return {
                 dark: getThemeFromLocalStorage(),
                     toggleTheme() {
@@ -64,9 +64,9 @@
         }
         
         document.addEventListener('alpine:init', () => {
-            Alpine.data('themeToggle', themeToggle);
+            Alpine.data('fullData', fullData);
         });
-    </script>
+    </script> #}
 
         {% endblock %}
 

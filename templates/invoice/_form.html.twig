@@ -1,4 +1,5 @@
 {% import 'components/button/index.html.twig' as buttons %}
+
 <div class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
     <form method="POST" enctype="multipart/form-data">
         {{ form_start(form) }}
@@ -53,13 +54,13 @@
                 {{ form_widget(form.description) }}
             </label>
         </div>
-        <div class="mt-5 rounded-xl border border-gray-100 bg-gray-50 sm:p-6 dark:border-gray-800 dark:bg-gray-700" x-data="productManager()">
-            {% include 'invoice/addProduct.html.twig' %}
-            {% include 'invoice/tableProduct.html.twig' %}
-            {# <input type="hidden" name="products" x-bind:value="JSON.stringify(products)" /> #}
+        {% include 'invoice/tableProduct.html.twig' %}
+        <div class="mt-5 rounded-xl border border-gray-100 bg-gray-50 sm:p-6 dark:border-gray-800 dark:bg-gray-700">            
+            {% include 'invoice/addProduct.html.twig' %}            
+        <input type="hidden" name="products" x-bind:value="JSON.stringify(products)" />
         </div>
         <div class="flex-1 items-center max-w-screen-sm mx-auto space-y-4 sm:flex sm:space-y-0 pt-4">
-            {% include 'components/button/ButtonBotton.html.twig' with { button: buttons.button_submit() } %}            
+            {% include 'components/button/ButtonBotton.html.twig' with { button: buttons.button_submit() } %}
             {{ form_end(form) }}
 
         </div>

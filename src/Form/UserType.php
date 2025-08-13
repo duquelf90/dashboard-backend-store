@@ -30,11 +30,13 @@ class UserType extends AbstractType
                 ]
             ])
             ->add('address', TextType::class, [
+                'required'=>false,
                 'attr' => [
                     'class' => 'w-full block text-sm my-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input'
                 ]
             ])
             ->add('telephone', TextType::class, [
+                'required'=>false,
                 'attr' => [
                     'class' => 'w-full block text-sm my-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input'
                 ]
@@ -70,7 +72,7 @@ class UserType extends AbstractType
                 ],
             ])
             ->add('aboutus', TextareaType::class, [
-                'required' => true,
+                'required' => false,
                 'attr' => [
                     'rows' => 5,                    
                     'class' => 'w-full block text-sm my-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input'
