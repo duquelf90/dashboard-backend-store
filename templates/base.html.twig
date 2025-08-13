@@ -15,7 +15,6 @@
 
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
         <link href="{{ asset('css/tailwind.output.css') }}" rel="stylesheet">
-        {# <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.8/dist/cdn.min.js"></script> #}
         <script src="https://cdn.tailwindcss.com"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -27,47 +26,7 @@
             {% block importmap %}
                 {{ importmap('app') }}
             {% endblock %}
-            {{ encore_entry_script_tags('app') }}
-            {# <script>
-            function fullData() {
-                function getThemeFromLocalStorage() {
-                if (window.localStorage.getItem('dark')) {
-                return JSON.parse(window.localStorage.getItem('dark'))
-                }
-
-                return (
-                !!window.matchMedia &&
-                window.matchMedia('(prefers-color-scheme: dark)').matches
-                )
-            }
-            function setThemeToLocalStorage(value) {
-                window.localStorage.setItem('dark', value)
-            }
-            return {
-                dark: getThemeFromLocalStorage(),
-                    toggleTheme() {
-                    this.dark = !this.dark
-                    setThemeToLocalStorage(this.dark)
-                    },
-                isSideMenuOpen: false,
-                toggleSideMenu() {
-                    this.isSideMenuOpen = !this.isSideMenuOpen;
-                },
-                closeSideMenu() {
-                    this.isSideMenuOpen = false;
-                },
-                isPagesMenuOpen: false,
-                togglePagesMenu() {
-                this.isPagesMenuOpen = !this.isPagesMenuOpen
-                },
-            };
-        }
-        
-        document.addEventListener('alpine:init', () => {
-            Alpine.data('fullData', fullData);
-        });
-    </script> #}
-
+            {{ encore_entry_script_tags('app') }}   
         {% endblock %}
 
     </head>
